@@ -1,8 +1,15 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.TreeItem?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane fx:controller="ui.Controller"
+            xmlns:fx="http://javafx.com/fxml" stylesheets="@../resources/style.css" style="-fx-background-color: #fff">
+<left>
+    <TreeView>
+        <TreeItem>
+            <children>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<GridPane fx:controller="ui.Controller"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
-</GridPane>
+            </children>
+        </TreeItem>
+    </TreeView>
+</left>
+</BorderPane>
