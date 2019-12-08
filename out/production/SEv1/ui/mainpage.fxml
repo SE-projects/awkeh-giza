@@ -2,7 +2,7 @@
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.BorderPane?>
 <BorderPane fx:controller="ui.Controller"
-            xmlns:fx="http://javafx.com/fxml" stylesheets="@../resources/style.css" style="-fx-background-color: #fff">
+            xmlns:fx="http://javafx.com/fxml">
 <left>
     <TreeView>
         <TreeItem>

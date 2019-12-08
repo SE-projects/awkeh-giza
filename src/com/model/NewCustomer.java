@@ -2,7 +2,7 @@ package com.model;
 
 public class NewCustomer {
 
-    public static void register(String username, String password,
+    public static void register(String username, String password, String phone,
                          String email, String streetName, int homeNumber, String subCity,
                          String city){
         if(!DataSource.getInstance().open()){
@@ -10,7 +10,7 @@ public class NewCustomer {
             return;
         }
 
-        DataSource.getInstance().insertNewlyRegisteredCustomer(username, password, email, streetName, homeNumber,
+        DataSource.getInstance().insertNewlyRegisteredCustomer(username, password, phone, email, streetName, homeNumber,
                 subCity, city);
 
         DataSource.getInstance().close();

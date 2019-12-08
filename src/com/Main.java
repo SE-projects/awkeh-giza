@@ -44,13 +44,18 @@ public class Main {
         }
 
 */
-      /*  Storage storage = new Storage();
+       /* Storage storage = new Storage();
         ObservableList<Product> productList = storage.getProductListInStorage("Storage1");
         productList.forEach(product -> System.out.println(product));*/
+
       /*  storage.addProductToStorage("Storage1", "Coke Soda", "Beverage", 4.5, 321,
                 "Coca Cola", LocalDate.of(2020, Month.APRIL, 12), "16.9 Fl Oz", 21.99,
                 12);*/
-      /*  DataSource.getInstance().insertIntoStorage("Storage1", "Coke Soda", "Beverage",
+        /*if(!DataSource.getInstance().open()){
+            System.out.println("Couldn't open DataSource");
+            return;
+        }
+        DataSource.getInstance().insertIntoStorage("Storage1", "Coke Soda", "Beverage",
                 4.5, 321, "Coca Cola", LocalDate.of(2020, Month.APRIL, 12),
                 "16.9 Fl Oz", 21.99, 12);
 
@@ -64,11 +69,19 @@ public class Main {
         Joel.register("Joel", "6758", "joel@gmail.com", "5 kilo", 342,
                 "Arada", "A.A");*/
 
-       /* NewCustomer Frazier = new NewCustomer();
-        Frazier.register("Frazier", "5646", "frazier@gmail.com", "5 kilo", 324,
-                "Arada", "A.A");*/
+       /* NewCustomer Mark = new NewCustomer();
+        Mark.register( "Mark", "4323", "0934567845","mark@gmail.com",
+                "Tafo", 234, "Yeka", "A.A");*/
 
-       /* RegisteredCustomer Frazier = new RegisteredCustomer();
-        Frazier.deleteCustomer("Frazier", "5646");*/
+      /*  RegisteredCustomer Frazier = new RegisteredCustomer();
+        Frazier.deleteCustomer("0934567845", "Mark");*/
+
+    /*    RegisteredCustomer Tim = new RegisteredCustomer();
+        Tim.updateCustomerInfo("0", "@tims","Timmy", "6453",
+                "0943564356", "timmy@gmail.com", "shoa", 758, "Bole", "A.A");*/
+
+        CentralManager kebe = new CentralManager();
+        ObservableList<RegisteredCustomerData> rcd = kebe.getFullCustomerInfo(3);
+        rcd.forEach(customer -> System.out.println(customer));
     }
 }
