@@ -7,8 +7,6 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-//There should be a method that creates the tables if they don't exist;
-
 public class DataSource implements Headers {
     private static DataSource instance = new DataSource();
 
@@ -20,21 +18,18 @@ public class DataSource implements Headers {
     public static final int ORDER_BY_DESC = 2;
     public static final int ORDER_BY_ASC = 3;
     //STORAGE SECTION
-    static String storage_Table_Name;
-//    public static final String QUERY_PRODUCT_IN_STORAGE_BY_NAME_AND_BRAND = "SELECT " + COLUMN_STORAGE_ID + " FROM \"";
+    /*public static final String QUERY_PRODUCT_IN_STORAGE_BY_NAME_AND_BRAND = "SELECT " + COLUMN_STORAGE_ID + " FROM ?" +
+            " WHERE " + COLUMN_STORAGE_PRODUCT_NAME + " = ?" + " AND " + COLUMN_STORAGE_BRAND_NAME + " = ?";*/
 
-   /* public static final String QUERY_PRODUCT_IN_STORAGE_BY_NAME_AND_BRAND_CONDITION = " WHERE " +
-            COLUMN_STORAGE_PRODUCT_NAME + " = ?" + " AND " + COLUMN_STORAGE_BRAND_NAME + " = ?";*/
-
-//    public static final String QUERY_PRODUCTS_IN_STORAGE = "SELECT * FROM \"";
+    public static final String QUERY_PRODUCTS_IN_STORAGE = "SELECT * FROM " + TABLE_STORAGE;
     public static final String QUERY_PRODUCT_IN_STORAGE_SORT = " ORDER BY " + COLUMN_STORAGE_PRODUCT_NAME;
 
-    private static final String INSERT_INTO_STORAGE = "INSERT INTO " + storage_Table_Name +
+    /*private static final String INSERT_INTO_STORAGE = "INSERT INTO ?" +
             '(' + COLUMN_STORAGE_PRODUCT_NAME + ", " + COLUMN_STORAGE_CATEGORY + ", " +
             COLUMN_STORAGE_RATING + ", " + COLUMN_STORAGE_QUANTITY + ", " +
             COLUMN_STORAGE_BRAND_NAME + ", " + COLUMN_STORAGE_EXPIRATION_DATE + ", " +
             COLUMN_STORAGE_DESCRIPTION + ", " + COLUMN_STORAGE_PRICE + ", " +
-            COLUMN_STORAGE_SHELF_NUMBER + ')' + " VALUES " + "(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            COLUMN_STORAGE_SHELF_NUMBER + ')' + " VALUES " + "(?, ?, ?, ?, ?, ?, ?, ?, ?)";*/
 
 
     /*    private PreparedStatement selectCustomerByUserName;
@@ -58,7 +53,6 @@ public class DataSource implements Headers {
     //customer_id
     public static final String TABLE_CUSTOMER_DATA = "Customer_Data";
     public static final String COLUMN_CUSTOMER_DATA_ID = "id";
-    public static final String COLUMN_CUSTOMER_DATA_PHONE = "phone";
     public static final String COLUMN_CUSTOMER_DATA_EMAIL = "email";
     public static final String COLUMN_CUSTOMER_DATA_STREET_NAME = "street_name";
     public static final String COLUMN_CUSTOMER_DATA_HOME_NUMBER = "home_number";
@@ -73,9 +67,9 @@ public class DataSource implements Headers {
             COLUMN_REGISTERED_CUSTOMER_USER_NAME + ", " + COLUMN_REGISTERED_CUSTOMER_PASSWORD + ')' + " VALUES " +
             "(?, ?)";
     public static final String INSERT_NEWLY_REGISTERED_CUSTOMER_DATA = "INSERT INTO " + TABLE_CUSTOMER_DATA + '(' +
-            COLUMN_CUSTOMER_DATA_PHONE + ", " + COLUMN_CUSTOMER_DATA_EMAIL + ", " + COLUMN_CUSTOMER_DATA_STREET_NAME + ", " +
-            COLUMN_CUSTOMER_DATA_HOME_NUMBER + ", " + COLUMN_CUSTOMER_DATA_SUBCITY + ", " + COLUMN_CUSTOMER_DATA_CITY + ", " +
-            COLUMN_CUSTOMER_DATA_CUSTOMER_ID + ')' + " VALUES (?, ?, ?, ?, ?, ?, ?)";
+            COLUMN_CUSTOMER_DATA_EMAIL + ", " + COLUMN_CUSTOMER_DATA_STREET_NAME + ", " + COLUMN_CUSTOMER_DATA_HOME_NUMBER +
+            ", " + COLUMN_CUSTOMER_DATA_SUBCITY + ", " + COLUMN_CUSTOMER_DATA_CITY + ", " + COLUMN_CUSTOMER_DATA_CUSTOMER_ID + ')'
+            + " VALUES (?, ?, ?, ?, ?, ?)";
 
     public static final String DELETE_REGISTERED_CUSTOMER = "DELETE FROM " + TABLE_REGISTERED_CUSTOMER + " WHERE " +
             COLUMN_REGISTERED_CUSTOMER_USER_NAME + " = ?" + " AND " + COLUMN_REGISTERED_CUSTOMER_PASSWORD + " = ?";
@@ -83,41 +77,7 @@ public class DataSource implements Headers {
     public static final String DELETE_REGISTERED_CUSTOMER_DATA = "DELETE FROM " + TABLE_CUSTOMER_DATA + " WHERE " +
             COLUMN_CUSTOMER_DATA_CUSTOMER_ID + " = ?";
 
-    public static final String QUERY_CUSTOMER_BY_USERNAME_AND_PASSWORD = "SELECT " + COLUMN_REGISTERED_CUSTOMER_ID + " FROM "
-            + TABLE_REGISTERED_CUSTOMER + " WHERE " + COLUMN_REGISTERED_CUSTOMER_USER_NAME + " = ?" + " AND " +
-            COLUMN_REGISTERED_CUSTOMER_PASSWORD + " = ?";
-
-    public static final String UPDATE_REGISTERED_CUSTOMER = "UPDATE " + TABLE_REGISTERED_CUSTOMER + " SET " +
-            COLUMN_REGISTERED_CUSTOMER_USER_NAME + " = ?," + COLUMN_REGISTERED_CUSTOMER_PASSWORD + " = ?" +
-            " WHERE " + COLUMN_REGISTERED_CUSTOMER_ID + " = ?";
-
-    public static final String UPDATE_REGISTERED_CUSTOMER_DATA = "UPDATE " + TABLE_CUSTOMER_DATA + " SET " +
-            COLUMN_CUSTOMER_DATA_PHONE + " = ?, " + COLUMN_CUSTOMER_DATA_EMAIL + " = ?," +
-            COLUMN_CUSTOMER_DATA_STREET_NAME + " = ?," + COLUMN_CUSTOMER_DATA_HOME_NUMBER + " = ?," +
-            COLUMN_CUSTOMER_DATA_SUBCITY + " = ?," + COLUMN_CUSTOMER_DATA_CITY + " = ?" + " WHERE "
-            + COLUMN_CUSTOMER_DATA_ID + " = ?";
-    /*SELECT Registered_Customer.user_name, Customer_Data.phone, Customer_Data.email, Customer_Data.street_name,
-    Customer_Data.home_number, Customer_Data.subCity, Customer_Data.city FROM Registered_Customer
-    INNER JOIN Customer_Data ON Registered_Customer.id = Customer_Data.customer_id
-    ORDER BY Registered_Customer.user_name;*/
-    //FOR CENTRAL MANAGER PURPOSES
-    //Maybe you would want to create a view out of this
-    public static final String GET_CUSTOMERS_FULL_INFO_START = "SELECT " + TABLE_REGISTERED_CUSTOMER + '.' +
-            COLUMN_REGISTERED_CUSTOMER_USER_NAME + ", " + TABLE_CUSTOMER_DATA + '.' + COLUMN_CUSTOMER_DATA_PHONE + ", "
-            + TABLE_CUSTOMER_DATA + '.' + COLUMN_CUSTOMER_DATA_EMAIL + ", " + TABLE_CUSTOMER_DATA + '.' +
-            COLUMN_CUSTOMER_DATA_STREET_NAME + ", " + TABLE_CUSTOMER_DATA + '.' + COLUMN_CUSTOMER_DATA_HOME_NUMBER + ", "
-            + TABLE_CUSTOMER_DATA + '.' + COLUMN_CUSTOMER_DATA_SUBCITY + ", " + TABLE_CUSTOMER_DATA + '.' +
-            COLUMN_CUSTOMER_DATA_CITY + " FROM " + TABLE_REGISTERED_CUSTOMER +
-            " INNER JOIN " + TABLE_CUSTOMER_DATA + " ON " + TABLE_REGISTERED_CUSTOMER + '.' +
-            COLUMN_REGISTERED_CUSTOMER_ID + " = " + TABLE_CUSTOMER_DATA + '.' + COLUMN_CUSTOMER_DATA_CUSTOMER_ID;
-
-    public static final String GET_CUSTOMERS_FULL_INFO_SORT = " ORDER BY " + TABLE_REGISTERED_CUSTOMER + '.' +
-            COLUMN_REGISTERED_CUSTOMER_USER_NAME + " COLLATE NOCASE ";
-
     //CUSTOMER
-    private PreparedStatement queryCustomerByUserNameAndPassword;
-    private PreparedStatement updateRegisteredCustomer;
-    private PreparedStatement updateRegisteredCustomerData;
     private PreparedStatement deleteRegisteredCustomerData;
     private PreparedStatement deleteRegisteredCustomer;
     private PreparedStatement insertNewlyRegisteredCustomer;
@@ -127,7 +87,7 @@ public class DataSource implements Headers {
     //STORAGE
     private PreparedStatement insertIntoStorage;
     private PreparedStatement queryStorage;
-    private PreparedStatement queryProductInStorageByNameAndBrand;
+    private PreparedStatement queryProductInStorage;
     //CENTRAL STORAGE
     private PreparedStatement updateProductQuantityInCentralStorage;
     private PreparedStatement searchProductFromCentralStorageByName;
@@ -155,8 +115,8 @@ public class DataSource implements Headers {
             searchProductFromCentralStorageByName = conn.prepareStatement(SEARCH_PRODUCT_IN_CENTRAL_STORAGE_BY_NAME);
             updateProductQuantityInCentralStorage = conn.prepareStatement(UPDATE_QUANTITY_OF_A_PRODUCT_IN_CENTRAL_STORAGE);
             //STORAGE
-//            queryStorage = conn.prepareStatement(QUERY_PRODUCTS_IN_STORAGE);
-//            queryProductInStorageByNameAndBrand = conn.prepareStatement(QUERY_PRODUCT_IN_STORAGE_BY_NAME_AND_BRAND);
+            queryStorage = conn.prepareStatement(QUERY_PRODUCTS_IN_STORAGE);
+//            queryProductInStorage = conn.prepareStatement(QUERY_PRODUCT_IN_STORAGE_BY_NAME_AND_BRAND);
 //            insertIntoStorage = conn.prepareStatement(INSERT_INTO_STORAGE);
 
             //CUSTOMER
@@ -165,28 +125,15 @@ public class DataSource implements Headers {
             insertNewlyRegisteredCustomerData = conn.prepareStatement(INSERT_NEWLY_REGISTERED_CUSTOMER_DATA);
             deleteRegisteredCustomer = conn.prepareStatement(DELETE_REGISTERED_CUSTOMER);
             deleteRegisteredCustomerData = conn.prepareStatement(DELETE_REGISTERED_CUSTOMER_DATA);
-            updateRegisteredCustomer = conn.prepareStatement(UPDATE_REGISTERED_CUSTOMER);
-            updateRegisteredCustomerData = conn.prepareStatement(UPDATE_REGISTERED_CUSTOMER_DATA);
-            queryCustomerByUserNameAndPassword = conn.prepareStatement(QUERY_CUSTOMER_BY_USERNAME_AND_PASSWORD);
             return true;
         } catch (SQLException e) {
             System.out.println("Couldn't connect to database: " + e.getMessage());
-            e.printStackTrace();
             return false;
         }
     }
 
     public void close() {
         try {
-            if (queryCustomerByUserNameAndPassword != null) {
-                queryCustomerByUserNameAndPassword.close();
-            }
-            if (updateRegisteredCustomer != null) {
-                updateRegisteredCustomer.close();
-            }
-            if (updateRegisteredCustomerData != null) {
-                updateRegisteredCustomerData.close();
-            }
             if (deleteRegisteredCustomerData != null) {
                 deleteRegisteredCustomerData.close();
             }
@@ -208,8 +155,8 @@ public class DataSource implements Headers {
             if (insertIntoStorage != null) {
                 insertIntoStorage.close();
             }
-            if (queryProductInStorageByNameAndBrand != null) {
-                queryProductInStorageByNameAndBrand.close();
+            if (queryProductInStorage != null) {
+                queryProductInStorage.close();
             }
             if (updateProductQuantityInCentralStorage != null) {
                 updateProductQuantityInCentralStorage.close();
@@ -394,13 +341,13 @@ public class DataSource implements Headers {
 
     //STORAGE SECTION
     public ObservableList<Product> queryProductsInStorage(String tableName) {
-//        StringBuilder sb = new StringBuilder(QUERY_PRODUCTS_IN_STORAGE);
-//        sb.append(tableName);
-//        sb.append("\"");
+        /*StringBuilder sb = new StringBuilder(QUERY_PRODUCTS_IN_STORAGE);
+        sb.append(tableName);
+        sb.append("\"");*/
 //        String sql = QUERY_PRODUCTS_IN_STORAGE.replace("$tableName", tableName);
         ObservableList<Product> productList = FXCollections.observableArrayList();
         try (Statement statement = conn.createStatement();
-             ResultSet results = statement.executeQuery("SELECT * FROM Storage1")) {
+             ResultSet results = statement.executeQuery(QUERY_PRODUCTS_IN_STORAGE)) {
             while (results.next()) {
                 Product product = new Product();
                 product.setId(results.getInt(INDEX_STORAGE_ID));
@@ -430,15 +377,11 @@ public class DataSource implements Headers {
     public void insertIntoStorage(String tableName, String productName, String category, double rating,
                                   int quantity, String brandName, LocalDate expirationDate,
                                   String description, double price, int shelfNumber) {
-//        StringBuilder sb = new StringBuilder(QUERY_PRODUCT_IN_STORAGE_BY_NAME_AND_BRAND);
-//        sb.append(tableName);
-//        sb.append("\"");
-//        sb.append(QUERY_PRODUCT_IN_STORAGE_BY_NAME_AND_BRAND_CONDITION);
         try {
-//            queryCustomerByUserNameAndPassword = conn.prepareStatement(sb.toString());
-            queryProductInStorageByNameAndBrand.setString(1, productName);
-            queryProductInStorageByNameAndBrand.setString(2, brandName);
-            ResultSet results = queryProductInStorageByNameAndBrand.executeQuery();
+            queryProductInStorage.setString(1, tableName);
+            queryProductInStorage.setString(2, productName);
+            queryProductInStorage.setString(3, brandName);
+            ResultSet results = queryProductInStorage.executeQuery();
             if (results.next()) {
                 System.out.println("The product already exists");
                 return;
@@ -470,7 +413,7 @@ public class DataSource implements Headers {
 
     //CUSTOMER SECTION
 
-    public void insertNewlyRegisteredCustomer(String username, String password, String phone,
+    public void insertNewlyRegisteredCustomer(String username, String password,
                                               String email, String streetName, int homeNumber, String subCity,
                                               String city) {
         int generatedId;
@@ -495,16 +438,15 @@ public class DataSource implements Headers {
                 } else {
                     throw new SQLException("Couldn't get id for customer");
                 }
-                insertNewlyRegisteredCustomerData.setString(1, phone);
-                insertNewlyRegisteredCustomerData.setString(2, email);
-                insertNewlyRegisteredCustomerData.setString(3, streetName);
-                insertNewlyRegisteredCustomerData.setInt(4, homeNumber);
-                insertNewlyRegisteredCustomerData.setString(5, subCity);
-                insertNewlyRegisteredCustomerData.setString(6, city);
-                insertNewlyRegisteredCustomerData.setInt(7, generatedId);
+                insertNewlyRegisteredCustomerData.setString(1, email);
+                insertNewlyRegisteredCustomerData.setString(2, streetName);
+                insertNewlyRegisteredCustomerData.setInt(3, homeNumber);
+                insertNewlyRegisteredCustomerData.setString(4, subCity);
+                insertNewlyRegisteredCustomerData.setString(5, city);
+                insertNewlyRegisteredCustomerData.setInt(6, generatedId);
 
                 int affectedRowss = insertNewlyRegisteredCustomerData.executeUpdate();
-                if (affectedRowss == 1) {
+                if (affectedRows == 1) {
                     conn.commit();
                 } else {
                     throw new SQLException("Error inserting customer data");
@@ -558,115 +500,25 @@ public class DataSource implements Headers {
 
         } catch (Exception e) {
             System.out.println("Error deleting customer");
-            try {
+            try{
                 System.out.println("Performing rollback");
                 conn.rollback();
-            } catch (SQLException e2) {
+            } catch (SQLException e2){
                 System.out.println("Error performing rollback: " + e2.getMessage());
             }
-        } finally {
-            try {
+        }
+
+        finally {
+            try{
                 System.out.println("Resetting default behaviour");
                 conn.setAutoCommit(true);
-            } catch (SQLException e) {
+            }catch (SQLException e){
                 System.out.println("Error setting autocommit behaviour to default: " + e.getMessage());
             }
         }
     }
 
-    public void updateRegisteredCustomerInfo(String oldUsername, String oldPassword, String newUsername,
-                                             String newPassword, String phone, String email, String streetName,
-                                             int homeNumber, String subCity, String city) {
-        int id;
-        try {
-            queryCustomerByUserNameAndPassword.setString(1, oldUsername);
-            queryCustomerByUserNameAndPassword.setString(2, oldPassword);
-            ResultSet result = queryCustomerByUserNameAndPassword.executeQuery();
-            if (result.next()) {
-                id = result.getInt(1);
-            } else {
-                System.out.println("There is no customer data by that user name");
-                return;
-            }
-            conn.setAutoCommit(false);
-
-            updateRegisteredCustomer.setString(1, newUsername);
-            updateRegisteredCustomer.setString(2, newPassword);
-            updateRegisteredCustomer.setInt(3, id);
-
-            int affectedRows = updateRegisteredCustomer.executeUpdate();
-            if (affectedRows != 1) {
-                throw new SQLException("Couldn't update customer username and password");
-            }
-
-            updateRegisteredCustomerData.setString(1, phone);
-            updateRegisteredCustomerData.setString(2, email);
-            updateRegisteredCustomerData.setString(3, streetName);
-            updateRegisteredCustomerData.setInt(4, homeNumber);
-            updateRegisteredCustomerData.setString(5, subCity);
-            updateRegisteredCustomerData.setString(6, city);
-            updateRegisteredCustomerData.setInt(7, id);
-
-            int affectedRowss = updateRegisteredCustomerData.executeUpdate();
-            if (affectedRowss == 1) {
-                conn.commit();
-            } else {
-                throw new SQLException("Couldn't update customer data");
-            }
-
-        } catch (Exception e) {
-            System.out.println("Error updating customer: " + e.getMessage());
-            try {
-                System.out.println("Performing rollback");
-                conn.rollback();
-            } catch (SQLException e2) {
-                System.out.println("Error performing rollback: " + e2.getMessage());
-            }
-        } finally {
-            try {
-                System.out.println("Resetting default autocommit behaviour");
-                conn.setAutoCommit(true);
-            } catch (SQLException e) {
-                System.out.println("Error resetting default autocommit behaviour: " + e.getMessage());
-            }
-        }
-    }
-
-    public ObservableList<RegisteredCustomerData> getCustomersFullInfo(int sortOrder){
-        ObservableList<RegisteredCustomerData> customerData = FXCollections.observableArrayList();
-        StringBuilder sb = new StringBuilder(GET_CUSTOMERS_FULL_INFO_START);
-        if(sortOrder != ORDER_BY_NONE){
-            sb.append(GET_CUSTOMERS_FULL_INFO_SORT);
-            if(sortOrder == ORDER_BY_DESC){
-                sb.append("DESC");
-            } else{
-                sb.append("ASC");
-            }
-        }
-        try(Statement statement = conn.createStatement();
-            ResultSet results = statement.executeQuery(sb.toString())){
-
-            while(results.next()){
-                RegisteredCustomerData rcd = new RegisteredCustomerData();
-                rcd.setUserName(results.getString(1));
-                rcd.setPhone(results.getString(2));
-                rcd.setEmail(results.getString(3));
-                rcd.setStreetName(results.getString(4));
-                rcd.setHomeNumber(results.getInt(5));
-                rcd.setSubCity(results.getString(6));
-                rcd.setCity(results.getString(7));
-
-                customerData.add(rcd);
-            }
-
-            return customerData;
-
-        }catch (SQLException e){
-            System.out.println("Customer info query failed: " + e.getMessage());
-            return null;
-        }
-    }
+    
 }
-
 
 
