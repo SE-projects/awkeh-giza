@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Hena
+ * @author Hayyu
  */
 public class AwkehGiza extends Application {
     
