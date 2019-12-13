@@ -1,9 +1,13 @@
 package com.model;
 
+import com.model.customer.CustomerQueries;
+
 public class RegisteredCustomer {
     private int id;
     private String userName;
     private String password;
+
+    private CustomerQueries cq = new CustomerQueries();
 
     public int getId() {
         return id;
@@ -30,28 +34,26 @@ public class RegisteredCustomer {
     }
 
     public void deleteCustomer(String userName, String password){
-        if(!DataSource.getInstance().open()){
-            System.out.println("Couldn't connect to dataSource");
+        if(!cq.establishConnection()){
+            System.out.println("Couldn't open connection");
             return;
         }
-
-        DataSource.getInstance().deleteRegisteredCustomer(userName, password);
-
-        DataSource.getInstance().close();
+        cq.deleteRegisteredCustomer(userName, password);
+        cq.closeConnection();
     }
     //for updating
     public void updateCustomerInfo(String oldUsername, String oldPassword, String newUsername, String newPassword,
                                    String phone, String email, String streetName, int homeNumber, String subCity,
                                    String city){
-        if(!DataSource.getInstance().open()){
-            System.out.println("Couldn't open DataSource");
-            return;
-        }
+       if(!cq.establishConnection()){
+           System.out.println("Couldn't establish connection");
+           return;
+       }
 
-        DataSource.getInstance().updateRegisteredCustomerInfo(oldUsername, oldPassword, newUsername, newPassword, phone,
-                email, streetName, homeNumber, subCity, city);
+       cq.updateRegisteredCustomerInfo(oldUsername, oldPassword, newUsername, newPassword, phone, email, streetName,
+               homeNumber, subCity, city);
 
-        DataSource.getInstance().close();
+       cq.closeConnection();
     }
 
 }
