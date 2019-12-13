@@ -2,6 +2,8 @@ package com;
 
 import com.model.*;
 import com.model.central.CentralStorageManager;
+import com.model.central.CentralStorageQueries;
+import com.model.shop.StorageManager;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
@@ -10,9 +12,9 @@ import java.time.Month;
 //use enhanced for loop and print only those attributes with values
 public class Main {
     public static void main(String[] args) {
-//        CentralStorageManager abebe = new CentralStorageManager();
+       /* CentralStorageManager abebe = new CentralStorageManager();
 
-        /*abebe.addProductToCentralStorage("Soda Pop", "Beverage", 4.2, 250,
+        abebe.addProductToCentralStorage("Soda Pop", "Beverage", 4.2, 250,
                 "Pepsi", LocalDate.of(2020, Month.OCTOBER, 22), "16.9 Fl oz",
                 19.99, 15);*/
 
@@ -25,32 +27,48 @@ public class Main {
 
 //        abebe.removeProductFromCentralStorage("test1", "exam");
 
-     /*   ObservableList<Product> productList = abebe.getProductsListInCentralStorage(3);
+//        CentralStorageManager csm = new CentralStorageManager();
+        /*ObservableList<Product> productList = csm.getProductsListInCentralStorage(3);
         productList.forEach(product -> System.out.println(product));*/
+       /* csm.addProductToCentralStorage(48593467,"Cod Liver Oil", "Food", 4.2, 90,
+                "Norwiegn company", LocalDate.of(2020, Month.DECEMBER, 19), "Medium sized",
+                300, 19);*/
+//        csm.removeProductFromCentralStorage("Cod Liver Oil", "Norwiegn company");
 
         /*Iterator<Product> iterator = productList.iterator();
         while(iterator.hasNext()){
             System.out.println(iterator.next());
         }*/
 
+//        CentralStorageQueries csq = new CentralStorageQueries();
+      /* ObservableList<Product> products = csm.searchProductInCentralStorage("soda");
+        products.forEach(product -> System.out.println(product));
 
-    /*   ObservableList<Product> products = abebe.searchProductInCentralStorage("soda");
-        products.forEach(product -> System.out.println(product));*/
+       csm.updateProductInCentralStorage("Coke Soda", "Coca Cola", 345);*/
+//        csm.createCentralStorageTable();
 
-//       abebe.updateProductInCentralStorage("Coke Soda", "Coca Cola", 420);
+       //TODO figure out how to better coordinate. When the closeConnection method should be called.
+//       csq.closeConnection();
        /* if(!DataSource.getInstance().open()){
             System.out.println("Couldn't open DataSource");
             return;
         }
 
 */
-       /* Storage storage = new Storage();
+        StorageManager sm = new StorageManager();
+//        sm.createStorageTable("Storage3");
+        /*Storage storage = new Storage();
         ObservableList<Product> productList = storage.getProductListInStorage("Storage1");
         productList.forEach(product -> System.out.println(product));*/
 
-      /*  storage.addProductToStorage("Storage1", "Coke Soda", "Beverage", 4.5, 321,
-                "Coca Cola", LocalDate.of(2020, Month.APRIL, 12), "16.9 Fl Oz", 21.99,
-                12);*/
+        sm.removeProductFromStorage("Storage1", "Coke Soda", "Coca Cola");
+
+       /* sm.addProductToStorage("Storage1", 47578698, "Coke Soda", "Beverage", 4.5,
+              321, "Coca Cola", LocalDate.of(2020, Month.APRIL, 12), "16.9 Fl Oz",
+              21.99, 17);*/
+
+     /* ObservableList<Product> productList = sm.getStorageProductList("Storage1");
+      productList.forEach(product -> System.out.println(product));*/
         /*if(!DataSource.getInstance().open()){
             System.out.println("Couldn't open DataSource");
             return;
@@ -80,8 +98,8 @@ public class Main {
         Tim.updateCustomerInfo("0", "@tims","Timmy", "6453",
                 "0943564356", "timmy@gmail.com", "shoa", 758, "Bole", "A.A");*/
 
-        CentralManager kebe = new CentralManager();
+/*        CentralManager kebe = new CentralManager();
         ObservableList<RegisteredCustomerData> rcd = kebe.getFullCustomerInfo(3);
-        rcd.forEach(customer -> System.out.println(customer));
+        rcd.forEach(customer -> System.out.println(customer));*/
     }
 }

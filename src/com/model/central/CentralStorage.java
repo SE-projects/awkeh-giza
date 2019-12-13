@@ -1,5 +1,6 @@
 package com.model.central;
 
+import com.model.Connexion;
 import com.model.DataSource;
 import com.model.Product;
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 
 public class CentralStorage implements Central {
     private static CentralStorage instance = new CentralStorage();
+    private CentralStorageQueries csq = new CentralStorageQueries();
 
     private ObservableList<Product> productList;
 
@@ -30,65 +32,72 @@ public class CentralStorage implements Central {
         this.productList = productList;
     }
 
-    public void addProductToCentralStorage(String productName, String category, double rating,
-                                           int quantity, String brandName, LocalDate expirationDate,
-                                           String description, double price, int shelfNumber) {
+  /*  public void addProductToCentralStorage(Product product) {
         if (!DataSource.getInstance().open()) {
             System.out.println("Couldn't open DataSource");
             return;
         }
 
-        DataSource.getInstance().insertIntoCentralStorage(productName, category, rating, quantity, brandName,
-                expirationDate, description, price, shelfNumber);
+        DataSource.getInstance().insertIntoCentralStorage(product);
 
         DataSource.getInstance().close();
+    }*/
+
+    public void createCentralStorageTable() {
+        if (!csq.establishConnection()) {
+            System.out.println("Couldn't connect");
+            return;
+        }
+        csq.createCentralStorageTable();
+        csq.closeConnection();
+    }
+
+    public void addProductToCentralStorage(Product product) {
+        if (!csq.establishConnection()) {
+            System.out.println("Couldn't connect");
+            return;
+        }
+        csq.insertIntoCentralStorage(product);
+//        csq.closeConnection();
     }
 
     public ObservableList<Product> getProductsListInCentralStorage(int sortOrder) {
-        if (!DataSource.getInstance().open()) {
-            System.out.println("Couldn't open DataSource");
+        if (!csq.establishConnection()) {
+            System.out.println("Couldn't connect");
             return null;
         }
-
-        productList = DataSource.getInstance().queryCentralStorage(sortOrder);
-
-        DataSource.getInstance().close();
-
+        ObservableList<Product> productList = csq.queryCentralStorage(sortOrder);
+//        csq.closeConnection();
         return productList;
     }
-    //write methods for removal, update, etc
 
     public void removeProductFromCentralStorage(String productName, String brandName) {
-        if (!DataSource.getInstance().open()) {
-            System.out.println("Couldn't open DataSource");
+        if (!csq.establishConnection()) {
+            System.out.println("Couldn't connect");
             return;
         }
-        DataSource.getInstance().removeProductFromCentralStorage(productName, brandName);
-
-        DataSource.getInstance().close();
+        csq.removeProductFromCentralStorage(productName, brandName);
+//        csq.closeConnection();
     }
 
     //searches by name that matches the keyword entered
     public ObservableList<Product> searchProductInCentralStorage(String productSearchText) {
-        if (!DataSource.getInstance().open()) {
-            System.out.println("Couldn't open DataSource");
+        if (!csq.establishConnection()) {
+            System.out.println("Couldn't connect");
             return null;
         }
-
-        ObservableList<Product> productList = DataSource.getInstance().searchProductInCentralStorage(productSearchText);
-
-        DataSource.getInstance().close();
-
+        ObservableList<Product> productList = csq.searchProductInCentralStorage(productSearchText);
+//        csq.closeConnection();
         return productList;
     }
 
-    public void updateProductInCentralStorage(String productName, String brandName, int quantity){
-        if(!DataSource.getInstance().open()){
-            System.out.println("Couldn't open DataSource");
+    public void updateProductInCentralStorage(String productName, String brandName, int quantity) {
+        if (!csq.establishConnection()) {
+            System.out.println("Couldn't connect");
             return;
         }
-        DataSource.getInstance().updateProductQuantityInCentralStorage(productName, brandName, quantity);
+        csq.updateProductQuantityInCentralStorage(productName, brandName, quantity);
 
-        DataSource.getInstance().close();
+//        csq.closeConnection();
     }
 }

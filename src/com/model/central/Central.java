@@ -8,9 +8,7 @@ import java.time.LocalDate;
 public interface Central {
     ObservableList<Product> getProductsListInCentralStorage(int sortOrder);
 
-    void addProductToCentralStorage(String productName, String category, double rating,
-                                    int quantity, String brandName, LocalDate expirationDate,
-                                    String description, double price, int shelfNumber);
+//    void addProductToCentralStorage(Product product);
 
     void removeProductFromCentralStorage(String productName, String brandName);
 

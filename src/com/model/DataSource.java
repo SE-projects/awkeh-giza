@@ -16,9 +16,6 @@ public class DataSource implements Headers {
     private static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\meme_\\IdeaProjects" +
             "\\JavaFxExercise" + "\\awkeh-giza\\" + DB_NAME;
 
-    public static final int ORDER_BY_NONE = 1;
-    public static final int ORDER_BY_DESC = 2;
-    public static final int ORDER_BY_ASC = 3;
     //STORAGE SECTION
     static String storage_Table_Name;
 //    public static final String QUERY_PRODUCT_IN_STORAGE_BY_NAME_AND_BRAND = "SELECT " + COLUMN_STORAGE_ID + " FROM \"";
@@ -238,7 +235,7 @@ public class DataSource implements Headers {
     //description
     //price
     //shelfNumber
-
+    //TODO Has been incorporated
     public ObservableList<Product> queryCentralStorage(int sortOrder) {
         StringBuilder sb = new StringBuilder(QUERY_CENTRAL_STORAGE_START);
         if (sortOrder != ORDER_BY_NONE) {
@@ -277,27 +274,25 @@ public class DataSource implements Headers {
             return null;
         }
     }
-
-    public void insertIntoCentralStorage(String productName, String category, double rating,
-                                         int quantity, String brandName, LocalDate expirationDate,
-                                         String description, double price, int shelfNumber) {
+    //TODO Has been incorporated
+    public void insertIntoCentralStorage(Product product) {
         try {
-            queryProductInCentralStorage.setString(1, productName);
-            queryProductInCentralStorage.setString(2, brandName);
+            queryProductInCentralStorage.setString(1, product.getProductName());
+            queryProductInCentralStorage.setString(2, product.getBrandName());
             ResultSet results = queryProductInCentralStorage.executeQuery();
             if (results.next()) {
                 System.out.println("The product already exists");
                 return;
             } else {
-                insertIntoCentralStorage.setString(1, productName);
-                insertIntoCentralStorage.setString(2, category);
-                insertIntoCentralStorage.setDouble(3, rating);
-                insertIntoCentralStorage.setInt(4, quantity);
-                insertIntoCentralStorage.setString(5, brandName);
-                insertIntoCentralStorage.setString(6, String.format("%s", expirationDate.format(formatter)));
-                insertIntoCentralStorage.setString(7, description);
-                insertIntoCentralStorage.setDouble(8, price);
-                insertIntoCentralStorage.setInt(9, shelfNumber);
+                insertIntoCentralStorage.setString(1, product.getProductName());
+                insertIntoCentralStorage.setString(2, product.getCategory());
+                insertIntoCentralStorage.setDouble(3, product.getRating());
+                insertIntoCentralStorage.setInt(4, product.getQuantity());
+                insertIntoCentralStorage.setString(5, product.getBrandName());
+                insertIntoCentralStorage.setString(6, String.format("%s", product.getExpirationDate().format(formatter)));
+                insertIntoCentralStorage.setString(7, product.getDescription());
+                insertIntoCentralStorage.setDouble(8, product.getPrice());
+                insertIntoCentralStorage.setInt(9, product.getShelfNumber());
 
                 int affectedRows = insertIntoCentralStorage.executeUpdate();
                 if (affectedRows == 1) {
@@ -312,7 +307,7 @@ public class DataSource implements Headers {
             System.out.println("insertion failed");
         }
     }
-
+    //TODO has been incorporated
     public void removeProductFromCentralStorage(String productName, String brandName) {
         try {
             queryProductInCentralStorage.setString(1, productName);
@@ -392,15 +387,12 @@ public class DataSource implements Headers {
         }
     }
 
-    //STORAGE SECTION
+    //TODO STORAGE SECTION
     public ObservableList<Product> queryProductsInStorage(String tableName) {
-//        StringBuilder sb = new StringBuilder(QUERY_PRODUCTS_IN_STORAGE);
-//        sb.append(tableName);
-//        sb.append("\"");
-//        String sql = QUERY_PRODUCTS_IN_STORAGE.replace("$tableName", tableName);
+        String sql = "SELECT * FROM " + tableName;
         ObservableList<Product> productList = FXCollections.observableArrayList();
         try (Statement statement = conn.createStatement();
-             ResultSet results = statement.executeQuery("SELECT * FROM Storage1")) {
+             ResultSet results = statement.executeQuery(sql)) {
             while (results.next()) {
                 Product product = new Product();
                 product.setId(results.getInt(INDEX_STORAGE_ID));

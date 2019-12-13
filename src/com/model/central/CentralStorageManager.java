@@ -22,16 +22,36 @@ public class CentralStorageManager implements Central {
         CentralStorage.getInstance().setProductList(products);
     }
 
-    public ObservableList<Product> getProductsListInCentralStorage(int sortOrder) {
-        return CentralStorage.getInstance().getProductsListInCentralStorage(sortOrder);
+    public void createCentralStorageTable() {
+        CentralStorage.getInstance().createCentralStorageTable();
     }
 
-    public void addProductToCentralStorage(String productName, String category, double rating,
+    public ObservableList<Product> getProductsListInCentralStorage(int sortOrder) {
+        ObservableList<Product> productList = CentralStorage.getInstance().getProductsListInCentralStorage(sortOrder);
+        if (productList == null) {
+            System.out.println("The db query ended with null result");
+            return null;
+        }
+        return productList;
+    }
+
+    public void addProductToCentralStorage(int id, String productName, String category, double rating,
                                            int quantity, String brandName, LocalDate expirationDate,
                                            String description, double price, int shelfNumber) {
 
-        CentralStorage.getInstance().addProductToCentralStorage(productName, category, rating, quantity, brandName,
-                expirationDate, description, price, shelfNumber);
+        Product product = new Product();
+        product.setId(id);
+        product.setProductName(productName);
+        product.setCategory(category);
+        product.setRating(rating);
+        product.setQuantity(quantity);
+        product.setBrandName(brandName);
+        product.setExpirationDate(expirationDate);
+        product.setDescription(description);
+        product.setPrice(price);
+        product.setShelfNumber(shelfNumber);
+
+        CentralStorage.getInstance().addProductToCentralStorage(product);
     }
 
     public void removeProductFromCentralStorage(String productName, String brandName) {
@@ -42,7 +62,7 @@ public class CentralStorageManager implements Central {
         return CentralStorage.getInstance().searchProductInCentralStorage(productSearchText);
     }
 
-    public void updateProductInCentralStorage(String productName, String brandName, int quantity){
+    public void updateProductInCentralStorage(String productName, String brandName, int quantity) {
         CentralStorage.getInstance().updateProductInCentralStorage(productName, brandName, quantity);
     }
 }

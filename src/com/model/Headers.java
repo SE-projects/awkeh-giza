@@ -1,6 +1,11 @@
 package com.model;
 
 public interface Headers {
+
+    int ORDER_BY_NONE = 1;
+    int ORDER_BY_DESC = 2;
+    int ORDER_BY_ASC = 3;
+
     //CENTRAL_STORAGE
     String TABLE_CENTRAL_STORAGE = "Central_Storage";
     String COLUMN_CENTRAL_STORAGE_ID = "id";

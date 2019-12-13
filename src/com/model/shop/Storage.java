@@ -1,11 +1,14 @@
-package com.model;
+package com.model.shop;
 
+import com.model.DataSource;
+import com.model.Product;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 
 public class Storage {
     private ObservableList<Product> productList;
+    private StorageQueries sq = new StorageQueries();
 
     public ObservableList<Product> getProductList() {
         return productList;
@@ -15,30 +18,39 @@ public class Storage {
         this.productList = productList;
     }
 
-    public void addProductToStorage(String tableName, String productName, String category, double rating,
-                                    int quantity, String brandName, LocalDate expirationDate,
-                                    String description, double price, int shelfNumber){
-        if (!DataSource.getInstance().open()) {
-            System.out.println("Couldn't open DataSource");
+    public void createStorageTable(String tableName) {
+        if (!sq.establishConnection()) {
+            System.out.println("Couldn't connect");
             return;
         }
-
-        DataSource.getInstance().insertIntoStorage(tableName, productName, category, rating, quantity, brandName,
-                expirationDate, description, price, shelfNumber);
-
-        DataSource.getInstance().close();
+        sq.createStorageTable(tableName);
+//        sq.closeConnection();
     }
 
     public ObservableList<Product> getProductListInStorage(String tableName) {
-        if (!DataSource.getInstance().open()) {
-            System.out.println("Couldn't open DataSource");
+        if(!sq.establishConnection()){
+            System.out.println("Couldn't connect");
             return null;
         }
-
-        productList = DataSource.getInstance().queryProductsInStorage(tableName);
-
-        DataSource.getInstance().close();
-
+        ObservableList<Product> productList = sq.queryProductsInStorage(tableName);
         return productList;
+    }
+
+    public void addProductToStorage(String tableName, Product product) {
+        if (!sq.establishConnection()) {
+            System.out.println("Couldn't connect");
+            return;
+        }
+        sq.insertIntoStorage(tableName, product);
+        sq.closeConnection();
+    }
+
+    public void removeProductFromStorage(String tableName, String productName, String brandName){
+        if(!sq.establishConnection()){
+            System.out.println("Couldn't connect");
+            return;
+        }
+        sq.removeProductFromCentralStorage(tableName, productName, brandName);
+        sq.closeConnection();
     }
 }
