@@ -40,40 +40,6 @@ public class CentralStorageQueries {
     private static final int INDEX_CENTRAL_STORAGE_PRICE = 9;
     private static final int INDEX_CENTRAL_STORAGE_SHELF_NUMBER = 10;
 
-    private static final String QUERY_CENTRAL_STORAGE_START = "SELECT * FROM " + TABLE_CENTRAL_STORAGE;
-
-    private static final String INSERT_INTO_CENTRAL_STORAGE = "INSERT INTO " + TABLE_CENTRAL_STORAGE +
-            '(' + COLUMN_CENTRAL_STORAGE_ID + ", " + COLUMN_CENTRAL_STORAGE_PRODUCT_NAME + ", " + COLUMN_CENTRAL_STORAGE_CATEGORY + ", " +
-            COLUMN_CENTRAL_STORAGE_RATING + ", " + COLUMN_CENTRAL_STORAGE_QUANTITY + ", " +
-            COLUMN_CENTRAL_STORAGE_BRAND_NAME + ", " + COLUMN_CENTRAL_STORAGE_EXPIRATION_DATE + ", " +
-            COLUMN_CENTRAL_STORAGE_DESCRIPTION + ", " + COLUMN_CENTRAL_STORAGE_PRICE + ", " +
-            COLUMN_CENTRAL_STORAGE_SHELF_NUMBER + ')' + " VALUES " + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-    private static final String QUERY_PRODUCT_IN_CENTRAL_STORAGE_BY_NAME_AND_BRAND = "SELECT " + COLUMN_CENTRAL_STORAGE_ID +
-            " FROM " + TABLE_CENTRAL_STORAGE + " WHERE " + COLUMN_CENTRAL_STORAGE_PRODUCT_NAME + " = ?" +
-            " AND " + COLUMN_CENTRAL_STORAGE_BRAND_NAME + " = ?";
-
-    private static final String QUERY_PRODUCT_IN_CENTRAL_STORAGE_SORT = " ORDER BY " + COLUMN_CENTRAL_STORAGE_PRODUCT_NAME +
-            " COLLATE NOCASE ";
-
-    private static final String REMOVE_PRODUCT_IN_CENTRAL_STORAGE_BY_NAME_AND_BRAND = "DELETE FROM " +
-            TABLE_CENTRAL_STORAGE + " WHERE " + COLUMN_CENTRAL_STORAGE_PRODUCT_NAME + " = ?" + " AND " +
-            COLUMN_CENTRAL_STORAGE_BRAND_NAME + " = ?";
-
-    private static final String SEARCH_PRODUCT_IN_CENTRAL_STORAGE_BY_NAME = "SELECT * FROM " + TABLE_CENTRAL_STORAGE +
-            " WHERE " + COLUMN_CENTRAL_STORAGE_PRODUCT_NAME + " LIKE ?";
-
-    private static final String UPDATE_QUANTITY_OF_A_PRODUCT_IN_CENTRAL_STORAGE = "UPDATE " + TABLE_CENTRAL_STORAGE +
-            " SET " + COLUMN_CENTRAL_STORAGE_QUANTITY + " = ?" + " WHERE " + COLUMN_CENTRAL_STORAGE_PRODUCT_NAME + " = ?"
-            + " AND " + COLUMN_CENTRAL_STORAGE_BRAND_NAME + " = ?";
-
-    private static final String CREATE_CENTRAL_STORAGE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_CENTRAL_STORAGE + '(' + COLUMN_CENTRAL_STORAGE_ID
-            + " INTEGER NOT NULL UNIQUE, " + COLUMN_CENTRAL_STORAGE_PRODUCT_NAME + " TEXT, " + COLUMN_CENTRAL_STORAGE_CATEGORY +
-            " TEXT, " + COLUMN_CENTRAL_STORAGE_RATING + " REAL, " + COLUMN_CENTRAL_STORAGE_QUANTITY + " INTEGER, " +
-            COLUMN_CENTRAL_STORAGE_BRAND_NAME + " TEXT, " + COLUMN_CENTRAL_STORAGE_EXPIRATION_DATE + " TEXT, " +
-            COLUMN_CENTRAL_STORAGE_DESCRIPTION + " TEXT, " + COLUMN_CENTRAL_STORAGE_PRICE + " REAL, " + COLUMN_CENTRAL_STORAGE_SHELF_NUMBER
-            + " INTEGER, PRIMARY KEY(" + COLUMN_CENTRAL_STORAGE_ID + ')' + ')';
-
     private PreparedStatement queryProductInCentralStorage;
     private PreparedStatement insertIntoCentralStorage;
     private PreparedStatement removeProductFromCentralStorage;
@@ -115,6 +81,13 @@ public class CentralStorageQueries {
     }
 
     public void createCentralStorageTable() {
+        String CREATE_CENTRAL_STORAGE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_CENTRAL_STORAGE + '(' + COLUMN_CENTRAL_STORAGE_ID
+                + " INTEGER NOT NULL UNIQUE, " + COLUMN_CENTRAL_STORAGE_PRODUCT_NAME + " TEXT, " + COLUMN_CENTRAL_STORAGE_CATEGORY +
+                " TEXT, " + COLUMN_CENTRAL_STORAGE_RATING + " REAL, " + COLUMN_CENTRAL_STORAGE_QUANTITY + " INTEGER, " +
+                COLUMN_CENTRAL_STORAGE_BRAND_NAME + " TEXT, " + COLUMN_CENTRAL_STORAGE_EXPIRATION_DATE + " TEXT, " +
+                COLUMN_CENTRAL_STORAGE_DESCRIPTION + " TEXT, " + COLUMN_CENTRAL_STORAGE_PRICE + " REAL, " + COLUMN_CENTRAL_STORAGE_SHELF_NUMBER
+                + " INTEGER, PRIMARY KEY(" + COLUMN_CENTRAL_STORAGE_ID + ')' + ')';
+
         try (Statement statement = connection.createStatement()) {
             statement.execute(CREATE_CENTRAL_STORAGE_TABLE);
         } catch (SQLException e) {
@@ -123,6 +96,10 @@ public class CentralStorageQueries {
     }
 
     public ObservableList<Product> queryCentralStorage(int sortOrder) {
+        String QUERY_CENTRAL_STORAGE_START = "SELECT * FROM " + TABLE_CENTRAL_STORAGE;
+        String QUERY_PRODUCT_IN_CENTRAL_STORAGE_SORT = " ORDER BY " + COLUMN_CENTRAL_STORAGE_PRODUCT_NAME +
+                " COLLATE NOCASE ";
+
         StringBuilder sb = new StringBuilder(QUERY_CENTRAL_STORAGE_START);
         if (sortOrder != ORDER_BY_NONE) {
             sb.append(QUERY_PRODUCT_IN_CENTRAL_STORAGE_SORT);
@@ -163,6 +140,16 @@ public class CentralStorageQueries {
     }
 
     public void insertIntoCentralStorage(Product product) {
+        String QUERY_PRODUCT_IN_CENTRAL_STORAGE_BY_NAME_AND_BRAND = "SELECT " + COLUMN_CENTRAL_STORAGE_ID +
+                " FROM " + TABLE_CENTRAL_STORAGE + " WHERE " + COLUMN_CENTRAL_STORAGE_PRODUCT_NAME + " = ?" +
+                " AND " + COLUMN_CENTRAL_STORAGE_BRAND_NAME + " = ?";
+
+        String INSERT_INTO_CENTRAL_STORAGE = "INSERT INTO " + TABLE_CENTRAL_STORAGE +
+                '(' + COLUMN_CENTRAL_STORAGE_ID + ", " + COLUMN_CENTRAL_STORAGE_PRODUCT_NAME + ", " + COLUMN_CENTRAL_STORAGE_CATEGORY + ", " +
+                COLUMN_CENTRAL_STORAGE_RATING + ", " + COLUMN_CENTRAL_STORAGE_QUANTITY + ", " +
+                COLUMN_CENTRAL_STORAGE_BRAND_NAME + ", " + COLUMN_CENTRAL_STORAGE_EXPIRATION_DATE + ", " +
+                COLUMN_CENTRAL_STORAGE_DESCRIPTION + ", " + COLUMN_CENTRAL_STORAGE_PRICE + ", " +
+                COLUMN_CENTRAL_STORAGE_SHELF_NUMBER + ')' + " VALUES " + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             queryProductInCentralStorage = connection.prepareStatement(QUERY_PRODUCT_IN_CENTRAL_STORAGE_BY_NAME_AND_BRAND);
@@ -201,6 +188,15 @@ public class CentralStorageQueries {
     }
 
     public void removeProductFromCentralStorage(String productName, String brandName) {
+
+        String QUERY_PRODUCT_IN_CENTRAL_STORAGE_BY_NAME_AND_BRAND = "SELECT " + COLUMN_CENTRAL_STORAGE_ID +
+                " FROM " + TABLE_CENTRAL_STORAGE + " WHERE " + COLUMN_CENTRAL_STORAGE_PRODUCT_NAME + " = ?" +
+                " AND " + COLUMN_CENTRAL_STORAGE_BRAND_NAME + " = ?";
+
+        String REMOVE_PRODUCT_IN_CENTRAL_STORAGE_BY_NAME_AND_BRAND = "DELETE FROM " +
+                TABLE_CENTRAL_STORAGE + " WHERE " + COLUMN_CENTRAL_STORAGE_PRODUCT_NAME + " = ?" + " AND " +
+                COLUMN_CENTRAL_STORAGE_BRAND_NAME + " = ?";
+
         try {
             queryProductInCentralStorage = connection.prepareStatement(QUERY_PRODUCT_IN_CENTRAL_STORAGE_BY_NAME_AND_BRAND);
             removeProductFromCentralStorage = connection.prepareStatement(REMOVE_PRODUCT_IN_CENTRAL_STORAGE_BY_NAME_AND_BRAND);
@@ -228,7 +224,11 @@ public class CentralStorageQueries {
     }
 
     public ObservableList<Product> searchProductInCentralStorage(String productSearchText) {
+        String SEARCH_PRODUCT_IN_CENTRAL_STORAGE_BY_NAME = "SELECT * FROM " + TABLE_CENTRAL_STORAGE +
+                " WHERE " + COLUMN_CENTRAL_STORAGE_PRODUCT_NAME + " LIKE ?";
+
         ObservableList<Product> productList = FXCollections.observableArrayList();
+
         try {
             searchProductFromCentralStorageByName = connection.prepareStatement(SEARCH_PRODUCT_IN_CENTRAL_STORAGE_BY_NAME);
             searchProductFromCentralStorageByName.setString(1, "%" + productSearchText + "%");
@@ -261,6 +261,14 @@ public class CentralStorageQueries {
     }
 
     public void updateProductQuantityInCentralStorage(String productName, String brandName, int quantity) {
+        String QUERY_PRODUCT_IN_CENTRAL_STORAGE_BY_NAME_AND_BRAND = "SELECT " + COLUMN_CENTRAL_STORAGE_ID +
+                " FROM " + TABLE_CENTRAL_STORAGE + " WHERE " + COLUMN_CENTRAL_STORAGE_PRODUCT_NAME + " = ?" +
+                " AND " + COLUMN_CENTRAL_STORAGE_BRAND_NAME + " = ?";
+
+        String UPDATE_QUANTITY_OF_A_PRODUCT_IN_CENTRAL_STORAGE = "UPDATE " + TABLE_CENTRAL_STORAGE +
+                " SET " + COLUMN_CENTRAL_STORAGE_QUANTITY + " = ?" + " WHERE " + COLUMN_CENTRAL_STORAGE_PRODUCT_NAME + " = ?"
+                + " AND " + COLUMN_CENTRAL_STORAGE_BRAND_NAME + " = ?";
+
         try {
             queryProductInCentralStorage = connection.prepareStatement(QUERY_PRODUCT_IN_CENTRAL_STORAGE_BY_NAME_AND_BRAND);
             updateProductQuantityInCentralStorage = connection.prepareStatement(UPDATE_QUANTITY_OF_A_PRODUCT_IN_CENTRAL_STORAGE);

@@ -1,4 +1,4 @@
-package com.model;
+package com.model.customer;
 
 import com.model.customer.CustomerQueries;
 

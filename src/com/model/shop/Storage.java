@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 
-public class Storage {
+public class Storage implements Store{
     private ObservableList<Product> productList;
     private StorageQueries sq = new StorageQueries();
 

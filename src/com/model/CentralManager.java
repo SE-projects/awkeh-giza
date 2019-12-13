@@ -1,5 +1,6 @@
 package com.model;
 
+import com.model.customer.RegisteredCustomerData;
 import javafx.collections.ObservableList;
 
 public class CentralManager {

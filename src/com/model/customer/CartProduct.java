@@ -1,7 +1,7 @@
 package com.model.customer;
 //TODO the product id should be a foreign key to a
 // table from which we get the products that are on display
-public class Cart {
+public class CartProduct {
     private int productId;
     private String productName;
     private double price;

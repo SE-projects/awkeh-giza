@@ -40,7 +40,6 @@ public class StorageQueries {
     private static final int INDEX_STORAGE_SHELF_NUMBER = 10;
 
 
-
     private PreparedStatement queryProductInStorageByNameAndBrand;
     private PreparedStatement insertIntoStorage;
     private PreparedStatement removeProductFromStorage;
@@ -57,6 +56,15 @@ public class StorageQueries {
 
     public void closeConnection() {
         try {
+            if(queryProductInStorageByNameAndBrand != null){
+                queryProductInStorageByNameAndBrand.close();
+            }
+            if (insertIntoStorage != null) {
+                insertIntoStorage.close();
+            }
+            if (removeProductFromStorage != null) {
+                removeProductFromStorage.close();
+            }
             if (connection != null) {
                 connection.close();
             }
@@ -116,10 +124,10 @@ public class StorageQueries {
 
 
         String INSERT_INTO_STORAGE = "INSERT INTO " + tableName +
-        '(' + COLUMN_STORAGE_ID + ", " + COLUMN_STORAGE_PRODUCT_NAME + ", " + COLUMN_STORAGE_CATEGORY + ", " +
-        COLUMN_STORAGE_RATING + ", " + COLUMN_STORAGE_QUANTITY + ", " + COLUMN_STORAGE_BRAND_NAME + ", " +
-        COLUMN_STORAGE_EXPIRATION_DATE + ", " + COLUMN_STORAGE_DESCRIPTION + ", " + COLUMN_STORAGE_PRICE + ", " +
-        COLUMN_STORAGE_SHELF_NUMBER + ')' + " VALUES " + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                '(' + COLUMN_STORAGE_ID + ", " + COLUMN_STORAGE_PRODUCT_NAME + ", " + COLUMN_STORAGE_CATEGORY + ", " +
+                COLUMN_STORAGE_RATING + ", " + COLUMN_STORAGE_QUANTITY + ", " + COLUMN_STORAGE_BRAND_NAME + ", " +
+                COLUMN_STORAGE_EXPIRATION_DATE + ", " + COLUMN_STORAGE_DESCRIPTION + ", " + COLUMN_STORAGE_PRICE + ", " +
+                COLUMN_STORAGE_SHELF_NUMBER + ')' + " VALUES " + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             queryProductInStorageByNameAndBrand = connection.prepareStatement(QUERY_PRODUCT_IN_STORAGE_BY_NAME_AND_BRAND);
@@ -159,7 +167,7 @@ public class StorageQueries {
 
     public void removeProductFromCentralStorage(String tableName, String productName, String brandName) {
         String QUERY_PRODUCT_IN_STORAGE_BY_NAME_AND_BRAND = "SELECT " + COLUMN_STORAGE_ID +
-        " FROM " + tableName + " WHERE " + COLUMN_STORAGE_PRODUCT_NAME + " = ?" + " AND " + COLUMN_STORAGE_BRAND_NAME + " = ?";
+                " FROM " + tableName + " WHERE " + COLUMN_STORAGE_PRODUCT_NAME + " = ?" + " AND " + COLUMN_STORAGE_BRAND_NAME + " = ?";
 
         String REMOVE_PRODUCT_IN_STORAGE_BY_NAME_AND_BRAND = "DELETE FROM " + tableName + " WHERE " +
                 COLUMN_STORAGE_PRODUCT_NAME + " = ?" + " AND " + COLUMN_STORAGE_BRAND_NAME + " = ?";

@@ -1,5 +1,6 @@
 package com.model;
 
+import com.model.customer.RegisteredCustomerData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -41,11 +42,15 @@ public class DataSource implements Headers {
         private PreparedStatement deleteCustomer;
         private PreparedStatement updateCustomer;*/
     //CUSTOMER SECTION
-    //FOR LOGIN, INFORMATION HAS TO BE RETRIEVED FROM DATABASE
+    //TODO FOR LOGIN, INFORMATION HAS TO BE RETRIEVED FROM DATABASE
     public static final String TABLE_REGISTERED_CUSTOMER = "Registered_Customer";
     public static final String COLUMN_REGISTERED_CUSTOMER_ID = "id";
     public static final String COLUMN_REGISTERED_CUSTOMER_USER_NAME = "user_name";
     public static final String COLUMN_REGISTERED_CUSTOMER_PASSWORD = "password";
+    public static final int INDEX_COLUMN_REGISTERED_CUSTOMER_ID = 1;
+    public static final int INDEX_COLUMN_REGISTERED_CUSTOMER_USER_NAME = 2;
+    public static final int INDEX_COLUMN_REGISTERED_CUSTOMER_PASSWORD = 3;
+
     //id
     //email
     //street_name
@@ -62,6 +67,14 @@ public class DataSource implements Headers {
     public static final String COLUMN_CUSTOMER_DATA_SUBCITY = "subCity";
     public static final String COLUMN_CUSTOMER_DATA_CITY = "city";
     public static final String COLUMN_CUSTOMER_DATA_CUSTOMER_ID = "customer_id";
+    public static final int INDEX_CUSTOMER_DATA_ID = 1;
+    public static final int INDEX_CUSTOMER_DATA_PHONE = 2;
+    public static final int INDEX_CUSTOMER_DATA_EMAIL = 3;
+    public static final int INDEX_CUSTOMER_DATA_STREET_NAME = 4;
+    public static final int INDEX_CUSTOMER_DATA_HOME_NUMBER = 5;
+    public static final int INDEX_CUSTOMER_DATA_SUB_CITY = 6;
+    public static final int INDEX_CUSTOMER_DATA_CITY = 7;
+    public static final int INDEX_CUSTOMER_DATA_CUSTOMER_ID = 8;
 
     public static final String QUERY_CUSTOMER_BY_USER_NAME = "SELECT " + COLUMN_REGISTERED_CUSTOMER_ID +
             " FROM " + TABLE_REGISTERED_CUSTOMER + " WHERE " + COLUMN_REGISTERED_CUSTOMER_USER_NAME + " = ?";

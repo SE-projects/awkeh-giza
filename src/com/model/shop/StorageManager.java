@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 
-public class StorageManager {
+public class StorageManager implements Store{
     private boolean notifyShelfManagerOfNewEntries;
     private Storage storage = new Storage();
 
@@ -31,7 +31,7 @@ public class StorageManager {
         storage.addProductToStorage(tableName, product);
     }
 
-    public ObservableList<Product> getStorageProductList(String tablename){
+    public ObservableList<Product> getProductListInStorage(String tablename){
         return storage.getProductListInStorage(tablename);
     }
 

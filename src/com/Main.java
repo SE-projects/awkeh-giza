@@ -3,6 +3,7 @@ package com;
 import com.model.*;
 import com.model.central.CentralStorageManager;
 import com.model.central.CentralStorageQueries;
+import com.model.customer.CustomerQueries;
 import com.model.shop.StorageManager;
 import javafx.collections.ObservableList;
 
@@ -55,13 +56,15 @@ public class Main {
         }
 
 */
-        StorageManager sm = new StorageManager();
+     /*   StorageManager sm = new StorageManager();
+        ObservableList<Product> productList = sm.getStorageProductList("Storage1");
+        productList.forEach(product -> System.out.println(product));*/
 //        sm.createStorageTable("Storage3");
         /*Storage storage = new Storage();
         ObservableList<Product> productList = storage.getProductListInStorage("Storage1");
         productList.forEach(product -> System.out.println(product));*/
 
-        sm.removeProductFromStorage("Storage1", "Coke Soda", "Coca Cola");
+//        sm.removeProductFromStorage("Storage1", "Coke Soda", "Coca Cola");
 
        /* sm.addProductToStorage("Storage1", 47578698, "Coke Soda", "Beverage", 4.5,
               321, "Coca Cola", LocalDate.of(2020, Month.APRIL, 12), "16.9 Fl Oz",
@@ -101,5 +104,22 @@ public class Main {
 /*        CentralManager kebe = new CentralManager();
         ObservableList<RegisteredCustomerData> rcd = kebe.getFullCustomerInfo(3);
         rcd.forEach(customer -> System.out.println(customer));*/
+
+        //TODO A whole new
+        /*NewCustomer Kevin = new NewCustomer();
+        Kevin.register("kevin", "Stuart", "kev123", "75hfg*th", "9787545",
+                "kev@gmail.com", "Janmeda", 756, "Arada", "A.A");*/
+
+        /*RegisteredCustomer Joel = new RegisteredCustomer();
+        Joel.updateCustomerInfo("JoelZ", "hfgt@fg", "Joel", "fht34",
+        "956445", "joel@gmail.com", "Megenagna", 546, "Yeka", "A.A");*/
+        CustomerQueries cq = new CustomerQueries();
+        if(!cq.establishConnection()){
+            System.out.println("Couldn't open connection");
+            return;
+        }
+//        cq.createACart("My Cart");
+        cq.addProductToCart(45633, "Coke Soda", 20, 5, 10, "My Cart");
+        cq.closeConnection();
     }
 }
