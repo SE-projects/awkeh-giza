@@ -127,8 +127,10 @@ public class Main {
 /*
         cq.removeProductFromProduct(new CartProduct(45633, "Coke Soda", 20,
                 5, 10, cq.createACart("My Cart")));*/
-        ObservableList<ProductInCart> products = cq.viewCartContents(2);
-        products.forEach(product -> System.out.println(product));
+   /*     ObservableList<ProductInCart> products = cq.viewCartContents(2);
+        products.forEach(product -> System.out.println(product));*/
+        /*cq.updateProductInCart(new CartProduct(645323, "Coke Soda", 20,
+                10, 200, 1));*/
         cq.closeConnection();
     }
 }
