@@ -138,7 +138,9 @@ public class Main {
         /*boolean order = cq.orderCart(new Cart(2, "Another Cart"));
         System.out.println(order);*/
         RegisteredCustomer Eyuel = new RegisteredCustomer();
-        Eyuel.cancelOrder(new Order(2, LocalDate.now(), 2));
+//        Eyuel.cancelOrder(new Order(2, LocalDate.now(), 2));
+        ObservableList<ProductInCart> products = Eyuel.viewCartContents(new Cart(1, "My Cart"), 3);
+        products.forEach(product -> System.out.println(product));
         cq.closeConnection();
     }
 }

@@ -89,13 +89,13 @@ public class RegisteredCustomer {
 
         cq.closeConnection();
     }
-    public ObservableList<ProductInCart> viewCartContents(int sortOrder){
+    public ObservableList<ProductInCart> viewCartContents(Cart cart, int sortOrder){
         if(!cq.establishConnection()){
             System.out.println("Couldn't establish connection");
             return null;
         }
 
-        ObservableList<ProductInCart> productsInCart = cq.viewCartContents(sortOrder);
+        ObservableList<ProductInCart> productsInCart = cq.viewCartContents(cart, sortOrder);
 
 
         cq.closeConnection();

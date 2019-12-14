@@ -95,6 +95,7 @@ public class CustomerQueries {
     private PreparedStatement updateProductInCart;
     private PreparedStatement insertOrder;
     private PreparedStatement queryProductInCartByQuantity;
+    private PreparedStatement viewCartContents;
     private PreparedStatement cancelOrder;
 
     public boolean establishConnection() {
@@ -108,6 +109,9 @@ public class CustomerQueries {
 
     public void closeConnection() {
         try {
+            if(viewCartContents != null){
+                viewCartContents.close();
+            }
             if(queryProductInCartByQuantity != null){
                 queryProductInCartByQuantity.close();
             }
@@ -505,12 +509,13 @@ public class CustomerQueries {
     INNER JOIN Cart ON Cart_Product.cart_id = Cart.cart_id
     ORDER BY Cart.cart_name, Cart_Product.product_name COLLATE NOCASE ASC*/
 
-    public ObservableList<ProductInCart> viewCartContents(int sortOrder) {
+    public ObservableList<ProductInCart> viewCartContents(Cart cart, int sortOrder) {
         String VIEW_CART_CONTENTS_START = "SELECT " + TABLE_CART + '.' + COLUMN_CART_NAME + ", " + TABLE_CART_PRODUCT +
                 '.' + COLUMN_CART_PRODUCT_NAME + ", " + TABLE_CART_PRODUCT + '.' + COLUMN_CART_PRODUCT_PRICE + ", " +
                 TABLE_CART_PRODUCT + '.' + COLUMN_CART_PRODUCT_QUANTITY + ", " + TABLE_CART_PRODUCT + '.' +
                 COLUMN_CART_PRODUCT_TOTAL_AMOUNT + " FROM " + TABLE_CART_PRODUCT + " INNER JOIN " + TABLE_CART + " ON " +
-                TABLE_CART_PRODUCT + '.' + COLUMN_CART_PRODUCT_CART_ID + " = " + TABLE_CART + '.' + COLUMN_CART_ID;
+                TABLE_CART_PRODUCT + '.' + COLUMN_CART_PRODUCT_CART_ID + " = " + TABLE_CART + '.' + COLUMN_CART_ID +
+                " WHERE " + TABLE_CART + '.' + COLUMN_CART_ID + " = ?";
 
         String VIEW_CART_CONTENTS_SORT = " ORDER BY " + TABLE_CART + '.' + COLUMN_CART_NAME + ", " + TABLE_CART_PRODUCT +
                 '.' + COLUMN_CART_PRODUCT_NAME + " COLLATE NOCASE ";
@@ -527,8 +532,12 @@ public class CustomerQueries {
 
         ObservableList<ProductInCart> productInCart = FXCollections.observableArrayList();
 
-        try (Statement statement = connection.createStatement();
-             ResultSet results = statement.executeQuery(sb.toString())) {
+        try{
+
+            viewCartContents = connection.prepareStatement(sb.toString());
+            viewCartContents.setInt(1, cart.getCartId());
+
+            ResultSet results = viewCartContents.executeQuery();
 
             while (results.next()) {
                 ProductInCart product = new ProductInCart();
