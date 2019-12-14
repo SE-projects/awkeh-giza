@@ -3,9 +3,7 @@ package com;
 import com.model.*;
 import com.model.central.CentralStorageManager;
 import com.model.central.CentralStorageQueries;
-import com.model.customer.CartProduct;
-import com.model.customer.CustomerQueries;
-import com.model.customer.ProductInCart;
+import com.model.customer.*;
 import com.model.shop.StorageManager;
 import javafx.collections.ObservableList;
 
@@ -125,12 +123,22 @@ public class Main {
 //        cq.addProductToCart(645323, "Coke Soda", 20, 6, 120, "My Cart");
 //        cq.addProductToCart(536475, "Tooth brush", 12, 5, 60, "Another Cart");
 /*
-        cq.removeProductFromProduct(new CartProduct(45633, "Coke Soda", 20,
+        cq.removeProductFromCart(new CartProduct(45633, "Coke Soda", 20,
                 5, 10, cq.createACart("My Cart")));*/
    /*     ObservableList<ProductInCart> products = cq.viewCartContents(2);
         products.forEach(product -> System.out.println(product));*/
      /*   cq.updateProductInCart(new CartProduct(645323, "Coke Soda", 20,
                 10, 200, 1));*/
+        /*boolean order = cq.orderCart(new Cart(1, "My Cart"));
+        if(order){
+            System.out.println("Order successful");
+        }*/
+       /* cq.updateProductInCart(new CartProduct(536475, "Tooth brush", 12, 10,
+                120, 2));*/
+        /*boolean order = cq.orderCart(new Cart(2, "Another Cart"));
+        System.out.println(order);*/
+        RegisteredCustomer Eyuel = new RegisteredCustomer();
+        Eyuel.cancelOrder(new Order(2, LocalDate.now(), 2));
         cq.closeConnection();
     }
 }
