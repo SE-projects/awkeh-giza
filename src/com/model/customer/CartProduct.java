@@ -9,6 +9,16 @@ public class CartProduct {
     private double totalAmount;
     private int cartId;
 
+    public CartProduct(int productId, String productName, double price,
+                       int quantity, double totalAmount, int cartId) {
+        this.productId = productId;
+        this.productName = productName;
+        this.price = price;
+        this.quantity = quantity;
+        this.totalAmount = totalAmount;
+        this.cartId = cartId;
+    }
+
     public int getProductId() {
         return productId;
     }

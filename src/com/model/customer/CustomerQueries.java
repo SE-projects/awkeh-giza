@@ -4,7 +4,8 @@ import com.model.Connexion;
 
 import java.sql.*;
 import java.time.format.DateTimeFormatter;
-
+//TODO two features are available for customers. They can either create the cart manually or
+// the cart will be created once they try to add a product to cart
 public class CustomerQueries {
 
     private Connection connection;
@@ -72,6 +73,8 @@ public class CustomerQueries {
     private PreparedStatement insertProductIntoCart;
     private PreparedStatement createCart;
     private PreparedStatement queryCart;
+    private PreparedStatement queryProductInCart;
+    private PreparedStatement removeProductFromCart;
 
     public boolean establishConnection() {
         connection = Connexion.getInstance().getConnection();
@@ -84,6 +87,12 @@ public class CustomerQueries {
 
     public void closeConnection() {
         try {
+            if (queryProductInCart != null) {
+                queryProductInCart.close();
+            }
+            if (removeProductFromCart != null) {
+                removeProductFromCart.close();
+            }
             if (queryCart != null) {
                 queryCart.close();
             }
@@ -346,23 +355,30 @@ public class CustomerQueries {
         }
     }
 
-    public void createACart(String name) {
+    public int createACart(String name) {
         String QUERY_CART = "SELECT " + COLUMN_CART_ID + " FROM " + TABLE_CART + " WHERE " + COLUMN_CART_NAME + " = ?";
         String CREATE_A_CART = "INSERT INTO " + TABLE_CART + '(' + COLUMN_CART_NAME + ')' + " VALUES (?)";
         try {
             queryCart = connection.prepareStatement(QUERY_CART);
-            createCart = connection.prepareStatement(CREATE_A_CART);
+            createCart = connection.prepareStatement(CREATE_A_CART, Statement.RETURN_GENERATED_KEYS);
 
             queryCart.setString(1, name);
             ResultSet result = queryCart.executeQuery();
-            if(result.next()){
-                System.out.println("Cart by that name already exists");
-            } else{
+            if (result.next()) {
+                return result.getInt(1);
+//                System.out.println("Cart by that name already exists");
+
+            } else {
                 createCart.setString(1, name);
                 int affectedRows = createCart.executeUpdate();
-                if(affectedRows == 1){
+                if (affectedRows == 1) {
                     System.out.println("Cart creation successful");
-                } else{
+
+                    ResultSet resultSet = createCart.getGeneratedKeys();
+                    if(resultSet.next()){
+                        return resultSet.getInt(1);
+                    }
+                } else {
                     throw new SQLException("Cart creation unsuccessful");
                 }
             }
@@ -370,7 +386,9 @@ public class CustomerQueries {
 
         } catch (SQLException e) {
             System.out.println("Couldn't create cart");
+
         }
+        return -1;
     }
 
     public void addProductToCart(int productId, String productName, double price,
@@ -384,13 +402,11 @@ public class CustomerQueries {
 
             queryCart.setString(1, cartName);
             ResultSet result = queryCart.executeQuery();
-            if(result.next()) {
+            if (result.next()) {
                 cartId = result.getInt(1);
-            } else{
-                System.out.println("No cart by that name");
-                return;
+            } else {
+                cartId = createACart(cartName);
             }
-
             insertProductIntoCart.setInt(1, productId);
             insertProductIntoCart.setString(2, productName);
             insertProductIntoCart.setDouble(3, price);
@@ -407,6 +423,46 @@ public class CustomerQueries {
 
         } catch (SQLException e) {
             System.out.println("Couldn't add product to cart: " + e.getMessage());
+        }
+    }
+
+    public void removeProductFromProduct(CartProduct cartProduct) {
+        String QUERY_PRODUCT_IN_CART = "SELECT " + COLUMN_CART_PRODUCT_NAME + " FROM " + TABLE_CART_PRODUCT + " WHERE " +
+                COLUMN_CART_PRODUCT_ID + " = ?" + " AND " + COLUMN_CART_PRODUCT_CART_ID + " = ?";
+        String REMOVE_PRODUCT_FROM_CART = "DELETE FROM " + TABLE_CART_PRODUCT + " WHERE " + COLUMN_CART_PRODUCT_ID + " = ?" +
+                " AND " + COLUMN_CART_PRODUCT_CART_ID + " = ?";
+
+        try {
+            queryProductInCart = connection.prepareStatement(QUERY_PRODUCT_IN_CART);
+            removeProductFromCart = connection.prepareStatement(REMOVE_PRODUCT_FROM_CART);
+
+            queryProductInCart.setInt(1, cartProduct.getProductId());
+            queryProductInCart.setInt(2, cartProduct.getCartId());
+
+            ResultSet results = queryProductInCart.executeQuery();
+            if (!results.next()) {
+                System.out.println("No such product exists on database");
+            } else {
+                removeProductFromCart.setInt(1, cartProduct.getProductId());
+                removeProductFromCart.setInt(2, cartProduct.getCartId());
+
+                int affectedRows = removeProductFromCart.executeUpdate();
+                if (affectedRows != 1) {
+                    throw new SQLException("Couldn't remove product from cart");
+                } else {
+                    removeProductFromCart.setInt(1, cartProduct.getProductId());
+                    removeProductFromCart.setInt(2, cartProduct.getCartId());
+
+                    int affectedRowss = removeProductFromCart.executeUpdate();
+                    if(affectedRows == 1){
+                        System.out.println("Product removal was a success");
+                    }else{
+                        throw new SQLException("Couldn't remove");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
