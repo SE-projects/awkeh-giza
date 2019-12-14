@@ -1,6 +1,8 @@
 package com.model.customer;
 
 import com.model.Connexion;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.time.format.DateTimeFormatter;
@@ -10,6 +12,10 @@ public class CustomerQueries {
 
     private Connection connection;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
+
+    private static final int ORDER_BY_NONE = 1;
+    private static final int ORDER_BY_DESC = 2;
+    private static final int ORDER_BY_ASC = 3;
 
     private static final String TABLE_REGISTERED_CUSTOMER = "Registered_Customer";
     private static final String COLUMN_REGISTERED_CUSTOMER_ID = "id";
@@ -464,5 +470,52 @@ public class CustomerQueries {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    /*SELECT Cart.cart_name, Cart_Product.product_name, Cart_Product.price,
+    Cart_Product.quantity, Cart_Product.total_amount FROM Cart_Product
+    INNER JOIN Cart ON Cart_Product.cart_id = Cart.cart_id
+    ORDER BY Cart.cart_name, Cart_Product.product_name COLLATE NOCASE ASC*/
+    public ObservableList<ProductInCart> viewCartContents(int sortOrder){
+        String VIEW_CART_CONTENTS_START = "SELECT " + TABLE_CART + '.' + COLUMN_CART_NAME + ", " + TABLE_CART_PRODUCT +
+        '.' + COLUMN_CART_PRODUCT_NAME + ", " + TABLE_CART_PRODUCT + '.' + COLUMN_CART_PRODUCT_PRICE + ", " +
+        TABLE_CART_PRODUCT + '.' + COLUMN_CART_PRODUCT_QUANTITY + ", " + TABLE_CART_PRODUCT + '.' +
+        COLUMN_CART_PRODUCT_TOTAL_AMOUNT + " FROM " + TABLE_CART_PRODUCT + " INNER JOIN " + TABLE_CART + " ON " +
+        TABLE_CART_PRODUCT + '.' + COLUMN_CART_PRODUCT_CART_ID + " = " + TABLE_CART + '.' + COLUMN_CART_ID;
+
+        String VIEW_CART_CONTENTS_SORT = " ORDER BY " + TABLE_CART + '.' + COLUMN_CART_NAME + ", " + TABLE_CART_PRODUCT +
+                '.' + COLUMN_CART_PRODUCT_NAME + " COLLATE NOCASE ";
+
+        StringBuilder sb = new StringBuilder(VIEW_CART_CONTENTS_START);
+        if(sortOrder != ORDER_BY_NONE){
+            sb.append(VIEW_CART_CONTENTS_SORT);
+            if(sortOrder == ORDER_BY_DESC){
+                sb.append("DESC");
+            }else{
+                sb.append("ASC");
+            }
+        }
+
+        ObservableList<ProductInCart> productInCart = FXCollections.observableArrayList();
+
+        try(Statement statement = connection.createStatement();
+            ResultSet results = statement.executeQuery(sb.toString())){
+
+            while(results.next()){
+                ProductInCart product = new ProductInCart();
+                product.setCartName(results.getString(1));
+                product.setProductName(results.getString(2));
+                product.setPrice(results.getDouble(3));
+                product.setQuantity(results.getInt(4));
+                product.setTotalAmount(results.getDouble(5));
+
+                productInCart.add(product);
+            }
+
+            return productInCart;
+
+        }catch (SQLException e){
+            System.out.println("Query failed: " + e.getMessage());
+        }
+        return null;
     }
 }

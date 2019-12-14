@@ -5,6 +5,7 @@ import com.model.central.CentralStorageManager;
 import com.model.central.CentralStorageQueries;
 import com.model.customer.CartProduct;
 import com.model.customer.CustomerQueries;
+import com.model.customer.ProductInCart;
 import com.model.shop.StorageManager;
 import javafx.collections.ObservableList;
 
@@ -123,9 +124,11 @@ public class Main {
 //        cq.addProductToCart(45633, "Coke Soda", 20, 5, 10, "My Cart");
 //        cq.addProductToCart(645323, "Coke Soda", 20, 6, 120, "My Cart");
 //        cq.addProductToCart(536475, "Tooth brush", 12, 5, 60, "Another Cart");
-
+/*
         cq.removeProductFromProduct(new CartProduct(45633, "Coke Soda", 20,
-                5, 10, cq.createACart("My Cart")));
+                5, 10, cq.createACart("My Cart")));*/
+        ObservableList<ProductInCart> products = cq.viewCartContents(2);
+        products.forEach(product -> System.out.println(product));
         cq.closeConnection();
     }
 }
