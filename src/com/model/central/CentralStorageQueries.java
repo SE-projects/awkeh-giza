@@ -160,6 +160,7 @@ public class CentralStorageQueries {
             ResultSet results = queryProductInCentralStorage.executeQuery();
             if (results.next()) {
                 System.out.println("The product already exists");
+                results.close();
                 return;
             } else {
                 insertIntoCentralStorage.setInt(1, product.getId());
@@ -181,7 +182,7 @@ public class CentralStorageQueries {
                 }
 
             }
-
+            results.close();
         } catch (SQLException e) {
             System.out.println("insertion failed");
         }
@@ -206,6 +207,7 @@ public class CentralStorageQueries {
             ResultSet results = queryProductInCentralStorage.executeQuery();
             if (!results.next()) {
                 System.out.println("The product you specified does not exist");
+                results.close();
                 return;
             } else {
                 removeProductFromCentralStorage.setString(1, productName);
@@ -217,7 +219,7 @@ public class CentralStorageQueries {
                     throw new SQLException("Problem occurred with deletion");
                 }
             }
-
+            results.close();
         } catch (SQLException e) {
             System.out.println("Deletion was unsuccessful");
         }
@@ -251,7 +253,7 @@ public class CentralStorageQueries {
 
                 productList.add(product);
             }
-
+            results.close();
             return productList;
 
         } catch (Exception e) {
@@ -277,6 +279,7 @@ public class CentralStorageQueries {
             ResultSet results = queryProductInCentralStorage.executeQuery();
             if (!results.next()) {
                 System.out.println("There is no such product on database");
+                results.close();
                 return;
             } else {
                 updateProductQuantityInCentralStorage.setInt(1, quantity);
@@ -289,6 +292,7 @@ public class CentralStorageQueries {
                     throw new SQLException("Problem with update");
                 }
             }
+            results.close();
         } catch (SQLException e) {
             System.out.println("Update was not successful: " + e.getMessage());
         }

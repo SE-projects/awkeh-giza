@@ -206,6 +206,8 @@ public class CustomerQueries {
                     throw new SQLException("Error inserting customer data");
                 }
             }
+
+            results.close();
         } catch (Exception e) {
             System.out.println("Error inserting customer: " + e.getMessage());
             try {
@@ -270,7 +272,7 @@ public class CustomerQueries {
             } else {
                 throw new SQLException("Couldn't delete customer data");
             }
-
+            result.close();
         } catch (Exception e) {
             System.out.println("Error deleting customer");
             try {
@@ -347,7 +349,7 @@ public class CustomerQueries {
             } else {
                 throw new SQLException("Couldn't update customer data");
             }
-
+            result.close();
         } catch (Exception e) {
             System.out.println("Error updating customer: " + e.getMessage());
             try {
@@ -394,7 +396,7 @@ public class CustomerQueries {
                 }
             }
 
-
+            result.close();
         } catch (SQLException e) {
             System.out.println("Couldn't create cart");
 
@@ -431,7 +433,7 @@ public class CustomerQueries {
             } else {
                 throw new SQLException("Insertion failed");
             }
-
+            result.close();
         } catch (SQLException e) {
             System.out.println("Couldn't add product to cart: " + e.getMessage());
         }
@@ -472,6 +474,8 @@ public class CustomerQueries {
                     }
                 }
             }
+
+            results.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -530,14 +534,14 @@ public class CustomerQueries {
                 COLUMN_CART_PRODUCT_ID + " = ?" + " AND " + COLUMN_CART_PRODUCT_CART_ID + " = ?";
         String UPDATE_PRODUCT_IN_CART = "UPDATE " + TABLE_CART_PRODUCT + " SET " + COLUMN_CART_PRODUCT_QUANTITY + " = ?" +
                 ", " + COLUMN_CART_PRODUCT_TOTAL_AMOUNT + " = ?" + " WHERE " + COLUMN_CART_PRODUCT_ID + " = ?";
-
+        ResultSet results;
         try {
             queryProductInCart = connection.prepareStatement(QUERY_PRODUCT_IN_CART);
             updateProductInCart = connection.prepareStatement(UPDATE_PRODUCT_IN_CART);
 
             queryProductInCart.setInt(1, cartProduct.getProductId());
             queryProductInCart.setInt(2, cartProduct.getCartId());
-            ResultSet results = queryProductInCart.executeQuery();
+            results = queryProductInCart.executeQuery();
             if (!results.next()) {
                 System.out.println("No product by that name");
             } else {
@@ -546,14 +550,18 @@ public class CustomerQueries {
                 updateProductInCart.setInt(3, cartProduct.getProductId());
 
                 int affectedRows = updateProductInCart.executeUpdate();
-                if(affectedRows==1){
+                if (affectedRows == 1) {
                     System.out.println("Update successful");
-                }else{
+                } else {
                     throw new SQLException("Update not successful");
                 }
+
             }
+
+            results.close();
         } catch (SQLException e) {
             System.out.println("Update failed: " + e.getMessage());
         }
+
     }
 }
