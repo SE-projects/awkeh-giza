@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 //TODO two features are available for customers. They can either create the cart manually or
@@ -12,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 public class CustomerQueries {
 
     private Connection connection;
+    private LocalDate date;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
 
     private static final int ORDER_BY_NONE = 1;
@@ -68,6 +70,14 @@ public class CustomerQueries {
     public static final int INDEX_COLUMN_CART_ID = 1;
     public static final int INDEX_COLUMN_CART_NAME = 2;
 
+    public static final String TABLE_ORDER = "Orders";
+    public static final String COLUMN_ORDER_ID = "order_id";
+    public static final String COLUMN_ORDER_DATE = "order_date";
+    public static final String COLUMN_ORDER_CART_ID = "cart_id";
+    public static final int INDEX_ORDER_ID = 1;
+    public static final int INDEX_ORDER_DATE = 2;
+    public static final int INDEX_ORDER_CART_ID = 3;
+
     private PreparedStatement insertNewlyRegisteredCustomer;
     private PreparedStatement queryCustomerByUserName;
     private PreparedStatement insertNewlyRegisteredCustomerData;
@@ -83,6 +93,7 @@ public class CustomerQueries {
     private PreparedStatement queryProductInCart;
     private PreparedStatement removeProductFromCart;
     private PreparedStatement updateProductInCart;
+    private PreparedStatement insertOrder;
 
     public boolean establishConnection() {
         connection = Connexion.getInstance().getConnection();
@@ -95,6 +106,9 @@ public class CustomerQueries {
 
     public void closeConnection() {
         try {
+            if(insertOrder != null){
+                insertOrder.close();
+            }
             if (updateProductInCart != null) {
                 updateProductInCart.close();
             }
@@ -534,14 +548,13 @@ public class CustomerQueries {
                 COLUMN_CART_PRODUCT_ID + " = ?" + " AND " + COLUMN_CART_PRODUCT_CART_ID + " = ?";
         String UPDATE_PRODUCT_IN_CART = "UPDATE " + TABLE_CART_PRODUCT + " SET " + COLUMN_CART_PRODUCT_QUANTITY + " = ?" +
                 ", " + COLUMN_CART_PRODUCT_TOTAL_AMOUNT + " = ?" + " WHERE " + COLUMN_CART_PRODUCT_ID + " = ?";
-        ResultSet results;
         try {
             queryProductInCart = connection.prepareStatement(QUERY_PRODUCT_IN_CART);
             updateProductInCart = connection.prepareStatement(UPDATE_PRODUCT_IN_CART);
 
             queryProductInCart.setInt(1, cartProduct.getProductId());
             queryProductInCart.setInt(2, cartProduct.getCartId());
-            results = queryProductInCart.executeQuery();
+            ResultSet results = queryProductInCart.executeQuery();
             if (!results.next()) {
                 System.out.println("No product by that name");
             } else {
@@ -563,5 +576,37 @@ public class CustomerQueries {
             System.out.println("Update failed: " + e.getMessage());
         }
 
+    }
+
+    public boolean orderCart(Cart cart){
+        String QUERY_PRODUCTS_IN_CART_IF_THEY_EXIST = "SELECT " + COLUMN_CART_PRODUCT_NAME + " FROM " + TABLE_CART_PRODUCT
+        + " WHERE " + COLUMN_CART_PRODUCT_CART_ID + " = ?" + " AND " + COLUMN_CART_PRODUCT_QUANTITY + " > 5";
+        String ORDER_CART = "INSERT INTO " + TABLE_ORDER + '(' + COLUMN_ORDER_DATE + ", " + COLUMN_ORDER_CART_ID + ')' +
+                " VALUES " + "(?,?)";
+        date = LocalDate.now();
+        try{
+            insertOrder = connection.prepareStatement(ORDER_CART);
+            queryProductInCart = connection.prepareStatement(QUERY_PRODUCTS_IN_CART_IF_THEY_EXIST);
+            queryProductInCart.setInt(1, cart.getCartId());
+            ResultSet results = queryProductInCart.executeQuery();
+            if (!results.next()) {
+                System.out.println("You have no products to order");
+            } else {
+                insertOrder.setString(1, String.format("%s", date.format(formatter)));
+                insertOrder.setInt(2, cart.getCartId());
+
+                int affectedRows = insertOrder.executeUpdate();
+                if(affectedRows==1){
+                    System.out.println("Order successful");
+                    return true;
+                }else{
+                    throw new SQLException("Order was not successful");
+                }
+            }
+            results.close();
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 }

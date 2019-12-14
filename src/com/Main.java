@@ -3,6 +3,7 @@ package com;
 import com.model.*;
 import com.model.central.CentralStorageManager;
 import com.model.central.CentralStorageQueries;
+import com.model.customer.Cart;
 import com.model.customer.CartProduct;
 import com.model.customer.CustomerQueries;
 import com.model.customer.ProductInCart;
@@ -131,6 +132,10 @@ public class Main {
         products.forEach(product -> System.out.println(product));*/
      /*   cq.updateProductInCart(new CartProduct(645323, "Coke Soda", 20,
                 10, 200, 1));*/
+        /*boolean order = cq.orderCart(new Cart(1, "My Cart"));
+        if(order){
+            System.out.println("Order successful");
+        }*/
         cq.closeConnection();
     }
 }
