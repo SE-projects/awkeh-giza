@@ -159,7 +159,7 @@ public class StorageQueries {
                 }
 
             }
-
+            results.close();
         } catch (SQLException e) {
             System.out.println("insertion failed");
         }
@@ -167,7 +167,8 @@ public class StorageQueries {
 
     public void removeProductFromCentralStorage(String tableName, String productName, String brandName) {
         String QUERY_PRODUCT_IN_STORAGE_BY_NAME_AND_BRAND = "SELECT " + COLUMN_STORAGE_ID +
-                " FROM " + tableName + " WHERE " + COLUMN_STORAGE_PRODUCT_NAME + " = ?" + " AND " + COLUMN_STORAGE_BRAND_NAME + " = ?";
+                " FROM " + tableName + " WHERE " + COLUMN_STORAGE_PRODUCT_NAME + " = ?" + " AND " +
+                COLUMN_STORAGE_BRAND_NAME + " = ?";
 
         String REMOVE_PRODUCT_IN_STORAGE_BY_NAME_AND_BRAND = "DELETE FROM " + tableName + " WHERE " +
                 COLUMN_STORAGE_PRODUCT_NAME + " = ?" + " AND " + COLUMN_STORAGE_BRAND_NAME + " = ?";
@@ -192,7 +193,7 @@ public class StorageQueries {
                     throw new SQLException("Problem occurred with deletion");
                 }
             }
-
+            results.close();
         } catch (SQLException e) {
             System.out.println("Deletion was unsuccessful");
         }

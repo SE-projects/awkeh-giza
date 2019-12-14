@@ -1,15 +1,22 @@
 package com.model.customer;
 
 import com.model.Connexion;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.time.format.DateTimeFormatter;
+
 //TODO two features are available for customers. They can either create the cart manually or
 // the cart will be created once they try to add a product to cart
 public class CustomerQueries {
 
     private Connection connection;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
+
+    private static final int ORDER_BY_NONE = 1;
+    private static final int ORDER_BY_DESC = 2;
+    private static final int ORDER_BY_ASC = 3;
 
     private static final String TABLE_REGISTERED_CUSTOMER = "Registered_Customer";
     private static final String COLUMN_REGISTERED_CUSTOMER_ID = "id";
@@ -75,6 +82,7 @@ public class CustomerQueries {
     private PreparedStatement queryCart;
     private PreparedStatement queryProductInCart;
     private PreparedStatement removeProductFromCart;
+    private PreparedStatement updateProductInCart;
 
     public boolean establishConnection() {
         connection = Connexion.getInstance().getConnection();
@@ -87,6 +95,9 @@ public class CustomerQueries {
 
     public void closeConnection() {
         try {
+            if (updateProductInCart != null) {
+                updateProductInCart.close();
+            }
             if (queryProductInCart != null) {
                 queryProductInCart.close();
             }
@@ -195,6 +206,8 @@ public class CustomerQueries {
                     throw new SQLException("Error inserting customer data");
                 }
             }
+
+            results.close();
         } catch (Exception e) {
             System.out.println("Error inserting customer: " + e.getMessage());
             try {
@@ -259,7 +272,7 @@ public class CustomerQueries {
             } else {
                 throw new SQLException("Couldn't delete customer data");
             }
-
+            result.close();
         } catch (Exception e) {
             System.out.println("Error deleting customer");
             try {
@@ -336,7 +349,7 @@ public class CustomerQueries {
             } else {
                 throw new SQLException("Couldn't update customer data");
             }
-
+            result.close();
         } catch (Exception e) {
             System.out.println("Error updating customer: " + e.getMessage());
             try {
@@ -375,7 +388,7 @@ public class CustomerQueries {
                     System.out.println("Cart creation successful");
 
                     ResultSet resultSet = createCart.getGeneratedKeys();
-                    if(resultSet.next()){
+                    if (resultSet.next()) {
                         return resultSet.getInt(1);
                     }
                 } else {
@@ -383,7 +396,7 @@ public class CustomerQueries {
                 }
             }
 
-
+            result.close();
         } catch (SQLException e) {
             System.out.println("Couldn't create cart");
 
@@ -420,7 +433,7 @@ public class CustomerQueries {
             } else {
                 throw new SQLException("Insertion failed");
             }
-
+            result.close();
         } catch (SQLException e) {
             System.out.println("Couldn't add product to cart: " + e.getMessage());
         }
@@ -454,15 +467,101 @@ public class CustomerQueries {
                     removeProductFromCart.setInt(2, cartProduct.getCartId());
 
                     int affectedRowss = removeProductFromCart.executeUpdate();
-                    if(affectedRows == 1){
+                    if (affectedRows == 1) {
                         System.out.println("Product removal was a success");
-                    }else{
+                    } else {
                         throw new SQLException("Couldn't remove");
                     }
                 }
             }
+
+            results.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /*SELECT Cart.cart_name, Cart_Product.product_name, Cart_Product.price,
+    Cart_Product.quantity, Cart_Product.total_amount FROM Cart_Product
+    INNER JOIN Cart ON Cart_Product.cart_id = Cart.cart_id
+    ORDER BY Cart.cart_name, Cart_Product.product_name COLLATE NOCASE ASC*/
+    public ObservableList<ProductInCart> viewCartContents(int sortOrder) {
+        String VIEW_CART_CONTENTS_START = "SELECT " + TABLE_CART + '.' + COLUMN_CART_NAME + ", " + TABLE_CART_PRODUCT +
+                '.' + COLUMN_CART_PRODUCT_NAME + ", " + TABLE_CART_PRODUCT + '.' + COLUMN_CART_PRODUCT_PRICE + ", " +
+                TABLE_CART_PRODUCT + '.' + COLUMN_CART_PRODUCT_QUANTITY + ", " + TABLE_CART_PRODUCT + '.' +
+                COLUMN_CART_PRODUCT_TOTAL_AMOUNT + " FROM " + TABLE_CART_PRODUCT + " INNER JOIN " + TABLE_CART + " ON " +
+                TABLE_CART_PRODUCT + '.' + COLUMN_CART_PRODUCT_CART_ID + " = " + TABLE_CART + '.' + COLUMN_CART_ID;
+
+        String VIEW_CART_CONTENTS_SORT = " ORDER BY " + TABLE_CART + '.' + COLUMN_CART_NAME + ", " + TABLE_CART_PRODUCT +
+                '.' + COLUMN_CART_PRODUCT_NAME + " COLLATE NOCASE ";
+
+        StringBuilder sb = new StringBuilder(VIEW_CART_CONTENTS_START);
+        if (sortOrder != ORDER_BY_NONE) {
+            sb.append(VIEW_CART_CONTENTS_SORT);
+            if (sortOrder == ORDER_BY_DESC) {
+                sb.append("DESC");
+            } else {
+                sb.append("ASC");
+            }
+        }
+
+        ObservableList<ProductInCart> productInCart = FXCollections.observableArrayList();
+
+        try (Statement statement = connection.createStatement();
+             ResultSet results = statement.executeQuery(sb.toString())) {
+
+            while (results.next()) {
+                ProductInCart product = new ProductInCart();
+                product.setCartName(results.getString(1));
+                product.setProductName(results.getString(2));
+                product.setPrice(results.getDouble(3));
+                product.setQuantity(results.getInt(4));
+                product.setTotalAmount(results.getDouble(5));
+
+                productInCart.add(product);
+            }
+
+            return productInCart;
+
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public void updateProductInCart(CartProduct cartProduct) {
+        String QUERY_PRODUCT_IN_CART = "SELECT " + COLUMN_CART_PRODUCT_NAME + " FROM " + TABLE_CART_PRODUCT + " WHERE " +
+                COLUMN_CART_PRODUCT_ID + " = ?" + " AND " + COLUMN_CART_PRODUCT_CART_ID + " = ?";
+        String UPDATE_PRODUCT_IN_CART = "UPDATE " + TABLE_CART_PRODUCT + " SET " + COLUMN_CART_PRODUCT_QUANTITY + " = ?" +
+                ", " + COLUMN_CART_PRODUCT_TOTAL_AMOUNT + " = ?" + " WHERE " + COLUMN_CART_PRODUCT_ID + " = ?";
+        ResultSet results;
+        try {
+            queryProductInCart = connection.prepareStatement(QUERY_PRODUCT_IN_CART);
+            updateProductInCart = connection.prepareStatement(UPDATE_PRODUCT_IN_CART);
+
+            queryProductInCart.setInt(1, cartProduct.getProductId());
+            queryProductInCart.setInt(2, cartProduct.getCartId());
+            results = queryProductInCart.executeQuery();
+            if (!results.next()) {
+                System.out.println("No product by that name");
+            } else {
+                updateProductInCart.setInt(1, cartProduct.getQuantity());
+                updateProductInCart.setDouble(2, cartProduct.getTotalAmount());
+                updateProductInCart.setInt(3, cartProduct.getProductId());
+
+                int affectedRows = updateProductInCart.executeUpdate();
+                if (affectedRows == 1) {
+                    System.out.println("Update successful");
+                } else {
+                    throw new SQLException("Update not successful");
+                }
+
+            }
+
+            results.close();
+        } catch (SQLException e) {
+            System.out.println("Update failed: " + e.getMessage());
+        }
+
     }
 }
