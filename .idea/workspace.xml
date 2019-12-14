@@ -91,8 +91,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="393">
-              <caret line="141" column="40" lean-forward="true" selection-start-line="141" selection-start-column="40" selection-end-line="141" selection-end-column="40" />
+            <state relative-caret-position="410">
+              <caret line="143" column="29" lean-forward="true" selection-start-line="143" selection-start-column="29" selection-end-line="143" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -109,7 +109,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/model/customer/RegisteredCustomer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
+            <state relative-caret-position="221">
               <caret line="97" column="81" selection-start-line="97" selection-start-column="81" selection-end-line="97" selection-end-column="81" />
             </state>
           </provider>
@@ -466,7 +466,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="144850000" />
+    <option name="totallyTimeSpent" value="144855000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -808,7 +808,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/model/customer/RegisteredCustomer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
+        <state relative-caret-position="221">
           <caret line="97" column="81" selection-start-line="97" selection-start-column="81" selection-end-line="97" selection-end-column="81" />
         </state>
       </provider>
@@ -822,8 +822,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="141" column="40" lean-forward="true" selection-start-line="141" selection-start-column="40" selection-end-line="141" selection-end-column="40" />
+        <state relative-caret-position="410">
+          <caret line="143" column="29" lean-forward="true" selection-start-line="143" selection-start-column="29" selection-end-line="143" selection-end-column="29" />
         </state>
       </provider>
     </entry>
