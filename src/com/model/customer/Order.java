@@ -7,6 +7,13 @@ public class Order {
     private LocalDate orderDate;
     private int cartId;
 
+
+    public Order(int orderId, LocalDate orderDate, int cartId) {
+        this.orderId = orderId;
+        this.orderDate = orderDate;
+        this.cartId = cartId;
+    }
+
     public int getOrderId() {
         return orderId;
     }

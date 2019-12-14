@@ -94,6 +94,8 @@ public class CustomerQueries {
     private PreparedStatement removeProductFromCart;
     private PreparedStatement updateProductInCart;
     private PreparedStatement insertOrder;
+    private PreparedStatement queryProductInCartByQuantity;
+    private PreparedStatement cancelOrder;
 
     public boolean establishConnection() {
         connection = Connexion.getInstance().getConnection();
@@ -106,6 +108,9 @@ public class CustomerQueries {
 
     public void closeConnection() {
         try {
+            if(queryProductInCartByQuantity != null){
+                queryProductInCartByQuantity.close();
+            }
             if(insertOrder != null){
                 insertOrder.close();
             }
@@ -382,21 +387,21 @@ public class CustomerQueries {
         }
     }
 
-    public int createACart(String name) {
+    public int createACart(String cartName) {
         String QUERY_CART = "SELECT " + COLUMN_CART_ID + " FROM " + TABLE_CART + " WHERE " + COLUMN_CART_NAME + " = ?";
         String CREATE_A_CART = "INSERT INTO " + TABLE_CART + '(' + COLUMN_CART_NAME + ')' + " VALUES (?)";
         try {
             queryCart = connection.prepareStatement(QUERY_CART);
             createCart = connection.prepareStatement(CREATE_A_CART, Statement.RETURN_GENERATED_KEYS);
 
-            queryCart.setString(1, name);
+            queryCart.setString(1, cartName);
             ResultSet result = queryCart.executeQuery();
             if (result.next()) {
                 return result.getInt(1);
 //                System.out.println("Cart by that name already exists");
 
             } else {
-                createCart.setString(1, name);
+                createCart.setString(1, cartName);
                 int affectedRows = createCart.executeUpdate();
                 if (affectedRows == 1) {
                     System.out.println("Cart creation successful");
@@ -453,7 +458,7 @@ public class CustomerQueries {
         }
     }
 
-    public void removeProductFromProduct(CartProduct cartProduct) {
+    public void removeProductFromCart(CartProduct cartProduct) {
         String QUERY_PRODUCT_IN_CART = "SELECT " + COLUMN_CART_PRODUCT_NAME + " FROM " + TABLE_CART_PRODUCT + " WHERE " +
                 COLUMN_CART_PRODUCT_ID + " = ?" + " AND " + COLUMN_CART_PRODUCT_CART_ID + " = ?";
         String REMOVE_PRODUCT_FROM_CART = "DELETE FROM " + TABLE_CART_PRODUCT + " WHERE " + COLUMN_CART_PRODUCT_ID + " = ?" +
@@ -499,6 +504,7 @@ public class CustomerQueries {
     Cart_Product.quantity, Cart_Product.total_amount FROM Cart_Product
     INNER JOIN Cart ON Cart_Product.cart_id = Cart.cart_id
     ORDER BY Cart.cart_name, Cart_Product.product_name COLLATE NOCASE ASC*/
+
     public ObservableList<ProductInCart> viewCartContents(int sortOrder) {
         String VIEW_CART_CONTENTS_START = "SELECT " + TABLE_CART + '.' + COLUMN_CART_NAME + ", " + TABLE_CART_PRODUCT +
                 '.' + COLUMN_CART_PRODUCT_NAME + ", " + TABLE_CART_PRODUCT + '.' + COLUMN_CART_PRODUCT_PRICE + ", " +
@@ -586,9 +592,9 @@ public class CustomerQueries {
         date = LocalDate.now();
         try{
             insertOrder = connection.prepareStatement(ORDER_CART);
-            queryProductInCart = connection.prepareStatement(QUERY_PRODUCTS_IN_CART_IF_THEY_EXIST);
-            queryProductInCart.setInt(1, cart.getCartId());
-            ResultSet results = queryProductInCart.executeQuery();
+            queryProductInCartByQuantity = connection.prepareStatement(QUERY_PRODUCTS_IN_CART_IF_THEY_EXIST);
+            queryProductInCartByQuantity.setInt(1, cart.getCartId());
+            ResultSet results = queryProductInCartByQuantity.executeQuery();
             if (!results.next()) {
                 System.out.println("You have no products to order");
             } else {
@@ -606,6 +612,26 @@ public class CustomerQueries {
             results.close();
         }catch (SQLException e){
             System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    public boolean cancelOrder(Order order){
+        String CANCEL_ORDER = "DELETE FROM " + TABLE_ORDER + " WHERE " + COLUMN_ORDER_CART_ID + " = ?";
+
+        try{
+            cancelOrder = connection.prepareStatement(CANCEL_ORDER);
+
+            cancelOrder.setInt(1, order.getCartId());
+            int affectedRows = cancelOrder.executeUpdate();
+            if(affectedRows==1){
+                System.out.println("Order cancellation successful");
+            }else{
+                throw new SQLException("Order cancellation unsuccessful");
+            }
+
+        }catch (SQLException e){
+            System.out.println("Deletion failed");
         }
         return false;
     }
