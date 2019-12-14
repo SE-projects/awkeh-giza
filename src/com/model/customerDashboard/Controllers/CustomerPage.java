@@ -245,7 +245,7 @@ public class CustomerPage implements Initializable {
             cartgrid.setVisible(true);
             productgrid.toFront();
             cartArray.clear();
-            
+            listProductInCart();
         }
         else if(event.getSource() == viewgrid){
             txt.setText("view");
@@ -291,10 +291,134 @@ public class CustomerPage implements Initializable {
      //for addtoCart button in viewgrid
     @FXML
     void handleAddToCart(ActionEvent event) {
-//         AddToCart();
+         AddToCart();
     }
     
+    void AddToCart(){
+        DialogPane dialog=new DialogPane();
+         
+          if(!(amount.getText() == null || amount.getText().length() == 0)){
+         try{
+         if(DBConnection.connect()){
+              System.out.println("ready to add");
+         
+            query = "insert into cart (productId, productName, productType, price,amount) "
+                     + "values('" + singleProd.getProductId()+ "','" + singleProd.getProductName()+ "','" + singleProd.getType()+ "','" + singleProd.getPrice()+ "','" + singleProd.getAmount()+ "')";
+                 System.out.println(query);
+                 int res =DBConnection.query(query);
+                 if( res != -1){
+                System.out.println("Your query is executed");
+                 productgrid.setVisible(true);
+                 viewgrid.setVisible(false);
+                 productgrid.toFront();
+                txt.setStyle("-fx-background-color: #8A2BE2");
+                txt.setStyle("-fx-color : white");
+                txt.setText("Successfully added to cart");
+                 myTimer.schedule(new TimerTask(){
+
+                @Override
+                public void run() {
+                     txt.setText("product");
+                }
+                },3500);
+                 }
+                 else{
+                    Alert alert = new Alert(AlertType.ERROR);
+//                    alert.setTitle("Info Dialog");
+                    alert.setHeaderText("Duplication Error ");
+                    alert.setContentText("This item already added!");
+//                    alert.setAlertType(AlertType.);
+                    alert.setX(510);
+                     alert.setY(285);
+//                    alert.setHeight(300);
+//                     alert.setWidth(400);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.initStyle(StageStyle.UNDECORATED);
+                    alert.initModality(Modality.WINDOW_MODAL);
+                    alert.showAndWait();
+                 }
+                 
+            }   
+//            DBConnection.disConnect();
+    }
+         catch(Exception ex){
+             ex.printStackTrace();
+         }    
+    }
+        else{
+              System.out.println("amount empty");
+              Alert alert = new Alert(AlertType.ERROR);
+//              alert.setTitle("Error Dialog");
+              alert.setHeaderText("Input Error");
+              alert.setContentText("Specify amount of u want add!");
+              alert.initStyle(StageStyle.UTILITY);
+                alert.setX(510);
+                alert.setY(285);
+//              alert.setHeight(400);
+//              alert.setWidth(500);
+              
+              alert.setAlertType(AlertType.ERROR);
+               alert.initStyle(StageStyle.UNDECORATED);
+              alert.initModality(Modality.WINDOW_MODAL);
+              alert.showAndWait();
+                System.out.println("Your query is not executed");
+
+            }
+    
+    
+    }
+    
+     void AddSingleToCart(){
+        DialogPane dialog=new DialogPane();
+         try{
+         if(DBConnection.connect()){
+              System.out.println("ready to add");
+             
+            query = "insert into cart (productId, productName, productType, price,amount) "
+                     + "values('" + fixedAmountProd.getProductId()+ "','" + fixedAmountProd.getProductName()+ "','" + fixedAmountProd.getType()+ "','" + fixedAmountProd.getPrice()+ "','" + fixedAmountProd.getAmount()+ "')";
+                 System.out.println(query);
+                 int res =DBConnection.query(query);
+                 if( res != -1){
+                System.out.println("Your query is executed");
+                 productgrid.setVisible(true);
+                 viewgrid.setVisible(false);
+                 productgrid.toFront();
+                txt.setStyle("-fx-background-color: #8A2BE2");
+                txt.setStyle("-fx-color : white");
+                txt.setText("Successfully added to cart");
+
+                myTimer.schedule(new TimerTask(){
+
+                @Override
+                public void run() {
+                     txt.setText("product");
+                }
+                },3500);
+                 }
+                 else{
+                    Alert alert = new Alert(AlertType.ERROR);
+//                    alert.setTitle("Info Dialog");
+                    alert.setHeaderText("Duplication Error ");
+                    alert.setContentText("This item already added!");
+//                    alert.setAlertType(AlertType.);
+                    alert.setX(510);
+                     alert.setY(285);
+//                    alert.setHeight(300);
+//                     alert.setWidth(400);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.initStyle(StageStyle.UNDECORATED);
+                    alert.initModality(Modality.WINDOW_MODAL);
+                    alert.showAndWait();
+                 }
+            }   
+//            DBConnection.disConnect();
+    }
+         catch(Exception ex){
+             ex.printStackTrace();
+         }    
    
+    
+    }
     @FXML
     void handleSearch(ActionEvent event) {
         customerArray.clear();
@@ -310,7 +434,37 @@ public class CustomerPage implements Initializable {
         }
     }
     
-   
+    public void listProductInCart(){
+        if(DBConnection.connect()){
+            System.out.println("connected");
+            query="select * from cart";
+            result=DBConnection.select(query);
+            System.out.println(result);
+            try {
+                while(result.next()){
+                    cartProd= new Products(
+                            result.getInt("productId"),
+                            result.getString("productName"),
+                            result.getString("productType"),
+                            result.getDouble("price"),
+                            result.getString("amount")
+                    
+                    );
+                    
+                    cartArray.add(cartProd);
+                    System.out.println("added to cart array");
+                
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(CustomerPage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             displayCartResult();
+             cartTable.setItems(cartArray);
+           
+           
+        }
+    
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 //        menu1.setText("menu 1");
@@ -339,7 +493,7 @@ public class CustomerPage implements Initializable {
 //        addPanel.setCenter(GlyphsDude.createIcon(FontAwesomeIcons.SHOPPING_CART,"20px"));
        homegrid.setVisible(true);
        selectProduct();
-      
+       listProductInCart();
     }  
     
     public void selectProduct(){
@@ -507,7 +661,7 @@ public class CustomerPage implements Initializable {
                                 System.out.println("add clicked");
 //                                 fixedAmountProd.setAmount(1);
                                  fixedAmountProd= new Products(person.productId,person.productName,person.type,person.price,1);
-//                                AddSingleToCart();
+                                AddSingleToCart();
                             });
                             
                             add_btn.setAlignment(Pos.CENTER);
@@ -537,6 +691,99 @@ public class CustomerPage implements Initializable {
            
     }
     
-    
+     public void displayCartResult(){
+         view.setCellValueFactory(new PropertyValueFactory<>("DELETE"));
+
+        Callback<TableColumn<Products, String>, TableCell<Products, String>> viewFactory = new Callback<TableColumn<Products, String>, TableCell<Products, String>>() {
+            @Override
+            public TableCell call(final TableColumn<Products, String> param) {
+                final TableCell<Products, String> cell = new TableCell<Products, String>() {
+
+                    final Button delete_btn = new Button("delete");
+
+                    @Override
+                    public void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                            setText(null);
+                        } else {
+                            delete_btn.setOnAction(event -> {
+                                
+                                Products person = getTableView().getItems().get(getIndex());
+                                custSingleArray=getDeatilProduct(person.productId);
+                                System.out.println("delete clicked");
+                                System.out.println(person.productName);
+                                deleteProductFromCart(person.productId);
+                                 cartArray.clear();
+                                listProductInCart();
+                                
+                            });
+                            delete_btn.setAlignment(Pos.CENTER);
+//                          view_btn.setPrefSize(15, 15);
+                            delete_btn.setStyle("-fx-background-color:#600080");
+//                            view_btn.setStyle("-fx-color: white");
+                            delete_btn.setStyle("margin-left: 3px");
+                            delete_btn.setStyle("padding-left: 5px");
+                            setGraphic(delete_btn);
+                            setText(null);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+            view1.setCellFactory(viewFactory);
+            id1.setCellValueFactory(new PropertyValueFactory<>("productId"));
+            mname1.setCellValueFactory(new PropertyValueFactory<>("productName"));
+            type1.setCellValueFactory(new PropertyValueFactory<>("productType"));
+            price1.setCellValueFactory(new PropertyValueFactory<>("price"));
+            location1.setCellValueFactory(new PropertyValueFactory<>("amount"));
+            
+           
+    }
+     
+     public void deleteProductFromCart(int index){
+         if(DBConnection.connect()){
+         query="delete from cart where productId='"+index+"'";
+         DBConnection.query(query);
+          int res =DBConnection.query(query);
+                 if( res != -1){
+                System.out.println("Your query is executed");
+//                 productgrid.setVisible(true);
+//                 viewgrid.setVisible(false);
+//                 productgrid.toFront();
+                txt.setStyle("-fx-background-color: #8A2BE2");
+                txt.setStyle("-fx-color : white");
+                txt.setText("deleted from cart");
+               
+                myTimer.schedule(new TimerTask(){
+
+                @Override
+                public void run() {
+                     txt.setText("cart");
+                }
+                },3500);
+                 }
+                 else{
+                    Alert alert = new Alert(AlertType.ERROR);
+//                    alert.setTitle("Info Dialog");
+                    alert.setHeaderText("Delete Error ");
+                    alert.setContentText("delete operation unsuccessful!");
+                 
+                    alert.setX(510);
+                     alert.setY(285);
+//                    alert.setHeight(300);
+//                     alert.setWidth(400);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.initStyle(StageStyle.UNDECORATED);
+                    alert.initModality(Modality.WINDOW_MODAL);
+                    alert.showAndWait();
+                 
+                 }
+         }
+     
+     }
 }
 
