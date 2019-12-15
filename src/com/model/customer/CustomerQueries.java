@@ -67,16 +67,20 @@ public class CustomerQueries {
     public static final String TABLE_CART = "Cart";
     public static final String COLUMN_CART_ID = "cart_id";
     public static final String COLUMN_CART_NAME = "cart_name";
-    public static final int INDEX_COLUMN_CART_ID = 1;
-    public static final int INDEX_COLUMN_CART_NAME = 2;
+    public static final String COLUMN_CART_CUSTOMER_ID = "customer_id";
+    public static final int INDEX_CART_ID = 1;
+    public static final int INDEX_CART_NAME = 2;
+    public static final int INDEX_CART_CUSTOMER_ID = 3;
 
     public static final String TABLE_ORDER = "Orders";
     public static final String COLUMN_ORDER_ID = "order_id";
     public static final String COLUMN_ORDER_DATE = "order_date";
     public static final String COLUMN_ORDER_CART_ID = "cart_id";
+    public static final String COLUMN_ORDER_CUSTOMER_ID = "customer_id";
     public static final int INDEX_ORDER_ID = 1;
     public static final int INDEX_ORDER_DATE = 2;
     public static final int INDEX_ORDER_CART_ID = 3;
+    public static final int INDEX_ORDER_CUSTOMER_ID = 4;
 
     private PreparedStatement insertNewlyRegisteredCustomer;
     private PreparedStatement queryCustomerByUserName;
@@ -109,6 +113,9 @@ public class CustomerQueries {
 
     public void closeConnection() {
         try {
+            if(cancelOrder != null){
+                cancelOrder.close();
+            }
             if(viewCartContents != null){
                 viewCartContents.close();
             }
@@ -391,9 +398,10 @@ public class CustomerQueries {
         }
     }
 
-    public int createACart(String cartName) {
+    public int createACart(String cartName, int customerId) {
         String QUERY_CART = "SELECT " + COLUMN_CART_ID + " FROM " + TABLE_CART + " WHERE " + COLUMN_CART_NAME + " = ?";
-        String CREATE_A_CART = "INSERT INTO " + TABLE_CART + '(' + COLUMN_CART_NAME + ')' + " VALUES (?)";
+        String CREATE_A_CART = "INSERT INTO " + TABLE_CART + '(' + COLUMN_CART_NAME + ", " +
+                COLUMN_CART_CUSTOMER_ID + ')' + " VALUES (?,?)";
         try {
             queryCart = connection.prepareStatement(QUERY_CART);
             createCart = connection.prepareStatement(CREATE_A_CART, Statement.RETURN_GENERATED_KEYS);
@@ -401,11 +409,11 @@ public class CustomerQueries {
             queryCart.setString(1, cartName);
             ResultSet result = queryCart.executeQuery();
             if (result.next()) {
+                System.out.println("Cart by that name already exists");
                 return result.getInt(1);
-//                System.out.println("Cart by that name already exists");
-
             } else {
                 createCart.setString(1, cartName);
+                createCart.setInt(2, customerId);
                 int affectedRows = createCart.executeUpdate();
                 if (affectedRows == 1) {
                     System.out.println("Cart creation successful");
@@ -428,7 +436,7 @@ public class CustomerQueries {
     }
 
     public void addProductToCart(int productId, String productName, double price,
-                                 int quantity, double totalAmount, String cartName) {
+                                 int quantity, double totalAmount, String cartName, int customerId) {
         String QUERY_CART = "SELECT " + COLUMN_CART_ID + " FROM " + TABLE_CART + " WHERE " + COLUMN_CART_NAME + " = ?";
         String ADD_PRODUCT_TO_CART = "INSERT INTO " + TABLE_CART_PRODUCT + " VALUES (?,?,?,?,?,?)";
         int cartId;
@@ -441,7 +449,7 @@ public class CustomerQueries {
             if (result.next()) {
                 cartId = result.getInt(1);
             } else {
-                cartId = createACart(cartName);
+                cartId = createACart(cartName, customerId);
             }
             insertProductIntoCart.setInt(1, productId);
             insertProductIntoCart.setString(2, productName);
@@ -596,8 +604,9 @@ public class CustomerQueries {
     public boolean orderCart(Cart cart){
         String QUERY_PRODUCTS_IN_CART_IF_THEY_EXIST = "SELECT " + COLUMN_CART_PRODUCT_NAME + " FROM " + TABLE_CART_PRODUCT
         + " WHERE " + COLUMN_CART_PRODUCT_CART_ID + " = ?" + " AND " + COLUMN_CART_PRODUCT_QUANTITY + " > 5";
-        String ORDER_CART = "INSERT INTO " + TABLE_ORDER + '(' + COLUMN_ORDER_DATE + ", " + COLUMN_ORDER_CART_ID + ')' +
-                " VALUES " + "(?,?)";
+        String ORDER_CART = "INSERT INTO " + TABLE_ORDER + '(' + COLUMN_ORDER_DATE + ", " + COLUMN_ORDER_CART_ID +
+               ", " + COLUMN_ORDER_CUSTOMER_ID +')' +
+                " VALUES " + "(?,?,?)";
         date = LocalDate.now();
         try{
             insertOrder = connection.prepareStatement(ORDER_CART);
@@ -609,6 +618,7 @@ public class CustomerQueries {
             } else {
                 insertOrder.setString(1, String.format("%s", date.format(formatter)));
                 insertOrder.setInt(2, cart.getCartId());
+                insertOrder.setInt(3, cart.getCustomerId());
 
                 int affectedRows = insertOrder.executeUpdate();
                 if(affectedRows==1){
@@ -626,12 +636,15 @@ public class CustomerQueries {
     }
 
     public boolean cancelOrder(Order order){
-        String CANCEL_ORDER = "DELETE FROM " + TABLE_ORDER + " WHERE " + COLUMN_ORDER_CART_ID + " = ?";
+        String CANCEL_ORDER = "DELETE FROM " + TABLE_ORDER + " WHERE " + COLUMN_ORDER_CART_ID + " = ?" +
+                " AND " + COLUMN_ORDER_CUSTOMER_ID + " = ?";
 
         try{
             cancelOrder = connection.prepareStatement(CANCEL_ORDER);
 
             cancelOrder.setInt(1, order.getCartId());
+            cancelOrder.setInt(2, order.getCustomer_id());
+
             int affectedRows = cancelOrder.executeUpdate();
             if(affectedRows==1){
                 System.out.println("Order cancellation successful");

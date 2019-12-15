@@ -56,26 +56,26 @@ public class RegisteredCustomer {
        cq.closeConnection();
     }
 
-    public int createACart(String cartName){
+    public int createACart(String cartName, int customerId){
         if(!cq.establishConnection()){
             System.out.println("Couldn't establish connection");
             return -1;
         }
 
-        int cartId = cq.createACart(cartName);
+        int cartId = cq.createACart(cartName, customerId);
 
         cq.closeConnection();
 
         return cartId;
     }
     public void addProductToCart(int productId, String productName, double price,
-                                 int quantity, double totalAmount, String cartName){
+                                 int quantity, double totalAmount, String cartName, int customerId){
         if(!cq.establishConnection()){
             System.out.println("Couldn't establish connection");
             return;
         }
 
-        cq.addProductToCart(productId, productName, price, quantity, totalAmount, cartName);
+        cq.addProductToCart(productId, productName, price, quantity, totalAmount, cartName, customerId);
 
         cq.closeConnection();
     }

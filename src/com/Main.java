@@ -139,8 +139,13 @@ public class Main {
         System.out.println(order);*/
         RegisteredCustomer Eyuel = new RegisteredCustomer();
 //        Eyuel.cancelOrder(new Order(2, LocalDate.now(), 2));
-        ObservableList<ProductInCart> products = Eyuel.viewCartContents(new Cart(1, "My Cart"), 3);
-        products.forEach(product -> System.out.println(product));
+ /*       ObservableList<ProductInCart> products = Eyuel.viewCartContents(new Cart(1, "My Cart"), 3);
+        products.forEach(product -> System.out.println(product));*/
+        /*Eyuel.addProductToCart(57685, "Lays chips", 50, 6, 300,
+                "A new cart", 1234);*/
+
+//        Eyuel.orderCart(new Cart(3, "A new cart", 1234));
+        Eyuel.cancelOrder(new Order(2, LocalDate.now(), 3, 1234));
         cq.closeConnection();
     }
 }

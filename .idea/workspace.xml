@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="This is third commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Supermarket.db" beforeDir="false" afterPath="$PROJECT_DIR$/Supermarket.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/model/customer/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/model/customer/Cart.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/model/customer/CustomerQueries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/model/customer/CustomerQueries.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/model/customer/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/model/customer/Order.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/model/customer/RegisteredCustomer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/model/customer/RegisteredCustomer.java" afterDir="false" />
     </list>
     <list id="226f526b-b9c4-4018-abb2-b0848d5e8048" name="Changelist2" comment="This is second commit. added basic functionality for customers." />
@@ -67,11 +70,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/model/customer/CustomerQueries.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
-              <caret line="540" selection-start-line="540" selection-end-line="540" />
+            <state relative-caret-position="285">
+              <caret line="116" column="36" selection-start-line="116" selection-start-column="36" selection-end-line="116" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -82,17 +85,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/model/customer/ProductInCart.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
+            <state relative-caret-position="680">
               <caret line="68" column="18" selection-start-line="68" selection-start-column="18" selection-end-line="68" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="143" column="29" lean-forward="true" selection-start-line="143" selection-start-column="29" selection-end-line="143" selection-end-column="29" />
+            <state relative-caret-position="192">
+              <caret line="147" column="66" lean-forward="true" selection-start-line="147" selection-start-column="66" selection-end-line="147" selection-end-column="66" />
             </state>
           </provider>
         </entry>
@@ -100,8 +103,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/model/customer/Cart.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="46" selection-start-line="6" selection-start-column="46" selection-end-line="6" selection-end-column="46" />
+            <state relative-caret-position="442">
+              <caret line="34" column="37" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
+              <folding>
+                <element signature="e#657#658#0" expanded="true" />
+                <element signature="e#750#751#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -109,8 +116,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/model/customer/RegisteredCustomer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="97" column="81" selection-start-line="97" selection-start-column="81" selection-end-line="97" selection-end-column="81" />
+            <state relative-caret-position="187">
+              <caret line="64" column="56" selection-start-line="64" selection-start-column="56" selection-end-line="64" selection-end-column="56" />
             </state>
           </provider>
         </entry>
@@ -168,8 +175,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/model/customer/Order.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="64" selection-start-line="10" selection-start-column="64" selection-end-line="10" selection-end-column="64" />
+            <state relative-caret-position="376">
+              <caret line="45" selection-start-line="45" selection-end-line="45" />
+              <folding>
+                <element signature="e#929#930#0" expanded="true" />
+                <element signature="e#1030#1031#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -239,12 +250,12 @@
         <option value="$PROJECT_DIR$/src/com/model/customer/ProductInCart.java" />
         <option value="$PROJECT_DIR$/src/com/model/central/CentralStorageQueries.java" />
         <option value="$PROJECT_DIR$/src/com/model/shop/StorageQueries.java" />
-        <option value="$PROJECT_DIR$/src/com/model/customer/Cart.java" />
-        <option value="$PROJECT_DIR$/src/com/model/customer/Order.java" />
         <option value="$PROJECT_DIR$/src/com/model/customer/CartProduct.java" />
-        <option value="$PROJECT_DIR$/src/com/model/customer/CustomerQueries.java" />
+        <option value="$PROJECT_DIR$/src/com/model/customer/Order.java" />
+        <option value="$PROJECT_DIR$/src/com/model/customer/Cart.java" />
         <option value="$PROJECT_DIR$/src/com/model/customer/RegisteredCustomer.java" />
         <option value="$PROJECT_DIR$/src/com/Main.java" />
+        <option value="$PROJECT_DIR$/src/com/model/customer/CustomerQueries.java" />
       </list>
     </option>
   </component>
@@ -263,6 +274,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -325,7 +337,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -440,6 +451,7 @@
       <workItem from="1576334788053" duration="7096000" />
       <workItem from="1576350414816" duration="25000" />
       <workItem from="1576351540610" duration="910000" />
+      <workItem from="1576381546520" duration="2815000" />
     </task>
     <task id="LOCAL-00001" summary="This is first commit for the project">
       <created>1575289724178</created>
@@ -466,7 +478,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="144855000" />
+    <option name="totallyTimeSpent" value="148844000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -482,7 +494,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Designer" order="0" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.6703755" visible="true" weight="0.25340393" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.6703755" visible="true" weight="0.28366113" />
       <window_info id="Structure" order="2" weight="0.25" />
       <window_info id="Favorites" order="3" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.3289689" />
@@ -490,7 +502,7 @@
       <window_info anchor="bottom" id="Message" order="2" />
       <window_info anchor="bottom" id="Find" order="3" weight="0.3289689" />
       <window_info anchor="bottom" id="Run" order="4" weight="0.3289689" />
-      <window_info anchor="bottom" id="Debug" order="5" weight="0.39934534" />
+      <window_info active="true" anchor="bottom" id="Debug" order="5" visible="true" weight="0.39934534" />
       <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="8" weight="0.3289689" />
@@ -553,6 +565,18 @@
     <MESSAGE value="This is second commit" />
     <MESSAGE value="This is third commit" />
     <option name="LAST_COMMIT_MESSAGE" value="This is third commit" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/model/customer/CustomerQueries.java</url>
+          <line>647</line>
+          <properties />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -624,12 +648,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ui/mainPage.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="130" selection-start-line="12" selection-start-column="130" selection-end-line="12" selection-end-column="130" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/model/shelf/ShelfManager.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -740,6 +764,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/model/customer/ProductInCart.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="68" column="18" selection-start-line="68" selection-start-column="18" selection-end-line="68" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/model/shop/StorageManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -784,46 +815,47 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/model/customer/Order.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="64" selection-start-line="10" selection-start-column="64" selection-end-line="10" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/model/customer/CustomerQueries.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="540" selection-start-line="540" selection-end-line="540" />
+        <state relative-caret-position="376">
+          <caret line="45" selection-start-line="45" selection-end-line="45" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#929#930#0" expanded="true" />
+            <element signature="e#1030#1031#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/model/customer/ProductInCart.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="68" column="18" selection-start-line="68" selection-start-column="18" selection-end-line="68" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/model/customer/RegisteredCustomer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="97" column="81" selection-start-line="97" selection-start-column="81" selection-end-line="97" selection-end-column="81" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/model/customer/Cart.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="46" selection-start-line="6" selection-start-column="46" selection-end-line="6" selection-end-column="46" />
+        <state relative-caret-position="442">
+          <caret line="34" column="37" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
+          <folding>
+            <element signature="e#657#658#0" expanded="true" />
+            <element signature="e#750#751#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/model/customer/RegisteredCustomer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="64" column="56" selection-start-line="64" selection-start-column="56" selection-end-line="64" selection-end-column="56" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="143" column="29" lean-forward="true" selection-start-line="143" selection-start-column="29" selection-end-line="143" selection-end-column="29" />
+        <state relative-caret-position="192">
+          <caret line="147" column="66" lean-forward="true" selection-start-line="147" selection-start-column="66" selection-end-line="147" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/model/customer/CustomerQueries.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="116" column="36" selection-start-line="116" selection-start-column="36" selection-end-line="116" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -6,12 +6,14 @@ public class Order {
     private int orderId;
     private LocalDate orderDate;
     private int cartId;
+    private int customer_id;
 
 
-    public Order(int orderId, LocalDate orderDate, int cartId) {
+    public Order(int orderId, LocalDate orderDate, int cartId, int customer_id) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.cartId = cartId;
+        this.customer_id = customer_id;
     }
 
     public int getOrderId() {
@@ -36,5 +38,13 @@ public class Order {
 
     public void setCartId(int cartId) {
         this.cartId = cartId;
+    }
+
+    public int getCustomer_id() {
+        return customer_id;
+    }
+
+    public void setCustomer_id(int customer_id) {
+        this.customer_id = customer_id;
     }
 }
