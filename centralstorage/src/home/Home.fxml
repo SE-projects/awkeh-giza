@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.Controller">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <AnchorPane prefHeight="462.0" prefWidth="1144.0">
+         <children>
+            <VBox alignment="TOP_CENTER" maxWidth="230.0" minWidth="212.0" prefHeight="462.0" prefWidth="212.0" style="-fx-background-color: #EBE8F9;">
+               <children>
+                  <ImageView fitHeight="43.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-person-30.png" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="50.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Label prefHeight="17.0" prefWidth="33.0" text="C.S.M">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <JFXButton alignment="BASELINE_LEFT" graphicTextGap="20.0" prefHeight="52.0" prefWidth="276.0" text="Products">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons8-home-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton alignment="BASELINE_LEFT" graphicTextGap="20.0" prefHeight="52.0" prefWidth="276.0" text="Order">
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons8-open-envelope-64.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton alignment="BASELINE_LEFT" graphicTextGap="20.0" prefHeight="52.0" prefWidth="276.0" text="Sign Out">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/icons8-sign-out-24.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <padding>
+                        <Insets left="50.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </JFXButton>
+               </children>
+            </VBox>
+            <Label layoutX="237.0" layoutY="25.0" text="Products">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <HBox layoutX="223.0" layoutY="68.0" prefHeight="52.0" prefWidth="912.0">
+               <children>
+                  <JFXButton alignment="TOP_CENTER" prefHeight="25.0" prefWidth="72.0" text="Add">
+                     <HBox.margin>
+                        <Insets left="50.0" top="20.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton alignment="TOP_CENTER" text="Remove">
+                     <HBox.margin>
+                        <Insets left="50.0" top="20.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton alignment="TOP_CENTER" text="Update">
+                     <HBox.margin>
+                        <Insets left="50.0" top="20.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <ImageView fitHeight="26.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="400.0" top="20.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../images/icons8-search-30.png" />
+                     </image>
+                  </ImageView>
+                  <TextField alignment="TOP_LEFT" promptText="Search">
+                     <HBox.margin>
+                        <Insets top="20.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox layoutX="223.0" layoutY="120.0" prefHeight="62.0" prefWidth="912.0" style="-fx-background-color: #EBE8F9;" />
+            <VBox layoutX="223.0" layoutY="214.0" prefHeight="242.0" prefWidth="912.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</GridPane>
