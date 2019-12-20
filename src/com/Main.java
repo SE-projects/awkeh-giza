@@ -147,7 +147,7 @@ public class Main {
                 "test cart", 4564);*/
        /*   Eyuel.updateProductInCart(new CartProduct(687545, "Rani Juice", 70, 5,
                 350, 4));*/
-//        Eyuel.orderCart(new Cart(4, "test cart", 4564));
+        Eyuel.orderCart(new Cart(4, "test cart", 4564));
 
 //        Eyuel.cancelOrder(new Order(2, LocalDate.now(), 3, 1234));
 //        cq.closeConnection();
