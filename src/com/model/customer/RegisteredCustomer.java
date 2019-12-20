@@ -1,7 +1,8 @@
 package com.model.customer;
 
 import javafx.collections.ObservableList;
-
+//TODO database connection shouldn't be closed and opened for every method
+// This kinds of things should be handled when the GUI has been built
 public class RegisteredCustomer {
     private int id;
     private String userName;
@@ -62,11 +63,9 @@ public class RegisteredCustomer {
             return -1;
         }
 
-        int cartId = cq.createACart(cartName, customerId);
-
         cq.closeConnection();
 
-        return cartId;
+        return cq.createACart(cartName, customerId);
     }
     public void addProductToCart(int productId, String productName, double price,
                                  int quantity, double totalAmount, String cartName, int customerId){
@@ -95,11 +94,8 @@ public class RegisteredCustomer {
             return null;
         }
 
-        ObservableList<ProductInCart> productsInCart = cq.viewCartContents(cart, sortOrder);
-
-
         cq.closeConnection();
-        return productsInCart;
+        return  cq.viewCartContents(cart, sortOrder);
     }
     public void updateProductInCart(CartProduct cartProduct){
         if(!cq.establishConnection()){
@@ -130,6 +126,7 @@ public class RegisteredCustomer {
 
         cq.cancelOrder(order);
 
+        cq.closeConnection();
         return true;
     }
 

@@ -710,10 +710,14 @@ public class CustomerQueries {
             checkIfCartBeenOrderedBefore.setInt(1, cart.getCartId());
             ResultSet results = checkIfCartBeenOrderedBefore.executeQuery();
             if (results.next()) {
+                results.close();
                 return true;
             } else {
+                results.close();
                 return false;
             }
+
+
         } catch (SQLException e) {
             System.out.println("Couldn't check if order had been already ordered");
         }

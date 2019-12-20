@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 import java.time.Month;
-
+//TODO database connection should be opened once and remain open until the application is closed
 //use enhanced for loop and print only those attributes with values
 public class Main {
     public static void main(String[] args) {
