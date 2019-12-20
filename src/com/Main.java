@@ -3,6 +3,8 @@ package com;
 import com.model.*;
 import com.model.central.CentralStorageManager;
 import com.model.central.CentralStorageQueries;
+import com.model.counter.Casher;
+import com.model.counter.Transaction;
 import com.model.customer.*;
 import com.model.shelf.Shelf;
 import com.model.shelf.ShelfManager;
@@ -139,7 +141,7 @@ public class Main {
                 120, 2));*/
         /*boolean order = cq.orderCart(new Cart(2, "Another Cart"));
         System.out.println(order);*/
-        RegisteredCustomer Eyuel = new RegisteredCustomer();
+//        RegisteredCustomer Eyuel = new RegisteredCustomer();
 //        Eyuel.cancelOrder(new Order(2, LocalDate.now(), 2));
  /*       ObservableList<ProductInCart> products = Eyuel.viewCartContents(new Cart(1, "My Cart"), 3);
         products.forEach(product -> System.out.println(product));*/
@@ -147,25 +149,14 @@ public class Main {
                 "test cart", 4564);*/
        /*   Eyuel.updateProductInCart(new CartProduct(687545, "Rani Juice", 70, 5,
                 350, 4));*/
-        Eyuel.orderCart(new Cart(4, "test cart", 4564));
+//        Eyuel.orderCart(new Cart(4, "test cart", 4564));
 
 //        Eyuel.cancelOrder(new Order(2, LocalDate.now(), 3, 1234));
 //        cq.closeConnection();
        /* ShelfManager Abebe = new ShelfManager();
         ObservableList<Product> shelfProducts = Abebe.queryProductsList("Shelf1");
         shelfProducts.forEach(product -> System.out.println(product));*/
-      /*  private int id;
-        private String productName;
-        private String category;
-        private double rating;
-        private int quantity;
-        private String brandName;
-        private LocalDate expirationDate;
-        private String description;
-        private double price;
-        private int shelfNumber;
-        private String isleName;
-        private int supermarketId;*/
+
 //       StorageManager sm1 = new StorageManager();
 //       sm1.createStorageTable("Storage1");
      /*   Product Coke = new Product();
@@ -188,5 +179,16 @@ public class Main {
         products.forEach(product -> System.out.println(product));*/
 //   sh1.removeProductFromShelf("Shelf1",47578698 );
 //        sh1.addProductToShelf("Shelf1", Coke);
+
+        Casher casher = new Casher();
+//        casher.createTransactionTable();
+        Transaction transaction = new Transaction();
+       /* transaction.setProductId(687545); transaction.setDescription("16.5 Fl Oz"); transaction.setQuantity(8);
+        transaction.setPrice(70); transaction.setTotalAmount(420); transaction.setCustomerId(5647);
+        casher.addTransaction(transaction);*/
+        ObservableList<Transaction> transactions = casher.getTransactions();
+        transactions.forEach(transactionn -> System.out.println(transactionn));
+//        casher.updateTransaction(transaction);
+//        casher.removeTransaction(transaction);
     }
 }
