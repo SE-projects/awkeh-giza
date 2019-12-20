@@ -1,12 +1,9 @@
 package com.model.shop;
 
-import com.model.DataSource;
 import com.model.Product;
 import javafx.collections.ObservableList;
 
-import java.time.LocalDate;
-
-public class Storage implements Store{
+public class Storage implements Store {
     private ObservableList<Product> productList;
     private StorageQueries sq = new StorageQueries();
 
@@ -24,11 +21,11 @@ public class Storage implements Store{
             return;
         }
         sq.createStorageTable(tableName);
-//        sq.closeConnection();
+        sq.closeConnection();
     }
 
     public ObservableList<Product> getProductListInStorage(String tableName) {
-        if(!sq.establishConnection()){
+        if (!sq.establishConnection()) {
             System.out.println("Couldn't connect");
             return null;
         }
@@ -45,12 +42,21 @@ public class Storage implements Store{
         sq.closeConnection();
     }
 
-    public void removeProductFromStorage(String tableName, String productName, String brandName){
-        if(!sq.establishConnection()){
+    public void removeProductFromStorage(String tableName, int productId) {
+        if (!sq.establishConnection()) {
             System.out.println("Couldn't connect");
             return;
         }
-        sq.removeProductFromCentralStorage(tableName, productName, brandName);
+        sq.removeProductFromStorage(tableName, productId);
+        sq.closeConnection();
+    }
+
+    public void updateProductInStorage(String tableName, Product product) {
+        if (!sq.establishConnection()) {
+            System.out.println("Couldn't connect");
+            return;
+        }
+        sq.updateProductInStorage(tableName, product);
         sq.closeConnection();
     }
 }

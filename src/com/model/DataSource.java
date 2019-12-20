@@ -167,7 +167,7 @@ public class DataSource implements Headers {
             //STORAGE
 //            queryStorage = conn.prepareStatement(QUERY_PRODUCTS_IN_STORAGE);
 //            queryProductInStorageByNameAndBrand = conn.prepareStatement(QUERY_PRODUCT_IN_STORAGE_BY_NAME_AND_BRAND);
-//            insertIntoStorage = conn.prepareStatement(INSERT_INTO_STORAGE);
+//            insertIntoShelf = conn.prepareStatement(INSERT_INTO_STORAGE);
 
             //CUSTOMER
             queryCustomerByUserName = conn.prepareStatement(QUERY_CUSTOMER_BY_USER_NAME);

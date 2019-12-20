@@ -16,9 +16,7 @@ public class Product {
     private double price;
     private int shelfNumber;
     private String isleName;
-    private String supermarketName;
-
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
+    private int supermarketId;
 
     public int getId() {
         return id;
@@ -108,12 +106,12 @@ public class Product {
         this.isleName = isleName;
     }
 
-    public String getSupermarketName() {
-        return supermarketName;
+    public int getSupermarketId() {
+        return supermarketId;
     }
 
-    public void setSupermarketName(String supermarketName) {
-        this.supermarketName = supermarketName;
+    public void setSupermarketId(int supermarketId) {
+        this.supermarketId = supermarketId;
     }
 
     @Override
@@ -126,19 +124,19 @@ public class Product {
                 quantity == product.quantity &&
                 Double.compare(product.price, price) == 0 &&
                 shelfNumber == product.shelfNumber &&
+                supermarketId == product.supermarketId &&
                 Objects.equals(productName, product.productName) &&
                 Objects.equals(category, product.category) &&
                 Objects.equals(brandName, product.brandName) &&
                 Objects.equals(expirationDate, product.expirationDate) &&
                 Objects.equals(description, product.description) &&
-                Objects.equals(isleName, product.isleName) &&
-                Objects.equals(supermarketName, product.supermarketName);
+                Objects.equals(isleName, product.isleName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, productName, category, rating, quantity, brandName,
-                expirationDate, description, price, shelfNumber, isleName, supermarketName);
+        return Objects.hash(id, productName, category, rating, quantity, brandName, expirationDate,
+                            description, price, shelfNumber, isleName, supermarketId);
     }
 
     @Override
@@ -150,12 +148,12 @@ public class Product {
                 ", rating=" + rating +
                 ", quantity=" + quantity +
                 ", brandName='" + brandName + '\'' +
-                ", expirationDate=" + expirationDate.format(formatter) +
+                ", expirationDate=" + expirationDate +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", shelfNumber=" + shelfNumber +
                 ", isleName='" + isleName + '\'' +
-                ", supermarketName='" + supermarketName + '\'' +
+                ", supermarketId=" + supermarketId +
                 '}';
     }
 }
