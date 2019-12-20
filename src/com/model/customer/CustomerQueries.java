@@ -77,10 +77,14 @@ public class CustomerQueries {
     public static final String COLUMN_ORDER_DATE = "order_date";
     public static final String COLUMN_ORDER_CART_ID = "cart_id";
     public static final String COLUMN_ORDER_CUSTOMER_ID = "customer_id";
+    public static final String COLUMN_ORDER_STATUS = "order_status";
+    public static final String COLUMN_ORDER_TOTAL_AMOUNT = "total_amount";
     public static final int INDEX_ORDER_ID = 1;
     public static final int INDEX_ORDER_DATE = 2;
     public static final int INDEX_ORDER_CART_ID = 3;
     public static final int INDEX_ORDER_CUSTOMER_ID = 4;
+    public static final int INDEX_ORDER_STATUS = 5;
+    public static final int INDEX_ORDER_TOTAL_AMOUNT = 6;
 
     private PreparedStatement insertNewlyRegisteredCustomer;
     private PreparedStatement queryCustomerByUserName;
@@ -99,8 +103,11 @@ public class CustomerQueries {
     private PreparedStatement updateProductInCart;
     private PreparedStatement insertOrder;
     private PreparedStatement queryProductInCartByQuantity;
+    private PreparedStatement queryNumberOfDistinctProductsInCart;
+    private PreparedStatement getTotalAmount;
     private PreparedStatement viewCartContents;
     private PreparedStatement cancelOrder;
+    private PreparedStatement checkIfCartBeenOrderedBefore;
 
     public boolean establishConnection() {
         connection = Connexion.getInstance().getConnection();
@@ -113,16 +120,25 @@ public class CustomerQueries {
 
     public void closeConnection() {
         try {
-            if(cancelOrder != null){
+            if (checkIfCartBeenOrderedBefore != null) {
+                checkIfCartBeenOrderedBefore.close();
+            }
+            if (getTotalAmount != null) {
+                getTotalAmount.close();
+            }
+            if (queryNumberOfDistinctProductsInCart != null) {
+                queryNumberOfDistinctProductsInCart.close();
+            }
+            if (cancelOrder != null) {
                 cancelOrder.close();
             }
-            if(viewCartContents != null){
+            if (viewCartContents != null) {
                 viewCartContents.close();
             }
-            if(queryProductInCartByQuantity != null){
+            if (queryProductInCartByQuantity != null) {
                 queryProductInCartByQuantity.close();
             }
-            if(insertOrder != null){
+            if (insertOrder != null) {
                 insertOrder.close();
             }
             if (updateProductInCart != null) {
@@ -540,7 +556,7 @@ public class CustomerQueries {
 
         ObservableList<ProductInCart> productInCart = FXCollections.observableArrayList();
 
-        try{
+        try {
 
             viewCartContents = connection.prepareStatement(sb.toString());
             viewCartContents.setInt(1, cart.getCartId());
@@ -601,58 +617,127 @@ public class CustomerQueries {
 
     }
 
-    public boolean orderCart(Cart cart){
-        String QUERY_PRODUCTS_IN_CART_IF_THEY_EXIST = "SELECT " + COLUMN_CART_PRODUCT_NAME + " FROM " + TABLE_CART_PRODUCT
-        + " WHERE " + COLUMN_CART_PRODUCT_CART_ID + " = ?" + " AND " + COLUMN_CART_PRODUCT_QUANTITY + " > 5";
+    //TODO A customer can oly order when he has at least 4 different products
+    // or when he has a product with quantity >= 4
+    public boolean orderCart(Cart cart) {
+        String QUERY_DISTINCT_PRODUCTS_IN_CART = "SELECT COUNT(*)" + " FROM " + TABLE_CART_PRODUCT
+                + " WHERE " + COLUMN_CART_PRODUCT_CART_ID + " = ?";
+        String QUERY_QUANTITY_OF_A_PRODUCT_IN_CART = "SELECT " + COLUMN_CART_PRODUCT_QUANTITY + " FROM " +
+                TABLE_CART_PRODUCT + " WHERE " + COLUMN_CART_PRODUCT_CART_ID + " = ?";
         String ORDER_CART = "INSERT INTO " + TABLE_ORDER + '(' + COLUMN_ORDER_DATE + ", " + COLUMN_ORDER_CART_ID +
-               ", " + COLUMN_ORDER_CUSTOMER_ID +')' +
-                " VALUES " + "(?,?,?)";
+                ", " + COLUMN_ORDER_CUSTOMER_ID + ", " + COLUMN_ORDER_STATUS + ", " + COLUMN_ORDER_TOTAL_AMOUNT + ')' +
+                " VALUES " + "(?,?,?,?,?)";
+        String GET_TOTAL_AMOUNT = "SELECT " + COLUMN_CART_PRODUCT_TOTAL_AMOUNT + " FROM " + TABLE_CART_PRODUCT +
+                " WHERE " + COLUMN_CART_PRODUCT_CART_ID + " = ?";
         date = LocalDate.now();
-        try{
-            insertOrder = connection.prepareStatement(ORDER_CART);
-            queryProductInCartByQuantity = connection.prepareStatement(QUERY_PRODUCTS_IN_CART_IF_THEY_EXIST);
-            queryProductInCartByQuantity.setInt(1, cart.getCartId());
-            ResultSet results = queryProductInCartByQuantity.executeQuery();
-            if (!results.next()) {
-                System.out.println("You have no products to order");
-            } else {
-                insertOrder.setString(1, String.format("%s", date.format(formatter)));
-                insertOrder.setInt(2, cart.getCartId());
-                insertOrder.setInt(3, cart.getCustomerId());
 
-                int affectedRows = insertOrder.executeUpdate();
-                if(affectedRows==1){
-                    System.out.println("Order successful");
-                    return true;
-                }else{
-                    throw new SQLException("Order was not successful");
+        ObservableList<Double> totalAmounts = FXCollections.observableArrayList();
+        ObservableList<Integer> quantities = FXCollections.observableArrayList();
+        double totalAmount = 0;
+        int quantity = 0, count = 0;
+        try {
+            boolean checkOrder = isCartOrderedBefore(cart);
+            if(!checkOrder) {
+                insertOrder = connection.prepareStatement(ORDER_CART);
+                queryProductInCartByQuantity = connection.prepareStatement(QUERY_QUANTITY_OF_A_PRODUCT_IN_CART);
+                queryNumberOfDistinctProductsInCart = connection.prepareStatement(QUERY_DISTINCT_PRODUCTS_IN_CART);
+                getTotalAmount = connection.prepareStatement(GET_TOTAL_AMOUNT);
+
+                queryProductInCartByQuantity.setInt(1, cart.getCartId());
+                queryNumberOfDistinctProductsInCart.setInt(1, cart.getCartId());
+                getTotalAmount.setInt(1, cart.getCartId());
+
+
+                ResultSet result1 = queryProductInCartByQuantity.executeQuery();
+                ResultSet result2 = queryNumberOfDistinctProductsInCart.executeQuery();
+                while (result1.next()) {
+                    quantities.add(result1.getInt(1));
+                    if ((quantity = result1.getInt(1)) > 4) {
+                        break;
+                    }
                 }
+
+                while (result2.next()) {
+                    count = result2.getInt(1);
+                }
+
+                if (quantity > 4 || count > 4) {
+                    ResultSet result3 = getTotalAmount.executeQuery();
+                    while (result3.next()) {
+                        totalAmounts.add(result3.getDouble(1));
+                    }
+
+                    for (int i = 0; i < totalAmounts.size(); i++) {
+                        totalAmount += totalAmounts.get(i);
+                    }
+
+                    result3.close();
+
+                    insertOrder.setString(1, String.format("%s", date.format(formatter)));
+                    insertOrder.setInt(2, cart.getCartId());
+                    insertOrder.setInt(3, cart.getCustomerId());
+                    insertOrder.setString(4, OrderStatus.NEW.toString());
+                    insertOrder.setDouble(5, totalAmount);
+
+                    int affectedRows = insertOrder.executeUpdate();
+                    if (affectedRows == 1) {
+                        System.out.println("Order successful");
+                        return true;
+                    } else {
+                        throw new SQLException("Order was not successful");
+                    }
+
+                }
+                result1.close();
+                result2.close();
+            } else {
+                System.out.println("The cart had already been ordered");
             }
-            results.close();
-        }catch (SQLException e){
+
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return false;
     }
 
-    public boolean cancelOrder(Order order){
+    public boolean isCartOrderedBefore(Cart cart) {
+        String QUERY_CART_ID_FROM_ORDERS = "SELECT " + COLUMN_ORDER_ID + " FROM " + TABLE_ORDER + " WHERE " +
+                COLUMN_ORDER_CART_ID + " = ?";
+
+        try {
+            checkIfCartBeenOrderedBefore = connection.prepareStatement(QUERY_CART_ID_FROM_ORDERS);
+
+            checkIfCartBeenOrderedBefore.setInt(1, cart.getCartId());
+            ResultSet results = checkIfCartBeenOrderedBefore.executeQuery();
+            if (results.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println("Couldn't check if order had been already ordered");
+        }
+        return true;
+    }
+
+    public boolean cancelOrder(Order order) {
         String CANCEL_ORDER = "DELETE FROM " + TABLE_ORDER + " WHERE " + COLUMN_ORDER_CART_ID + " = ?" +
                 " AND " + COLUMN_ORDER_CUSTOMER_ID + " = ?";
 
-        try{
+        try {
             cancelOrder = connection.prepareStatement(CANCEL_ORDER);
 
             cancelOrder.setInt(1, order.getCartId());
             cancelOrder.setInt(2, order.getCustomer_id());
 
             int affectedRows = cancelOrder.executeUpdate();
-            if(affectedRows==1){
+            if (affectedRows == 1) {
                 System.out.println("Order cancellation successful");
-            }else{
+            } else {
                 throw new SQLException("Order cancellation unsuccessful");
             }
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Deletion failed");
         }
         return false;
