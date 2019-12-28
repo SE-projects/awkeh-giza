@@ -26,7 +26,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="529.0" prefWidth="899.0" style="-fx-background-color: #ffi;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="awkeh.giza.Controllers.CustomerPage">
+<AnchorPane id="AnchorPane" prefHeight="529.0" prefWidth="899.0" style="-fx-background-color: #ffi;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="awkeh.giza.Controllers.ProductController">
    <children>
       <VBox prefHeight="529.0" prefWidth="198.0" style="-fx-background-color: #700080;">
          <children>

@@ -9,7 +9,7 @@ public class Products {
     
     String productName, type,location, query;
     String brand,rating,quantity,category,productInfo,expiryDate,shelf,isle;
-    int productId,amount;
+    public int productId,amount;
     Double price;
     
     Products(){}
