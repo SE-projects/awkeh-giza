@@ -192,6 +192,69 @@ public class CustomerQueries {
         }
     }
 
+    public void createRegisteredCustomerTable() {
+        String CREATE_REGISTERED_CUSTOMER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_REGISTERED_CUSTOMER + '(' +
+                COLUMN_REGISTERED_CUSTOMER_ID + " INTEGER, " + COLUMN_REGISTERED_CUSTOMER_USER_NAME + " TEXT, " +
+                COLUMN_REGISTERED_CUSTOMER_PASSWORD + " TEXT)";
+
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(CREATE_REGISTERED_CUSTOMER_TABLE);
+
+        } catch (SQLException e) {
+            System.out.println("Couldn't create table: " + e.getMessage());
+        }
+    }
+
+    public void createCustomerDataTable() {
+        String CREATE_CUSTOMER_DATA_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_CUSTOMER_DATA + '(' + COLUMN_CUSTOMER_DATA_ID +
+                " INTEGER, " + COLUMN_CUSTOMER_DATA_FIRST_NAME + " TEXT, " + COLUMN_CUSTOMER_DATA_LAST_NAME + " TEXT, " +
+                COLUMN_CUSTOMER_DATA_PHONE + " TEXT, " + COLUMN_CUSTOMER_DATA_EMAIL + " TEXT, " + COLUMN_CUSTOMER_DATA_STREET_NAME +
+                " TEXT, " + COLUMN_CUSTOMER_DATA_HOME_NUMBER + " INTEGER, " + COLUMN_CUSTOMER_DATA_SUBCITY + " TEXT, " +
+                COLUMN_CUSTOMER_DATA_CITY + " TEXT, " + COLUMN_CUSTOMER_DATA_CUSTOMER_ID + " INTEGER)";
+
+        try(Statement statement = connection.createStatement()){
+            statement.execute(CREATE_CUSTOMER_DATA_TABLE);
+        }catch (SQLException e){
+            System.out.println("Couldn't create customer data table");
+        }
+    }
+
+    public void createCartTable(){
+        String CREATE_CART_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_CART + '(' + COLUMN_CART_ID + " INTEGER, " +
+                COLUMN_CART_NAME + " TEXT, " + COLUMN_CART_CUSTOMER_ID + " INTEGER)";
+
+        try(Statement statement = connection.createStatement()){
+            statement.execute(CREATE_CART_TABLE);
+        } catch (SQLException e){
+            System.out.println("Couldn't create cart table: " + e.getMessage());
+        }
+    }
+
+    public void createCartProductTable(){
+        String CREATE_CART_PRODUCT = "CREATE TABLE IF NOT EXISTS " + TABLE_CART_PRODUCT + '(' + COLUMN_CART_PRODUCT_ID +
+                " INTEGER, " + COLUMN_CART_PRODUCT_NAME + " TEXT, " + COLUMN_CART_PRODUCT_PRICE + " REAL, " +
+                COLUMN_CART_PRODUCT_QUANTITY + " INTEGER, " + COLUMN_CART_PRODUCT_TOTAL_AMOUNT + " REAL, " +
+                COLUMN_CART_PRODUCT_CART_ID + " INTEGER)";
+
+        try(Statement statement = connection.createStatement()){
+            statement.execute(CREATE_CART_PRODUCT);
+        }catch(SQLException e){
+            System.out.println("Couldn't create cart product table: " + e.getMessage());
+        }
+    }
+
+    public void createOrdersTable(){
+        String CREATE_ORDER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_ORDER + '(' + COLUMN_ORDER_ID + " INTEGER, " +
+                COLUMN_ORDER_DATE + " TEXT, " + COLUMN_ORDER_CART_ID + " INTEGER, " + COLUMN_ORDER_CUSTOMER_ID + " INTEGER, "
+                + COLUMN_ORDER_STATUS + " TEXT, " + COLUMN_ORDER_TOTAL_AMOUNT + " REAL)";
+
+        try(Statement statement = connection.createStatement()){
+            statement.execute(CREATE_ORDER_TABLE);
+        }catch (SQLException e){
+            System.out.println("Couldn't create order table: " + e.getMessage());
+        }
+    }
+
     public void insertNewlyRegisteredCustomer(String username, String password, String firstName, String lastName,
                                               String phone, String email, String streetName, int homeNumber, String subCity,
                                               String city) {
@@ -637,7 +700,7 @@ public class CustomerQueries {
         int quantity = 0, count = 0;
         try {
             boolean checkOrder = isCartOrderedBefore(cart);
-            if(!checkOrder) {
+            if (!checkOrder) {
                 insertOrder = connection.prepareStatement(ORDER_CART);
                 queryProductInCartByQuantity = connection.prepareStatement(QUERY_QUANTITY_OF_A_PRODUCT_IN_CART);
                 queryNumberOfDistinctProductsInCart = connection.prepareStatement(QUERY_DISTINCT_PRODUCTS_IN_CART);

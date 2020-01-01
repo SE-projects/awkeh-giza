@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 import java.time.Month;
+
 //TODO database connection should be opened once and remain open until the application is closed
 //use enhanced for loop and print only those attributes with values
 public class Main {
@@ -52,7 +53,7 @@ public class Main {
        csm.updateProductInCentralStorage("Coke Soda", "Coca Cola", 345);*/
 //        csm.createCentralStorageTable();
 
-       //TODO figure out how to better coordinate. When the closeConnection method should be called.
+        //TODO figure out how to better coordinate. When the closeConnection method should be called.
 //       csq.closeConnection();
        /* if(!DataSource.getInstance().open()){
             System.out.println("Couldn't open DataSource");
@@ -180,15 +181,24 @@ public class Main {
 //   sh1.removeProductFromShelf("Shelf1",47578698 );
 //        sh1.addProductToShelf("Shelf1", Coke);
 
-        Casher casher = new Casher();
+//        Casher casher = new Casher();
 //        casher.createTransactionTable();
-        Transaction transaction = new Transaction();
+//        Transaction transaction = new Transaction();
        /* transaction.setProductId(687545); transaction.setDescription("16.5 Fl Oz"); transaction.setQuantity(8);
         transaction.setPrice(70); transaction.setTotalAmount(420); transaction.setCustomerId(5647);
         casher.addTransaction(transaction);*/
-        ObservableList<Transaction> transactions = casher.getTransactions();
-        transactions.forEach(transactionn -> System.out.println(transactionn));
+//        ObservableList<Transaction> transactions = casher.getTransactions();
+//        transactions.forEach(transactionn -> System.out.println(transactionn));
 //        casher.updateTransaction(transaction);
 //        casher.removeTransaction(transaction);
+
+        CustomerQueries cq = new CustomerQueries();
+        if (!cq.establishConnection()){
+            System.out.println("Couldn't close connection");
+        }
+
+        cq.createOrdersTable();
+
+        cq.closeConnection();
     }
 }
