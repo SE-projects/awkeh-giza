@@ -474,7 +474,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.StorageManagerTest">
+  <component name="RunManager" selected="JUnit.StorageManagerTest.closeConnection">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -502,22 +502,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ShelfManagerTest.addProductToShelf" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SEv1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.model.shelf.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.model.shelf" />
-      <option name="MAIN_CLASS_NAME" value="com.model.shelf.ShelfManagerTest" />
-      <option name="METHOD_NAME" value="addProductToShelf" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ShelfManagerTest.removeProductFromShelf" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SEv1" />
       <extension name="coverage">
@@ -529,22 +513,6 @@
       <option name="PACKAGE_NAME" value="com.model.shelf" />
       <option name="MAIN_CLASS_NAME" value="com.model.shelf.ShelfManagerTest" />
       <option name="METHOD_NAME" value="removeProductFromShelf" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ShelfManagerTest.updateProductInShelf" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SEv1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.model.shelf.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.model.shelf" />
-      <option name="MAIN_CLASS_NAME" value="com.model.shelf.ShelfManagerTest" />
-      <option name="METHOD_NAME" value="updateProductInShelf" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -565,13 +533,45 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="StorageManagerTest.closeConnection" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SEv1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.model.shop.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.model.shop" />
+      <option name="MAIN_CLASS_NAME" value="com.model.shop.StorageManagerTest" />
+      <option name="METHOD_NAME" value="closeConnection" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StorageManagerTest.createStorageTable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SEv1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.model.shop.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.model.shop" />
+      <option name="MAIN_CLASS_NAME" value="com.model.shop.StorageManagerTest" />
+      <option name="METHOD_NAME" value="createStorageTable" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.StorageManagerTest.closeConnection" />
+        <item itemvalue="JUnit.StorageManagerTest.createStorageTable" />
         <item itemvalue="JUnit.StorageManagerTest" />
         <item itemvalue="JUnit.ShelfManagerTest" />
         <item itemvalue="JUnit.ShelfManagerTest.removeProductFromShelf" />
-        <item itemvalue="JUnit.ShelfManagerTest.updateProductInShelf" />
-        <item itemvalue="JUnit.ShelfManagerTest.addProductToShelf" />
       </list>
     </recent_temporary>
   </component>
