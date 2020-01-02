@@ -16,47 +16,27 @@ public class Storage implements Store {
     }
 
     public void createStorageTable(String tableName) {
-        if (!sq.establishConnection()) {
-            System.out.println("Couldn't connect");
-            return;
-        }
         sq.createStorageTable(tableName);
-        sq.closeConnection();
     }
 
     public ObservableList<Product> getProductListInStorage(String tableName) {
-        if (!sq.establishConnection()) {
-            System.out.println("Couldn't connect");
-            return null;
-        }
         ObservableList<Product> productList = sq.queryProductsInStorage(tableName);
         return productList;
     }
 
     public void addProductToStorage(String tableName, Product product) {
-        if (!sq.establishConnection()) {
-            System.out.println("Couldn't connect");
-            return;
-        }
         sq.insertIntoStorage(tableName, product);
-        sq.closeConnection();
     }
 
     public void removeProductFromStorage(String tableName, int productId) {
-        if (!sq.establishConnection()) {
-            System.out.println("Couldn't connect");
-            return;
-        }
         sq.removeProductFromStorage(tableName, productId);
-        sq.closeConnection();
     }
 
     public void updateProductInStorage(String tableName, Product product) {
-        if (!sq.establishConnection()) {
-            System.out.println("Couldn't connect");
-            return;
-        }
         sq.updateProductInStorage(tableName, product);
+    }
+
+    public void closeConnection(){
         sq.closeConnection();
     }
 }

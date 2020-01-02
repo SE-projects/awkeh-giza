@@ -46,15 +46,21 @@ public class CentralStorageQueries {
     private PreparedStatement searchProductFromCentralStorageByName;
     private PreparedStatement updateProductQuantityInCentralStorage;
 
-    public boolean establishConnection() {
+   /* public boolean establishConnection() {
         connection = Connexion.getInstance().getConnection();
         if (connection == null) {
             System.out.println("Connection to database couldn't be established");
             return false;
         }
         return true;
-    }
+    }*/
 
+    public CentralStorageQueries(){
+        connection = Connexion.getInstance().getConnection();
+        if(connection == null){
+            System.out.println("Connection to database couldn't be established");
+        }
+    }
     public void closeConnection() {
         try {
             if (updateProductQuantityInCentralStorage != null) {

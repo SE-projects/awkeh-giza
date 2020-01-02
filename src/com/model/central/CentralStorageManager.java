@@ -58,11 +58,15 @@ public class CentralStorageManager implements Central {
         CentralStorage.getInstance().removeProductFromCentralStorage(productName, brandName);
     }
 
-    public ObservableList<Product> searchProductInCentralStorage(String productSearchText) {
+   /* public ObservableList<Product> searchProductInCentralStorage(String productSearchText) {
         return CentralStorage.getInstance().searchProductInCentralStorage(productSearchText);
-    }
+    }*/
 
     public void updateProductInCentralStorage(String productName, String brandName, int quantity) {
         CentralStorage.getInstance().updateProductInCentralStorage(productName, brandName, quantity);
+    }
+
+    public void closeConnection() {
+        CentralStorage.getInstance().closeConnection();
     }
 }

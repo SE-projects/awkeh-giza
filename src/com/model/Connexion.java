@@ -7,8 +7,7 @@ import java.sql.SQLException;
 public class Connexion {
     private static Connexion instance = new Connexion();
     private static final String DB_NAME = "Supermarket.db";
-    private static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\meme_\\IdeaProjects" +
-            "\\JavaFxExercise" + "\\awkeh-giza\\" + DB_NAME;
+    private static final String CONNECTION_STRING = "jdbc:sqlite:" + DB_NAME;
 
     private Connection connection;
 
