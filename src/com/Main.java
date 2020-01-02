@@ -64,7 +64,7 @@ public class Main {
      /*   StorageManager sm = new StorageManager();
         ObservableList<Product> productList = sm.getStorageProductList("Storage1");
         productList.forEach(product -> System.out.println(product));*/
-//        sm.createStorageTable("Storage3");
+//        sm.createShelfTable("Storage3");
         /*Storage storage = new Storage();
         ObservableList<Product> productList = storage.getProductListInStorage("Storage1");
         productList.forEach(product -> System.out.println(product));*/
@@ -159,7 +159,7 @@ public class Main {
         shelfProducts.forEach(product -> System.out.println(product));*/
 
 //       StorageManager sm1 = new StorageManager();
-//       sm1.createStorageTable("Storage1");
+//       sm1.createShelfTable("Storage1");
      /*   Product Coke = new Product();
         Coke.setId(47578698); Coke.setProductName("Coke Soda"); Coke.setCategory("Beverage");Coke.setRating(4.5);
         Coke.setQuantity(150);Coke.setBrandName("Coca Cola");
@@ -192,13 +192,13 @@ public class Main {
 //        casher.updateTransaction(transaction);
 //        casher.removeTransaction(transaction);
 
-        CustomerQueries cq = new CustomerQueries();
+        /*CustomerQueries cq = new CustomerQueries();
         if (!cq.establishConnection()){
             System.out.println("Couldn't close connection");
         }
 
         cq.createOrdersTable();
 
-        cq.closeConnection();
+        cq.closeConnection();*/
     }
 }

@@ -47,14 +47,11 @@ public class StorageQueries {
     private PreparedStatement removeProductFromStorage;
     private PreparedStatement updateProductInStorage;
 
-
-    public boolean establishConnection() {
+    public StorageQueries(){
         connection = Connexion.getInstance().getConnection();
-        if (connection == null) {
+        if(connection == null){
             System.out.println("Connection to database couldn't be established");
-            return false;
         }
-        return true;
     }
 
     public void closeConnection() {

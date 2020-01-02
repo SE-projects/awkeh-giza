@@ -48,13 +48,12 @@ public class ShelfQueries {
     private PreparedStatement removeProductFromShelf;
     private PreparedStatement updateProductInShelf;
 
-    public boolean establishConnection(){
+    public ShelfQueries(){
         connection = Connexion.getInstance().getConnection();
         if(connection==null){
             System.out.println("Couldn't establish connection");
-            return false;
+            System.exit(1);
         }
-        return true;
     }
 
     public void closeConnection(){
@@ -86,7 +85,7 @@ public class ShelfQueries {
                 COLUMN_SHELF_PRODUCT_BRAND + " TEXT, " + COLUMN_SHELF_PRODUCT_EXPIRATION_DATE + " TEXT, " +
                 COLUMN_SHELF_PRODUCT_DESCRIPTION + " TEXT, " + COLUMN_SHELF_PRODUCT_PRICE + " REAL, " + COLUMN_SHELF_NUMBER
                 + " INTEGER, " + COLUMN_SHELF_ISLE_NAME + " TEXT, " + COLUMN_SHELF_SUPERMARKET_ID +
-                " INTEGER, " + " PRIMARY KEY(" + COLUMN_SHELF_PRODUCT_ID + ')' + ')';
+                " INTEGER" + ')';
         try (Statement statement = connection.createStatement()) {
             statement.execute(CREATE_SHELF_TABLE);
         } catch (SQLException e) {
@@ -167,7 +166,7 @@ public class ShelfQueries {
 
                 int affectedRows = insertIntoShelf.executeUpdate();
                 if (affectedRows == 1) {
-                    System.out.println("Insertion in to storage is successful");
+                    System.out.println("Insertion in to shelf is successful");
                 } else {
                     throw new SQLException("Problem with insertion");
                 }

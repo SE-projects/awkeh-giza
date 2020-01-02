@@ -27,4 +27,8 @@ public class StorageManager implements Store{
     public void updateProductInStorage(String tableName, Product product){
         storage.updateProductInStorage(tableName, product);
     }
+
+    public void closeConnection(){
+        storage.closeConnection();
+    }
 }

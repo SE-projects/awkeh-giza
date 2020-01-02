@@ -4,17 +4,17 @@ import com.model.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class ShelfManager {
+public class ShelfManager implements Stock {
 
     private Shelf shelf = new Shelf();
     ObservableList<Product> productsList = FXCollections.observableArrayList();
 
     public void createShelfTable(String tableName) {
-        shelf.createStorageTable(tableName);
+        shelf.createShelfTable(tableName);
     }
 
-    public ObservableList<Product> queryProductsFromShelf(String tableName){
-        productsList = shelf.queryProductsInShelf(tableName);
+    public ObservableList<Product> queryProductsFromShelf(String tableName) {
+        productsList = shelf.queryProductsFromShelf(tableName);
         return productsList;
     }
 
@@ -23,12 +23,15 @@ public class ShelfManager {
         shelf.addProductToShelf(tableName, product);
     }
 
-    public void removeProductFromShelf(String tableName, int productId){
+    public void removeProductFromShelf(String tableName, int productId) {
         shelf.removeProductFromShelf(tableName, productId);
     }
 
-    public void updateProductInShelf(String tableName, Product product){
+    public void updateProductInShelf(String tableName, Product product) {
         shelf.updateProductInShelf(tableName, product);
     }
 
+    public void closeConnection() {
+        shelf.closeConnection();
+    }
 }

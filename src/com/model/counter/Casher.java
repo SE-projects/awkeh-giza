@@ -37,8 +37,6 @@ public class Casher {
         if (!caq.establishConnection()) {
             System.out.println("Couldn't open transaction");
         }
-
-
        ObservableList<Transaction> transactions = caq.queryTransaction();
 
        caq.closeConnection();

@@ -23,16 +23,4 @@ public class CentralManager {
         this.password = password;
     }
 
-    public ObservableList<RegisteredCustomerData> getFullCustomerInfo(int sortOrder){
-        if(!DataSource.getInstance().open()){
-            System.out.println("Couldn't open DataSource");
-            return null;
-        }
-
-        ObservableList<RegisteredCustomerData> registeredCustomerData =
-                DataSource.getInstance().getCustomersFullInfo(sortOrder);
-
-        DataSource.getInstance().close();
-        return registeredCustomerData;
-    }
 }
