@@ -1,0 +1,61 @@
+.store{
+    -fx-background-image: url("/employeegui/store.jpg");
+   -fx-background-repeat: stretch;   
+   -fx-background-position: center center;
+}
+
+.shelf{
+    -fx-background-image: url("/employeegui/shelf.jpg");
+   -fx-background-repeat: stretch;   
+   -fx-background-position: center center;
+}
+
+.body{
+    -fx-background-image: url("/employeegui/SupermarktImage.jpg");
+   -fx-background-repeat: stretch;   
+   -fx-background-position: center center;
+}
+
+.bodybg{
+    -fx-background-image: url("/employeegui/shelf.jpg");
+   -fx-background-repeat: stretch;   
+   -fx-background-position: center center;
+}
+
+
+
+.text-input
+
+{
+
+-fx-text-fill : #fff;
+
+}
+
+.radio-color
+
+{
+
+-fx-mark-highlight-color : #9643A9;
+
+-fx-mark-color : #CE201C;
+
+}
+
+.btnb{
+	border-radius:10px;
+	padding:10px;
+	background:#437C17;
+	color:blue;
+
+}
+
+.btnb:hover{
+	border-radius:10px;
+	padding:15px;
+	background:#571B7E;
+	color:blue;
+
+ -webkit-box-shadow: 0 8px 17px 0 rgba(255, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 255, 0, 0.3);
+  -moz-box-shadow: 0 8px 17px 0 rgba(0, 0, 255, 0.3), 0 6px 20px 0 rgba(255, 0, 0, 0.3);
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 255, 0.3);}
