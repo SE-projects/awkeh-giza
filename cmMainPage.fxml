@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="577.0" prefWidth="893.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.cmController">
+   <children>
+      <TabPane prefHeight="577.0" prefWidth="893.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Requests">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="548.0" prefWidth="887.0">
+                     <children>
+                        <VBox prefHeight="138.0" prefWidth="707.0">
+                           <children>
+                              <Button fx:id="getReqCM" mnemonicParsing="false" onAction="#getRequest" prefHeight="25.0" prefWidth="151.0" text="get request" />
+                              <Label fx:id="reqSt" prefHeight="17.0" prefWidth="120.0" />
+                           </children>
+                        </VBox>
+                        <HBox layoutY="138.0" prefHeight="411.0" prefWidth="893.0">
+                           <children>
+                              <TableView fx:id="reqTable" prefHeight="411.0" prefWidth="707.0">
+                                <columns>
+                                  <TableColumn fx:id="nameR" prefWidth="75.0" text="Name" />
+                                  <TableColumn fx:id="BrandR" prefWidth="75.0" text="Brand" />
+                                    <TableColumn fx:id="quanR" prefWidth="75.0" text="Quantity" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Orders">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="118.0" prefWidth="707.0">
+                           <children>
+                              <Button fx:id="getOrder" mnemonicParsing="false" onAction="#gtOrder" prefHeight="25.0" prefWidth="144.0" text="Get Orders" />
+                              <Label fx:id="orderSt" prefHeight="17.0" prefWidth="136.0" />
+                           </children>
+                        </VBox>
+                        <HBox layoutY="118.0" prefHeight="432.0" prefWidth="707.0">
+                           <children>
+                              <TableView fx:id="orderTable" prefHeight="432.0" prefWidth="707.0">
+                                <columns>
+                                  <TableColumn fx:id="cidO" prefWidth="75.0" text="CustomerID" />
+                                  <TableColumn fx:id="pidO" prefWidth="75.0" text="ProductID" />
+                                    <TableColumn fx:id="prO" prefWidth="75.0" text="Price" />
+                                    <TableColumn fx:id="qO" prefWidth="75.0" text="Quantity" />
+                                    <TableColumn fx:id="tpO" prefWidth="75.0" text="TotalPrice" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Central Storage">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="548.0" prefWidth="751.0">
+                     <children>
+                        <VBox prefHeight="142.0" prefWidth="209.0">
+                           <children>
+                              <Button fx:id="getCSTG" mnemonicParsing="false" onAction="#gtCs" prefHeight="25.0" prefWidth="180.0" text="Get Central Storage" />
+                              <Label fx:id="stgST" prefHeight="17.0" prefWidth="134.0" />
+                              <Button fx:id="deletePDCT" mnemonicParsing="false" prefHeight="25.0" prefWidth="214.0" text="Remove Existing Products" />
+                              <TextField fx:id="remPID" promptText="enter product ID here" />
+                           </children>
+                        </VBox>
+                        <HBox layoutY="142.0" prefHeight="406.0" prefWidth="893.0">
+                           <children>
+                              <TableView fx:id="CStable" prefHeight="406.0" prefWidth="899.0">
+                                <columns>
+                                  <TableColumn fx:id="pCS" prefWidth="75.0" text="ProductID" />
+                                  <TableColumn fx:id="nCS" prefWidth="172.0" text="Name" />
+                                    <TableColumn fx:id="cCS" prefWidth="198.0" text="Category" />
+                                    <TableColumn fx:id="bCS" prefWidth="145.0" text="Brand" />
+                                    <TableColumn fx:id="rCS" prefWidth="57.0" text="Rating" />
+                                    <TableColumn fx:id="qCS" prefWidth="60.0" text="Quantity" />
+                                    <TableColumn fx:id="exCS" prefWidth="103.0" text="ExpirationDate" />
+                                    <TableColumn fx:id="prCS" prefWidth="83.0" text="Price" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="720.0" prefHeight="618.0" prefWidth="814.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.SMcontroller">
+   <children>
+      <TabPane prefHeight="639.0" prefWidth="814.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab text="Products List">
+               <content>
+                  <AnchorPane minHeight="466.0" minWidth="574.0" prefHeight="471.0" prefWidth="574.0">
+                     <children>
+                        <HBox layoutY="101.0" prefHeight="517.0" prefWidth="814.0">
+                           <children>
+                              <TableView fx:id="productTable" prefHeight="517.0" prefWidth="834.0">
+                                 <columns>
+                                    <TableColumn fx:id="catC1" prefWidth="178.0" text="Category" />
+                                    <TableColumn fx:id="nameC1" prefWidth="154.0" text="Product Name" />
+                                    <TableColumn fx:id="brandC1" prefWidth="146.0" text="Brand" />
+                                    <TableColumn fx:id="expC11" prefWidth="142.0" text="Exp. Date" />
+                                    <TableColumn fx:id="priceC111" prefWidth="130.0" text="Price" />
+                                    <TableColumn fx:id="quantityC1111" prefWidth="71.0" text="Quantity" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </HBox>
+                        <VBox layoutX="1.0" layoutY="10.0" prefHeight="93.0" prefWidth="814.0">
+                           <children>
+                              <Button fx:id="getProduct" mnemonicParsing="false" onAction="#getproductTable" prefHeight="25.0" prefWidth="191.0" text="Get Current Status of Storage" />
+                              <Label fx:id="tableConn" prefHeight="17.0" prefWidth="166.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Request List">
+               <content>
+                  <AnchorPane minHeight="466.0" minWidth="574.0" prefHeight="471.0" prefWidth="574.0">
+                     <children>
+                        <HBox layoutX="148.0" prefHeight="320.0" prefWidth="572.0">
+                           <children>
+                              <TableView fx:id="reqTable" prefHeight="378.0" prefWidth="572.0">
+                                 <columns>
+                                    <TableColumn fx:id="idC" prefWidth="68.0" text="Product ID" />
+                                    <TableColumn fx:id="nameC" prefWidth="178.0" text="Product Name" />
+                                    <TableColumn fx:id="brandC" prefWidth="160.0" text="Product Brand" />
+                                    <TableColumn fx:id="quantityC" prefWidth="165.0" text="Quantity Required" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </HBox>
+                        <VBox prefHeight="472.0" prefWidth="148.0">
+                           <children>
+                              <Label prefHeight="40.0" prefWidth="148.0" text="Requested Products Here" />
+                              <Button fx:id="getReq" mnemonicParsing="false" onAction="#getRequest" prefHeight="25.0" prefWidth="143.0" text="Get Request" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
