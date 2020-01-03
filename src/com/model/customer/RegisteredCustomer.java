@@ -1,6 +1,7 @@
 package com.model.customer;
 
 import javafx.collections.ObservableList;
+
 //TODO database connection shouldn't be closed and opened for every method
 // This kinds of things should be handled when the GUI has been built
 public class RegisteredCustomer {
@@ -34,100 +35,57 @@ public class RegisteredCustomer {
         this.password = password;
     }
 
-    public void deleteCustomer(String userName, String password){
-        if(!cq.establishConnection()){
-            System.out.println("Couldn't open connection");
-            return;
-        }
+    public void deleteCustomer(String userName, String password) {
         cq.deleteRegisteredCustomer(userName, password);
         cq.closeConnection();
     }
+
     //for updating
     public void updateCustomerInfo(String oldUsername, String oldPassword, String newUsername, String newPassword,
                                    String phone, String email, String streetName, int homeNumber, String subCity,
-                                   String city){
-       if(!cq.establishConnection()){
-           System.out.println("Couldn't establish connection");
-           return;
-       }
+                                   String city) {
+        cq.updateRegisteredCustomerInfo(oldUsername, oldPassword, newUsername, newPassword, phone, email, streetName,
+                homeNumber, subCity, city);
 
-       cq.updateRegisteredCustomerInfo(oldUsername, oldPassword, newUsername, newPassword, phone, email, streetName,
-               homeNumber, subCity, city);
-
-       cq.closeConnection();
+        cq.closeConnection();
     }
 
-    public int createACart(String cartName, int customerId){
-        if(!cq.establishConnection()){
-            System.out.println("Couldn't establish connection");
-            return -1;
-        }
-
+    public int createACart(String cartName, int customerId) {
         cq.closeConnection();
 
         return cq.createACart(cartName, customerId);
     }
+
     public void addProductToCart(int productId, String productName, double price,
-                                 int quantity, double totalAmount, String cartName, int customerId){
-        if(!cq.establishConnection()){
-            System.out.println("Couldn't establish connection");
-            return;
-        }
+                                 int quantity, double totalAmount, String cartName, int customerId) {
 
         cq.addProductToCart(productId, productName, price, quantity, totalAmount, cartName, customerId);
-
-        cq.closeConnection();
     }
-    public void removeProductFromProduct(CartProduct cartProduct){
-        if(!cq.establishConnection()){
-            System.out.println("Couldn't establish connection");
-            return;
-        }
 
+    public void removeProductFromCart(CartProduct cartProduct) {
         cq.removeProductFromCart(cartProduct);
-
-        cq.closeConnection();
     }
-    public ObservableList<ProductInCart> viewCartContents(Cart cart, int sortOrder){
-        if(!cq.establishConnection()){
-            System.out.println("Couldn't establish connection");
-            return null;
-        }
 
-        cq.closeConnection();
-        return  cq.viewCartContents(cart, sortOrder);
+    public ObservableList<ProductInCart> viewCartContents(Cart cart, int sortOrder) {
+        return cq.viewCartContents(cart, sortOrder);
     }
-    public void updateProductInCart(CartProduct cartProduct){
-        if(!cq.establishConnection()){
-            System.out.println("Couldn't establish connection");
-            return;
-        }
 
+    public void updateProductInCart(CartProduct cartProduct) {
         cq.updateProductInCart(cartProduct);
-
-        cq.closeConnection();
     }
-    public boolean orderCart(Cart cart){
-        if(!cq.establishConnection()){
-            System.out.println("Couldn't establish connection");
-            return false;
-        }
 
+    public boolean orderCart(Cart cart) {
         cq.orderCart(cart);
-
-        cq.closeConnection();
         return true;
     }
-    public boolean cancelOrder(Order order){
-        if(!cq.establishConnection()){
-            System.out.println("Couldn't establish connection");
-            return false;
-        }
 
+    public boolean cancelOrder(Order order) {
         cq.cancelOrder(order);
-
-        cq.closeConnection();
         return true;
+    }
+
+    public void closeConnection() {
+        cq.closeConnection();
     }
 
 }
