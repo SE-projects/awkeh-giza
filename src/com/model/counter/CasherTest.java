@@ -45,4 +45,9 @@ public class CasherTest {
         transaction.setPrice(80); transaction.setTotalAmount(560); transaction.setCustomerId(5647);
         casher.removeTransaction(transaction);
     }
+
+    @Test
+    public void closeConnection(){
+        casher.closeConnection();
+    }
 }

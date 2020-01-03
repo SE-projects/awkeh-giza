@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="This is third commit" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="This is third commit">
+      <change beforePath="$PROJECT_DIR$/src/com/model/counter/CasherTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/model/counter/CasherTest.java" afterDir="false" />
+    </list>
     <list id="226f526b-b9c4-4018-abb2-b0848d5e8048" name="Changelist2" comment="This is second commit. added basic functionality for customers." />
     <list id="008f4669-20d6-4583-ade4-ddd7108a0577" name="Changelist3" comment="" />
     <ignored path="JavaFxApplication.iws" />
@@ -81,14 +83,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/model/counter/CasherTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="43" column="39" selection-start-line="43" selection-start-column="39" selection-end-line="43" selection-end-column="39" />
+            <state relative-caret-position="226">
+              <caret line="45" column="32" selection-start-line="45" selection-start-column="32" selection-end-line="45" selection-end-column="32" />
               <folding>
                 <element signature="e#358#359#0" expanded="true" />
                 <element signature="e#378#379#0" expanded="true" />
+                <element signature="e#1724#1725#0" expanded="true" />
+                <element signature="e#1742#1743#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -160,7 +164,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/model/customer/NewCustomerTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="289">
@@ -275,13 +279,13 @@
         <option value="$PROJECT_DIR$/src/com/model/central/CentralStorageManagerTest.java" />
         <option value="$PROJECT_DIR$/src/com/model/counter/Casher.java" />
         <option value="$PROJECT_DIR$/src/com/model/counter/CasherQueries.java" />
-        <option value="$PROJECT_DIR$/src/com/model/counter/CasherTest.java" />
         <option value="$PROJECT_DIR$/src/com/model/customer/CustomerQueries.java" />
         <option value="$PROJECT_DIR$/src/com/model/customer/RegisteredCustomer.java" />
         <option value="$PROJECT_DIR$/src/com/model/customer/NewCustomer.java" />
         <option value="$PROJECT_DIR$/src/com/model/customer/NewCustomerQueries.java" />
         <option value="$PROJECT_DIR$/src/com/model/customer/NewCustomerTest.java" />
         <option value="$PROJECT_DIR$/src/com/model/customer/RegisteredCustomerTest.java" />
+        <option value="$PROJECT_DIR$/src/com/model/counter/CasherTest.java" />
       </list>
     </option>
   </component>
@@ -427,7 +431,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.RegisteredCustomerTest.viewCartContents">
+  <component name="RunManager" selected="JUnit.CasherTest.closeConnection">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -440,17 +444,17 @@
       <Host>localhost</Host>
       <Port>5050</Port>
     </configuration>
-    <configuration name="RegisteredCustomerTest.addProductToCart" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CasherTest.closeConnection" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SEv1" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.model.customer.*" />
+          <option name="PATTERN" value="com.model.counter.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.model.customer" />
-      <option name="MAIN_CLASS_NAME" value="com.model.customer.RegisteredCustomerTest" />
-      <option name="METHOD_NAME" value="addProductToCart" />
+      <option name="PACKAGE_NAME" value="com.model.counter" />
+      <option name="MAIN_CLASS_NAME" value="com.model.counter.CasherTest" />
+      <option name="METHOD_NAME" value="closeConnection" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -522,11 +526,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CasherTest.closeConnection" />
         <item itemvalue="JUnit.RegisteredCustomerTest.viewCartContents" />
         <item itemvalue="JUnit.RegisteredCustomerTest.cancelOrder" />
         <item itemvalue="JUnit.RegisteredCustomerTest.orderCart" />
         <item itemvalue="JUnit.RegisteredCustomerTest.updateProductInCart" />
-        <item itemvalue="JUnit.RegisteredCustomerTest.addProductToCart" />
       </list>
     </recent_temporary>
   </component>
@@ -600,7 +604,7 @@
       <workItem from="1577974126347" duration="9544000" />
       <workItem from="1577985466749" duration="323000" />
       <workItem from="1577987811651" duration="488000" />
-      <workItem from="1578034296547" duration="6486000" />
+      <workItem from="1578034296547" duration="6782000" />
     </task>
     <task id="LOCAL-00001" summary="This is first commit for the project">
       <created>1575289724178</created>
@@ -659,7 +663,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="221091000" />
+    <option name="totallyTimeSpent" value="221387000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -672,6 +676,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Designer" order="0" />
       <window_info content_ui="combo" id="Project" order="1" sideWeight="0.6703755" visible="true" weight="0.2375189" />
@@ -1113,17 +1118,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/model/counter/CasherTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="43" column="39" selection-start-line="43" selection-start-column="39" selection-end-line="43" selection-end-column="39" />
-          <folding>
-            <element signature="e#358#359#0" expanded="true" />
-            <element signature="e#378#379#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/model/CustomerData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -1221,6 +1215,19 @@
           <folding>
             <element signature="e#425#426#0" expanded="true" />
             <element signature="e#451#452#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/model/counter/CasherTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="45" column="32" selection-start-line="45" selection-start-column="32" selection-end-line="45" selection-end-column="32" />
+          <folding>
+            <element signature="e#358#359#0" expanded="true" />
+            <element signature="e#378#379#0" expanded="true" />
+            <element signature="e#1724#1725#0" expanded="true" />
+            <element signature="e#1742#1743#0" expanded="true" />
           </folding>
         </state>
       </provider>

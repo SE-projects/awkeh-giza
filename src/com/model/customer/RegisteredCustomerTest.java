@@ -36,14 +36,14 @@ public class RegisteredCustomerTest {
 
     @Test
     public void removeProductFromProduct() {
-       Joel.removeProductFromCart(new CartProduct(45633, "Coke Soda", 20,
+        Joel.removeProductFromCart(new CartProduct(45633, "Coke Soda", 20,
                 5, 10, Joel.createACart("My Cart", 9)));
     }
 
     @Test
     public void viewCartContents() {
         products = Joel.viewCartContents(new Cart(6, "A test cart", 9), 2);
-        products.forEach(product-> System.out.println(product));
+        products.forEach(product -> System.out.println(product));
     }
 
     @Test
@@ -61,5 +61,10 @@ public class RegisteredCustomerTest {
     public void cancelOrder() {
         Joel.cancelOrder(new Order(4, LocalDate.of(2020, Month.JANUARY, 3), 6,
                 9, "NEW", 200));
+    }
+
+    @Test
+    public void closeConnection() {
+        Joel.closeConnection();
     }
 }
