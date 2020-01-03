@@ -9,50 +9,50 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="1046.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="1046.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.FPageController">
    <children>
-      <ImageView fx:id="lotionimage" fitHeight="186.0" fitWidth="185.0" layoutX="241.0" layoutY="95.0">
-         <image>
-            <Image url="@../../Niviea%20Lotion.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="juiceimage" fitHeight="186.0" fitWidth="300.0" layoutX="724.0" layoutY="95.0">
-         <image>
-            <Image url="@../../ceres%20juices.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="tvimage" fitHeight="186.0" fitWidth="300.0" layoutX="734.0" layoutY="338.0">
-         <image>
-            <Image url="@../../samsung%20Tv.jpeg" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="meatimage" fitHeight="186.0" fitWidth="185.0" layoutX="241.0" layoutY="338.0">
-         <image>
-            <Image url="@../../meat.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="appelesimage" fitHeight="186.0" fitWidth="185.0" layoutX="484.0" layoutY="338.0">
+      <Button fx:id="registerbutton" layoutX="690.0" layoutY="23.0" mnemonicParsing="false" onAction="#registerAction" prefHeight="37.0" prefWidth="76.0" text="Register" />
+      <Button fx:id="searchbutton" layoutX="569.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="37.0" prefWidth="76.0" text="Search" />
+      <TextField fx:id="searchfield" layoutX="219.0" layoutY="23.0" prefHeight="37.0" prefWidth="260.0" promptText="Enter the item you need" />
+      <ListView fx:id="sidelist" layoutY="103.0" prefHeight="481.0" prefWidth="209.0" />
+      <Label fx:id="lotion" layoutX="324.0" layoutY="292.0" prefHeight="37.0" prefWidth="49.0" text="Lotion" />
+      <Label fx:id="cheese" layoutX="569.0" layoutY="292.0" prefHeight="37.0" prefWidth="49.0" text="Cheese" />
+      <Label fx:id="juice" layoutX="879.0" layoutY="292.0" prefHeight="37.0" prefWidth="41.0" text="Juice" />
+      <Label fx:id="meat" layoutX="324.0" layoutY="536.0" prefHeight="37.0" prefWidth="49.0" text="Meat" />
+      <Label fx:id="apples" layoutX="569.0" layoutY="536.0" prefHeight="37.0" prefWidth="49.0" text="Apples" />
+      <Label fx:id="tv" layoutX="888.0" layoutY="536.0" prefHeight="37.0" prefWidth="23.0" text="TV" />
+      <Label fx:id="DBcheck" layoutY="87.0" prefHeight="17.0" prefWidth="129.0" />
+      <ImageView fitHeight="183.0" fitWidth="200.0" layoutX="498.0" layoutY="353.0">
          <image>
             <Image url="@../../apples.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="cheeseimage" fitHeight="186.0" fitWidth="185.0" layoutX="484.0" layoutY="95.0">
+      <ImageView fx:id="meatimage" cache="true" cacheHint="SPEED" fitHeight="183.0" fitWidth="190.0" layoutX="244.0" layoutY="353.0" preserveRatio="true">
          <image>
-            <Image url="@../../etete%20cheese.jpeg" />
+            <Image url="@../../meat.jpg" />
          </image>
       </ImageView>
-      <ComboBox fx:id="catagory" layoutX="502.0" layoutY="23.0" prefHeight="37.0" prefWidth="150.0" promptText="Catagory" />
-      <Button fx:id="registerbutton" layoutX="766.0" layoutY="23.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="76.0" text="Register" />
-      <Button fx:id="loginbutton" layoutX="861.0" layoutY="23.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="76.0" text="Login" />
-      <Button fx:id="viewcart" layoutX="949.0" layoutY="7.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="91.0" text="View Cart" />
-      <Button fx:id="searchbutton" layoutX="669.0" layoutY="23.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="76.0" text="Search" />
-      <TextField fx:id="searchfield" layoutX="218.0" layoutY="23.0" prefHeight="37.0" prefWidth="260.0" promptText="Enter the item you need" />
-      <ListView fx:id="sidelist" layoutY="103.0" prefHeight="481.0" prefWidth="209.0" />
-      <Label fx:id="lotion" layoutX="309.0" layoutY="288.0" prefHeight="37.0" prefWidth="49.0" text="Lotion" />
-      <Label fx:id="cheese" layoutX="553.0" layoutY="288.0" prefHeight="37.0" prefWidth="49.0" text="Cheese" />
-      <Label fx:id="juice" layoutX="858.0" layoutY="288.0" prefHeight="37.0" prefWidth="41.0" text="Juice" />
-      <Label fx:id="meat" layoutX="309.0" layoutY="536.0" prefHeight="37.0" prefWidth="49.0" text="Meat" />
-      <Label fx:id="apples" layoutX="553.0" layoutY="536.0" prefHeight="37.0" prefWidth="49.0" text="Apples" />
-      <Label fx:id="tv" layoutX="878.0" layoutY="536.0" prefHeight="37.0" prefWidth="23.0" text="TV" />
+      <ImageView fx:id="lotionimage" fitHeight="183.0" fitWidth="190.0" layoutX="244.0" layoutY="104.0">
+         <image>
+            <Image url="@../../Lotion.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="183.0" fitWidth="273.0" layoutX="763.0" layoutY="353.0">
+         <image>
+            <Image url="@../../Tv.jpeg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="183.0" fitWidth="273.0" layoutX="754.0" layoutY="104.0">
+         <image>
+            <Image url="@../../juices.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="183.0" fitWidth="200.0" layoutX="490.0" layoutY="104.0">
+         <image>
+            <Image url="@../../cheese.jpeg" />
+         </image>
+      </ImageView>
+      <ComboBox fx:id="loginComboBox" layoutX="788.0" layoutY="23.0" prefHeight="37.0" prefWidth="150.0" promptText="Login As:" />
+      <Button fx:id="loginButton" layoutX="960.0" layoutY="23.0" mnemonicParsing="false" onAction="#loginAction" prefHeight="37.0" prefWidth="76.0" text="Login" />
    </children>
 </AnchorPane>
