@@ -109,13 +109,20 @@ public class CustomerQueries {
     private PreparedStatement cancelOrder;
     private PreparedStatement checkIfCartBeenOrderedBefore;
 
-    public boolean establishConnection() {
+   /* public boolean establishConnection() {
         connection = Connexion.getInstance().getConnection();
         if (connection == null) {
             System.out.println("Couldn't establish connection");
             return false;
         }
         return true;
+    }*/
+
+    public CustomerQueries(){
+        connection = Connexion.getInstance().getConnection();
+        if(connection == null){
+            System.out.println("Couldn't establish connection");
+        }
     }
 
     public void closeConnection() {

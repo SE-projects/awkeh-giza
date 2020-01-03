@@ -25,51 +25,27 @@ public class Casher {
     }
 
     public void createTransactionTable() {
-        if (!caq.establishConnection()) {
-            System.out.println("Couldn't open transaction");
-        }
         caq.createTransactionTable();
-
-        caq.closeConnection();
     }
 
     public ObservableList<Transaction> getTransactions() {
-        if (!caq.establishConnection()) {
-            System.out.println("Couldn't open transaction");
-        }
-       ObservableList<Transaction> transactions = caq.queryTransaction();
-
-       caq.closeConnection();
-       return transactions;
+        ObservableList<Transaction> transactions = caq.queryTransaction();
+        return transactions;
     }
 
     public void addTransaction(Transaction transaction) {
-        if (!caq.establishConnection()) {
-            System.out.println("Couldn't open connection");
-        }
-
         caq.addTransaction(transaction);
-
-        caq.closeConnection();
     }
 
     public void updateTransaction(Transaction transaction) {
-        if (!caq.establishConnection()) {
-            System.out.println("Couldn't open transaction");
-        }
-
         caq.updateTransaction(transaction);
-
-        caq.closeConnection();
     }
 
     public void removeTransaction(Transaction transaction) {
-        if (!caq.establishConnection()) {
-            System.out.println("Couldn't open connection");
-        }
-
         caq.removeTransaction(transaction);
+    }
 
+    public void closeConnection() {
         caq.closeConnection();
     }
 }

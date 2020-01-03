@@ -52,13 +52,11 @@ public class CasherQueries {
         }
     }
 
-    public boolean establishConnection() {
+    public CasherQueries(){
         connection = Connexion.getInstance().getConnection();
-        if (connection == null) {
+        if(connection == null){
             System.out.println("Couldn't establish connection");
-            return false;
         }
-        return true;
     }
 
     public void createTransactionTable() {
