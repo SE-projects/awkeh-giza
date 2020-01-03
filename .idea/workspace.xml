@@ -1,37 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="This is third commit">
-      <change afterPath="$PROJECT_DIR$/src/com/model/counter/CasherTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/model/customer/NewCustomerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/model/customer/RegisteredCustomerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Supermarket.db" beforeDir="false" afterPath="$PROJECT_DIR$/Supermarket.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SEv1/com/model/central/CentralStorageManagerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SEv1/com/model/central/CentralStorageManagerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SEv1/com/model/counter/Casher.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SEv1/com/model/counter/Casher.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SEv1/com/model/counter/CasherQueries.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SEv1/com/model/counter/CasherQueries.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SEv1/com/model/customer/CustomerQueries.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SEv1/com/model/customer/CustomerQueries.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SEv1/com/model/customer/NewCustomer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SEv1/com/model/customer/NewCustomer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SEv1/com/model/customer/RegisteredCustomer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SEv1/com/model/customer/RegisteredCustomer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SEv1/resources/CustomerLogin.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SEv1/resources/FirstPageBackGround.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SEv1/ui/Controller.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SEv1/ui/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SEv1/ui/css/label.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SEv1/ui/mainpage.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/model/central/CentralStorageManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/model/central/CentralStorageManagerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/model/counter/Casher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/model/counter/Casher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/model/counter/CasherQueries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/model/counter/CasherQueries.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/model/customer/CustomerQueries.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/model/customer/CustomerQueries.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/model/customer/NewCustomer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/model/customer/NewCustomer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/model/customer/RegisteredCustomer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/model/customer/RegisteredCustomer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/CustomerLogin.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/FirstPageBackGround.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/Controller.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/css/label.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/mainPage.fxml" beforeDir="false" />
-    </list>
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="This is third commit" />
     <list id="226f526b-b9c4-4018-abb2-b0848d5e8048" name="Changelist2" comment="This is second commit. added basic functionality for customers." />
     <list id="008f4669-20d6-4583-ade4-ddd7108a0577" name="Changelist3" comment="" />
     <ignored path="JavaFxApplication.iws" />
@@ -162,8 +132,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/model/customer/RegisteredCustomerTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="61" column="77" selection-start-line="61" selection-start-column="77" selection-end-line="61" selection-end-column="77" />
+            <state relative-caret-position="155">
+              <caret line="25" column="9" lean-forward="true" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#192#193#0" expanded="true" />
@@ -172,8 +142,6 @@
                 <element signature="e#511#512#0" expanded="true" />
                 <element signature="e#1179#1180#0" expanded="true" />
                 <element signature="e#1198#1199#0" expanded="true" />
-                <element signature="e#1600#1601#0" expanded="true" />
-                <element signature="e#1662#1663#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -459,7 +427,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.RegisteredCustomerTest.cancelOrder">
+  <component name="RunManager" selected="JUnit.RegisteredCustomerTest.viewCartContents">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -554,10 +522,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.RegisteredCustomerTest.viewCartContents" />
         <item itemvalue="JUnit.RegisteredCustomerTest.cancelOrder" />
         <item itemvalue="JUnit.RegisteredCustomerTest.orderCart" />
         <item itemvalue="JUnit.RegisteredCustomerTest.updateProductInCart" />
-        <item itemvalue="JUnit.RegisteredCustomerTest.viewCartContents" />
         <item itemvalue="JUnit.RegisteredCustomerTest.addProductToCart" />
       </list>
     </recent_temporary>
@@ -632,7 +600,7 @@
       <workItem from="1577974126347" duration="9544000" />
       <workItem from="1577985466749" duration="323000" />
       <workItem from="1577987811651" duration="488000" />
-      <workItem from="1578034296547" duration="4810000" />
+      <workItem from="1578034296547" duration="5550000" />
     </task>
     <task id="LOCAL-00001" summary="This is first commit for the project">
       <created>1575289724178</created>
@@ -659,9 +627,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="RegisteredCustomerTest_viewCartContents - 2020.01.03 at 10h 57m 43s.xml">
-      <configuration name="RegisteredCustomerTest.viewCartContents" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="RegisteredCustomerTest_addProductToCart - 2020.01.03 at 11h 01m 08s.xml">
       <configuration name="RegisteredCustomerTest.addProductToCart" configurationId="JUnit" />
     </history-entry>
@@ -689,9 +654,12 @@
     <history-entry file="RegisteredCustomerTest_orderCart - 2020.01.03 at 11h 08m 36s.xml">
       <configuration name="RegisteredCustomerTest.orderCart" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="RegisteredCustomerTest_cancelOrder - 2020.01.03 at 11h 15m 10s.xml">
+      <configuration name="RegisteredCustomerTest.cancelOrder" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="219415000" />
+    <option name="totallyTimeSpent" value="220155000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -716,7 +684,7 @@
       <window_info anchor="bottom" id="Docker" order="1" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="2" />
       <window_info anchor="bottom" id="Find" order="3" weight="0.3289689" />
-      <window_info active="true" anchor="bottom" id="Run" order="4" visible="true" weight="0.33387887" />
+      <window_info anchor="bottom" id="Run" order="4" weight="0.33387887" />
       <window_info anchor="bottom" id="Debug" order="5" weight="0.39934534" />
       <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
@@ -1244,8 +1212,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/model/customer/RegisteredCustomerTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="61" column="77" selection-start-line="61" selection-start-column="77" selection-end-line="61" selection-end-column="77" />
+        <state relative-caret-position="155">
+          <caret line="25" column="9" lean-forward="true" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#192#193#0" expanded="true" />
@@ -1254,8 +1222,6 @@
             <element signature="e#511#512#0" expanded="true" />
             <element signature="e#1179#1180#0" expanded="true" />
             <element signature="e#1198#1199#0" expanded="true" />
-            <element signature="e#1600#1601#0" expanded="true" />
-            <element signature="e#1662#1663#0" expanded="true" />
           </folding>
         </state>
       </provider>
